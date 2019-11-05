@@ -1,14 +1,15 @@
-const crypto = require('crypto')
 const Sequelize = require('sequelize')
+const Product = require('./product')
 const db = require('../db')
 
 const Order = db.define('order', {
   status: {
     type: Sequelize.STRING,
     validate: {
-      isIn: [['pending', 'shipped', 'delivered']]
+      isIn: [['cart', 'pending', 'shipped', 'delivered', 'canceled']]
     }
-  }
+  },
+  price: Sequelize.INTEGER
 })
 
 module.exports = Order

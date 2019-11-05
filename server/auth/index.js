@@ -39,6 +39,8 @@ router.post('/logout', (req, res) => {
 })
 
 router.get('/me', (req, res) => {
+  //Session.create({sessionId:req.sessionID})
+  //Session.setUserId(req.user.id)
   res.json(req.user)
 })
 
