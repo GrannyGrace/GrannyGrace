@@ -6,8 +6,8 @@ import {logout} from '../store'
 import './navbar.css'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
-  <div>
-    <h1 className="granny-grace-header">GRANNY GRACE</h1>
+  <div className="lower-nav">
+    {/* <h1 className="granny-grace-header">GRANNY GRACE</h1> */}
     <nav>
       {isLoggedIn ? (
         <div>
@@ -20,12 +20,14 @@ const Navbar = ({handleClick, isLoggedIn}) => (
       ) : (
         <div>
           {/* The navbar will show these links before you log in */}
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
+          <span className="bottom-navbar-items">
+            <Link to="/login">Login</Link>
+            <Link to="/signup">Sign Up</Link>
+          </span>
         </div>
       )}
     </nav>
-    <hr />
+    {/* <hr /> */}
   </div>
 )
 
