@@ -23,3 +23,26 @@ const Product = db.define('product', {
 })
 
 module.exports = Product
+
+/**
+ * instanceMethods
+ */
+
+/**
+ * classMethods
+ */
+
+/**
+ * hooks
+ */
+/*     type: Sequelize.STRING,
+    unique: true,
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
+  },
+  price: {
+    type: Sequelize.STRING
+  }
+}) */

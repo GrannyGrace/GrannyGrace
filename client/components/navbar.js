@@ -3,10 +3,11 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
+import './navbar.css'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
-    <h1>BOILERMAKER</h1>
+    <h1 className="granny-grace-header">GRANNY GRACE</h1>
     <nav>
       {isLoggedIn ? (
         <div>
