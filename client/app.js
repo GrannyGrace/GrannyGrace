@@ -1,8 +1,10 @@
 import React from 'react'
+import {Switch, Route} from 'react-router-dom'
 import {Navbar} from './components'
 import Routes from './routes'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './app.css'
+import AllProducts from './components/all-products'
 //import cartIcon from '../public/assets/images/cartIcon.png';
 
 const App = () => {
@@ -21,6 +23,13 @@ const App = () => {
             <Routes />
           </div>
         </div>
+      </div>
+      <div className="container" id="products">
+        <Switch>
+          <Route>
+            <AllProducts />
+          </Route>
+        </Switch>
       </div>
     </div>
   )
