@@ -1,0 +1,13 @@
+.granny-grace-header {
+  color: #dc2242;
+  font-family: arial;
+  font-weight: bold;
+}
+
+.container {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 95% !important;
+}
