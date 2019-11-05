@@ -9,7 +9,7 @@ class AllProducts extends React.Component {
   }
 
   render() {
-    return <text>Big Apple Boi</text>
+    return <text>Big Placeholder Apples Boi</text>
   }
 }
 // const mapStateToProps = state => {
