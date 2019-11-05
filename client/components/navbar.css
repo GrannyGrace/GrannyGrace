@@ -1,7 +1,16 @@
+.navbar-row {
+  height: 70px;
+}
+
+a {
+  color: #ffffff !important;
+}
+
 .granny-grace-header {
   color: #dc2242;
   font-family: arial;
   font-weight: bold;
+  margin-top: 5px;
 }
 
 .container {
@@ -10,4 +19,8 @@
   margin-right: auto;
   margin-left: auto;
   max-width: 95% !important;
+}
+
+.bottom-navbar-items {
+  margin-left: 46px;
 }

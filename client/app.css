@@ -1,10 +1,42 @@
+.top-navbar-row {
+  height: 70px;
+}
+
 .my-account-parent {
   text-align: right;
 }
 
 .my-account {
   line-height: 3;
+  margin: 5px 20px 5px 20px !important;
 }
 
-.routes-div {
+.granny-grace-header {
+  color: #dc2242;
+  font-family: arial;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.bottom-navbar-row {
+  background-color: #dc2242;
+  color: #ffffff;
+  height: 55px;
+}
+
+.cart-icon {
+  width: 70px !important;
+}
+
+.services-container {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 95% !important;
+}
+
+.services-menu {
+  background-color: #014a7f;
+  color: #ffffff;
 }
