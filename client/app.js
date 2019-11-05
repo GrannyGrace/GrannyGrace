@@ -1,5 +1,5 @@
 import React from 'react'
-import {Switch, Route} from 'react-router-dom'
+import {Switch, Route, Link} from 'react-router-dom'
 import {Navbar} from './components'
 import Routes from './routes'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -17,6 +17,7 @@ const App = () => {
           </div>
           <div className="col-8 my-account-parent">
             <span className="my-account">My Account</span>
+            <Link to="/products/1">Test Link to Product 1</Link>
             {/* <span className="cart-icon"><img src={cartIcon}/></span> */}
           </div>
           <div className="routes-div">
