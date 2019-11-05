@@ -12,7 +12,7 @@ const Product = db.define('product', {
     }
   },
   price: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.FLOAT,
     allowNull: false,
     validate: {
       notEmpty: true
