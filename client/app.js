@@ -25,6 +25,7 @@ const App = () => {
       <div className="row bottom-navbar-row">
         <Navbar />
       </div>
+
       <div className="row services-menu">
         <div className="container">
           <div className="row services-row">
@@ -32,6 +33,17 @@ const App = () => {
             <div className="col services-col">Secure Payment System</div>
             <div className="col services-col">High Quality Apples</div>
             <div className="col services-col">Return Policy</div>
+          </div>
+        </div>
+      </div>
+
+      <div className="container outer-products-container">
+        <div className="row">
+          <div className="col-4 needs-padding">
+            <div className="product-filter-container">Product Filters</div>
+          </div>
+          <div className="col-8 needs-padding">
+            <div className="inner-products-container">Products</div>
           </div>
         </div>
       </div>
