@@ -19,6 +19,10 @@ const Product = db.define('product', {
   },
   description: {
     type: Sequelize.TEXT
+  },
+  imageUrl: {
+    type: Sequelize.STRING,
+    defaultValue: '../generic_apple.jpg'
   }
 })
 
