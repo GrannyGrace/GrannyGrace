@@ -11,6 +11,15 @@ const Product = db.define('product', {
     }
   },
   price: {
-    type: Sequelize.STRING
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
+  },
+  description: {
+    type: Sequelize.TEXT
   }
 })
+
+module.exports = Product
