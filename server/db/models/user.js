@@ -8,6 +8,11 @@ const User = db.define('user', {
     unique: true,
     allowNull: false
   },
+  username: {
+    type: Sequelize.STRING,
+    unique: true,
+    defaultValue: null
+  },
   password: {
     type: Sequelize.STRING,
     // Making `.password` act like a func hides it when serializing to JSON.
@@ -64,6 +69,11 @@ const setSaltAndPassword = user => {
 }
 
 User.beforeCreate(setSaltAndPassword)
+User.beforeValidate(user => {
+  if (!user.username) {
+    user.username = user.email
+  }
+})
 User.beforeUpdate(setSaltAndPassword)
 User.beforeBulkCreate(users => {
   users.forEach(setSaltAndPassword)
