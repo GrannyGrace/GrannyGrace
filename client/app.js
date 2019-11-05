@@ -27,11 +27,11 @@ const App = () => {
       </div>
       <div className="row services-menu">
         <div className="container">
-          <div className="row">
-            <div className="col">Ships Nation-Wide</div>
-            <div className="col">Secure Payment System</div>
-            <div className="col">High Quality Apples</div>
-            <div className="col">Return Policy</div>
+          <div className="row services-row">
+            <div className="col services-col">Ships Nation-Wide</div>
+            <div className="col services-col">Secure Payment System</div>
+            <div className="col services-col">High Quality Apples</div>
+            <div className="col services-col">Return Policy</div>
           </div>
         </div>
       </div>
