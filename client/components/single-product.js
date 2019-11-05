@@ -4,13 +4,14 @@ import {fetchSingleProduct} from '../store/cur-product'
 import {Link, withRouter} from 'react-router-dom'
 
 const SingleProduct = props => {
+  console.log('rendering singleproduct')
   useEffect(() => {
     props.fetchSingleProduct(+props.match.params.id) //have to convert to integer
   }, [])
   const product = props.curProduct
   console.log('TCL: props.match.params', props.match.params)
   return (
-    <div>
+    <div style={{marginTop: 50, backgroundColor: 'blue'}}>
       <div>Name: {product.name}</div>
       <div>Price: {product.price}</div>
       <img className="product-image" src={product.imageUrl} alt="apple" />

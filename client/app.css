@@ -16,6 +16,7 @@
   font-family: arial;
   font-weight: bold;
   margin-top: 5px;
+  white-space: nowrap;
 }
 
 .bottom-navbar-row {
@@ -38,10 +39,19 @@
 
 .services-menu {
   background-color: #014a7f;
+  /*background-color: #007000;*/
   color: #ffffff;
 }
 
 .product-image {
   width: 100px;
   height: 100px;
+}
+.services-col {
+  text-align: center;
+  line-height: 3.5;
+}
+
+.services-row {
+  height: 60px;
 }

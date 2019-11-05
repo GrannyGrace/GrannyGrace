@@ -16,7 +16,10 @@ const App = () => {
           </div>
           <div className="col-8 my-account-parent">
             <span className="my-account">My Account</span>
-            <Link to="/products/1">Test Link to Product 1</Link>
+            <Routes />
+            <Link style={{backgroundColor: 'blue'}} to="/products/1">
+              Test Link to Product 1
+            </Link>
             {/* <span className="cart-icon"><img src={cartIcon}/></span> */}
             <span>
               <img className="cart-icon" alt="cart-icon" src={cartIcon} />
@@ -30,13 +33,16 @@ const App = () => {
       </div>
       <div className="row services-menu">
         <div className="container">
-          <div className="row">
-            <div className="col">Ships Nation-Wide</div>
-            <div className="col">Secure Payment System</div>
-            <div className="col">High Quality Apples</div>
-            <div className="col">Return Policy</div>
+          <div className="row services-row">
+            <div className="col services-col">Ships Nation-Wide</div>
+            <div className="col services-col">Secure Payment System</div>
+            <div className="col services-col">High Quality Apples</div>
+            <div className="col services-col">Return Policy</div>
           </div>
         </div>
+      </div>
+      <div className="container" id="products">
+        <Routes />
       </div>
     </div>
   )

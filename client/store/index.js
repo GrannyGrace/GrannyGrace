@@ -3,7 +3,7 @@ import {createLogger} from 'redux-logger'
 import thunkMiddleware from 'redux-thunk'
 import {composeWithDevTools} from 'redux-devtools-extension'
 import user from './user'
-import allProducts from './all-products'
+import allProducts from './allProducts'
 import curProduct from './cur-product'
 
 const reducer = combineReducers({
