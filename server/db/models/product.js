@@ -24,3 +24,14 @@ module.exports = Product
 /**
  * hooks
  */
+/*     type: Sequelize.STRING,
+    unique: true,
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
+  },
+  price: {
+    type: Sequelize.STRING
+  }
+}) */
