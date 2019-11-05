@@ -41,6 +41,9 @@ const App = () => {
           </div>
         </div>
       </div>
+      <div className="container" id="products">
+        <Routes />
+      </div>
     </div>
   )
 }
