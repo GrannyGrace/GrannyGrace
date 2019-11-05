@@ -27,5 +27,6 @@ User.hasOne(Session)
 module.exports = {
   User,
   Order,
-  Product
+  Product,
+  Session
 }
