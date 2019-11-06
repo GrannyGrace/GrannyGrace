@@ -21,6 +21,21 @@ export const fetchSingleProduct = id => {
   }
 }
 
+export const updateProduct = (id, productData) => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.put(`api/products/${id}`, productData)
+      if (!data) {
+        console.log('data did not update')
+      }
+      dispatch(setSingleProduct(data))
+    } catch (error) {
+      console.log('messed up in updateProduct thunk')
+      console.error(error)
+    }
+  }
+}
+
 export default function(curProduct = {}, action) {
   switch (action.type) {
     case SET_SINGLE_PRODUCT:

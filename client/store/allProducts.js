@@ -24,7 +24,7 @@ export function fetchProducts() {
 }
 
 //reducer
-export function allProductsReducer(allproducts = [], action) {
+export default function allProductsReducer(allproducts = [], action) {
   switch (action.type) {
     case SET_ALLPRODUCTS:
       return [...action.allproducts]

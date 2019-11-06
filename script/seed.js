@@ -1,7 +1,8 @@
 'use strict'
 
 const db = require('../server/db')
-const {User, Order, Product} = require('../server/db/models')
+const {User, Order, Product, Review} = require('../server/db/models')
+const faker = require('faker')
 
 async function seed() {
   await db.sync({force: true})
@@ -23,19 +24,50 @@ async function seed() {
     })
   ])
 
-  // const sessions = await Promise.all([
-  //   Session.create({sessionId: 'aaa'}),
-  //   Session.create({sessionId: 'bbb'})
-  // ])
+  //use faker to generate random users
+  for (let i = 0; i < 100; i++) {
+    await User.create({
+      email: faker.internet.email(),
+      password: faker.internet.password()
+    })
+  }
+
+  // use faker to generate random products
+  // console.log('TYPEOF ', typeof faker.commerce.product())
+  // console.log('TYPEOF ', +faker.commerce.price())
+  // console.log('TYPEOF ', typeof +faker.commerce.price())
+  for (let i = 0; i < 100; i++) {
+    let name = faker.commerce.productName()
+    const product = await Product.findOne({where: {name: name}})
+    const isExisted = product !== null
+    //since Faker reuse product name, need to make sure that we don't create multiple of the same products
+    if (!isExisted) {
+      await Product.create({
+        name: name,
+        price: +faker.commerce.price()
+      })
+    }
+  }
 
   const products = await Promise.all([
     Product.create({name: 'Product 1', price: 220}),
     Product.create({name: 'Product 2', price: 560})
   ])
+
   const orders = await Promise.all([
     Order.create({status: 'pending'}),
     Order.create({status: 'shipped'})
   ])
+  const reviews = await Promise.all([
+    Review.create({content: 'Great product!', stars: 5}),
+    Review.create({content: 'BADDD product :(', stars: 1.3})
+  ])
+
+  await users[0].addReviews(reviews[0])
+  await products[0].addReviews(reviews[0])
+  await users[1].addReviews(reviews[1])
+  await products[1].addReviews(reviews[1])
+
   // await users[0].setSession(sessions[0])
   await users[0].addOrders(orders)
   await orders[0].addProducts(products)
