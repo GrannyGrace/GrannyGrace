@@ -1,6 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import {Navbar, ProductFilter} from './components'
+import {Navbar, ProductFilter, Footer} from './components'
 import Routes from './routes'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './app.css'
@@ -19,8 +19,10 @@ const App = () => {
       <div className="container">
         <div className="row top-navbar-row">
           <div className="col-md-4 col-sm-12 col-xs-12 home-section">
-            <img alt="apple-logo" className="apple-logo" src={logo} />
-            <h1 className="granny-grace-header">GRANNY GRACE</h1>
+            <a href="http://localhost:8080">
+              <img alt="apple-logo" className="apple-logo" src={logo} />
+              <h1 className="granny-grace-header">GRANNY GRACE</h1>
+            </a>
           </div>
           <div className="col-md-8 col-sm-12 col-xs-12 my-account-parent">
             <div className="my-account">My Account</div>
@@ -110,6 +112,9 @@ const App = () => {
           </div>
         </div>
       </div>
+      <>
+        <Footer />
+      </>
     </div>
   )
 }

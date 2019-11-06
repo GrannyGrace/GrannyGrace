@@ -54,6 +54,7 @@
     "faker": "^4.1.0",
     "file-loader": "^4.2.0",
     "history": "^4.9.0",
+    "mdbreact": "^4.22.0",
     "morgan": "^1.9.1",
     "passport": "^0.4.0",
     "passport-google-oauth": "^2.0.0",
