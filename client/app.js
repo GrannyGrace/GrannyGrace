@@ -16,11 +16,13 @@ import logo from './images/logo.png'
 const App = props => {
   //making the user on state default to admin user, change this useEffect to test different types of users
   useEffect(() => {
-    props.getUser({
-      email: 'Dickie@dickie.com',
-      username: 'Dickie',
-      isAdmin: true
-    })
+    if (!props.user.id) {
+      // props.getUser({
+      //   email: 'Dickie@dickie.com',
+      //   username: 'Dickie',
+      //   isAdmin: true
+      // })
+    }
   }, [])
   return (
     <div>
@@ -35,7 +37,9 @@ const App = props => {
           <div className="col-md-8 col-sm-12 col-xs-12 my-account-parent">
             <div className="my-account">My Account</div>
             <div className="cart-icon-div">
-              <img className="cart-icon" alt="cart-icon" src={cartIcon} />
+              <Link to={`/home/cart/${props.user.id}`}>
+                <img className="cart-icon" alt="cart-icon" src={cartIcon} />
+              </Link>
             </div>
           </div>
         </div>

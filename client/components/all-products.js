@@ -2,6 +2,7 @@ import React, {useEffect} from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {fetchProducts} from '../store/allProducts'
+import {fetchUpdateCart} from '../store/curCart'
 import {ProductFilter} from './product-filter'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faGripHorizontal, faList} from '@fortawesome/free-solid-svg-icons'
@@ -12,7 +13,12 @@ const AllProducts = props => {
     console.log(props.allProducts)
     console.log(props)
   }, [])
-
+  const addToCart = async productId => {
+    if (!props.user.id) {
+      //props.addUser()
+    }
+    await props.fetchUpdateCart(props.user.id, productId)
+  }
   return (
     <div className="container outer-products-container">
       <div className="row">
@@ -67,6 +73,12 @@ const AllProducts = props => {
                             <p className="card-text">{elem.decription}</p>
                           </div>
                         </Link>
+                        <button
+                          type="button"
+                          onClick={() => addToCart(elem.id)}
+                        >
+                          Add To Cart
+                        </button>
                       </div>
                     )
                   })}
@@ -81,13 +93,16 @@ const AllProducts = props => {
 }
 const mapStateToProps = state => {
   return {
-    allProducts: state.allProducts
+    allProducts: state.allProducts,
+    user: state.user
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    getProductsFromServer: () => dispatch(fetchProducts(dispatch))
+    getProductsFromServer: () => dispatch(fetchProducts(dispatch)),
+    fetchUpdateCart: (userId, productId) =>
+      dispatch(fetchUpdateCart(userId, productId))
   }
 }
 
