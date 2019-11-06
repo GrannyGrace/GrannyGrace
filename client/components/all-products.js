@@ -18,14 +18,15 @@ const AllProducts = props => {
           {props.allProducts.map(elem => {
             return (
               <div key={elem.id} className="card">
-                <Link key={elem.id} to={`/products/${elem.id}`} />
-                <img className="card-img-top" src={elem.imageUrl} />
-                <div className="card-body">
-                  <h4 className="card-title">
-                    {elem.name} for {elem.price}
-                  </h4>
-                  <p className="card-text">{elem.decription}</p>
-                </div>
+                <Link key={elem.id} to={`/products/${elem.id}`}>
+                  <img className="card-img-top" src={elem.imageUrl} />
+                  <div className="card-body">
+                    <h4 className="card-title" style={{color: 'black'}}>
+                      {elem.name} for {elem.price}
+                    </h4>
+                    <p className="card-text">{elem.decription}</p>
+                  </div>
+                </Link>
               </div>
             )
           })}
