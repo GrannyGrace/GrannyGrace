@@ -16,14 +16,17 @@ const UpdateSingleProduct = class extends React.Component {
   }
 
   handleSubmit(evt) {
-    const curProduct = this.props.curProduct
     evt.preventDefault()
+    const curProduct = this.props.curProduct
+    console.log('TCL: curProduct ', curProduct)
+
     const newProduct = {
       name: this.state.name || curProduct.name,
       price: this.state.price || curProduct.price,
       imageUrl: this.state.imageUrl || curProduct.imageUrl
     }
-    updateProduct(curProduct.id, newProduct)
+    console.log('TCL: newProduct', newProduct)
+    this.props.updateProduct(curProduct.id, newProduct)
     this.setState({
       name: '',
       price: '',
@@ -62,7 +65,7 @@ const UpdateSingleProduct = class extends React.Component {
             value={this.state.imageUrl}
             onChange={this.handleChange}
           />
-          <button type="button">Submit</button>
+          <button type="submit">Submit</button>
         </form>
       </>
     )

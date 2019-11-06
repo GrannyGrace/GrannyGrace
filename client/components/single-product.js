@@ -18,12 +18,15 @@ const SingleProduct = props => {
       <div>Name: {product.name}</div>
       <div>Price: {product.price}</div>
       <img className="product-image" src={product.imageUrl} alt="apple" />
-      <UpdateSingleProduct />
+
+      {props.user.isAdmin && <UpdateSingleProduct />}
       <AllReviews allReviews={product.reviews} />
     </div>
   )
 }
 
 export default withRouter(
-  connect(({curProduct}) => ({curProduct}), {fetchSingleProduct})(SingleProduct)
+  connect(({curProduct, user}) => ({curProduct, user}), {fetchSingleProduct})(
+    SingleProduct
+  )
 )
