@@ -76,11 +76,16 @@
 .product-filter-container {
   border: 2px solid #d3d3d3;
   padding: 10px;
+  margin: 5px;
+  border-radius: 5px;
 }
 
 .inner-products-container {
+  margin-top: 50px !important;
   border: 2px solid #d3d3d3;
   padding: 10px;
+  margin: 5px;
+  border-radius: 5px;
 }
 
 .service-icon {
@@ -90,6 +95,41 @@
 
 .apple {
   width: 35px !important;
+}
+
+.product-filters-title {
+  font-family: arial;
+  font-weight: bold;
+}
+
+.default-sorting-div {
+  background-color: #f9f9f9;
+}
+
+.btn-secondary:hover,
+.btn-secondary {
+  color: #000000;
+  background-color: #ffffff;
+  border-color: #d3d3d3;
+}
+
+.dropdown,
+.grid,
+.list {
+  display: inline-block;
+}
+
+.dropdown {
+  float: left;
+}
+
+.grid,
+.list {
+  float: right;
+}
+
+.toggle-product-styles:after {
+  clear: both !important;
 }
 
 @media screen and (max-width: 767px) {
