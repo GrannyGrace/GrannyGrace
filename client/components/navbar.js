@@ -23,6 +23,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           <span className="bottom-navbar-items">
             <Link to="/login">Login</Link>
             <Link to="/signup">Sign Up</Link>
+            <Link to="/products">All Products</Link>
             <Link to="/products/1">Test Link to Product 1</Link>
             <Link to="/allreviews">Test Link to Review </Link>
           </span>
