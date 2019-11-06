@@ -11,14 +11,22 @@ const AllProducts = props => {
   }, [])
 
   return (
-    <div>
-      {props.allProducts.map(elem => {
-        return (
-          <div key={elem.id}>
-            <p className="font-weight-normal">{elem.name}</p>
-          </div>
-        )
-      })}
+    <div className="container">
+      <div className="row">
+        {props.allProducts.map(elem => {
+          return (
+            <div key={elem.id} className="card">
+              <img className="card-img-top" src={elem.imageUrl} />
+              <div className="card-body">
+                <h4 className="card-title">
+                  {elem.name} for {elem.price}
+                </h4>
+                <p className="card-text">{elem.decription}</p>
+              </div>
+            </div>
+          )
+        })}
+      </div>
     </div>
   )
 }
