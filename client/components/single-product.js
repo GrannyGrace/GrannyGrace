@@ -13,13 +13,15 @@ const SingleProduct = props => {
   const product = props.curProduct
 
   return (
-    <div style={{marginTop: 50}}>
-      <h3>Product: {product.name}</h3>
-      <p>$ {product.price}</p>
-      <img className="product-image" src={product.imageUrl} alt="apple" />
+    <div className="container">
+      <div style={{marginTop: 50}}>
+        <h3>Product: {product.name}</h3>
+        <p>$ {product.price}</p>
+        <img className="product-image" src={product.imageUrl} alt="apple" />
 
-      {props.user.isAdmin && <UpdateSingleProduct />}
-      <AllReviews allReviews={product.reviews} />
+        {props.user.isAdmin && <UpdateSingleProduct />}
+        <AllReviews allReviews={product.reviews} />
+      </div>
     </div>
   )
 }

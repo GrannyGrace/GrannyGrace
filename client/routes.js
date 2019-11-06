@@ -7,6 +7,8 @@ import {me} from './store'
 import SingleProduct from './components/single-product'
 import AllProducts from './components/all-products'
 import MyAccount from './components/my-account'
+import AllReviews from './components/all-reviews'
+import ReturnPolicy from './components/return-policy'
 /**
  * COMPONENT
  */
@@ -24,6 +26,8 @@ class Routes extends Component {
         <Route exact path="/products" component={AllProducts} />
         <Route exact path="/products/:id" component={SingleProduct} />
         <Route exact path="/myaccount" component={MyAccount} />
+        <Route exact path="/allreviews" component={AllReviews} />
+        <Route exact path="/returns" component={ReturnPolicy} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         {isLoggedIn && (

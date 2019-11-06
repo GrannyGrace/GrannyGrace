@@ -12,7 +12,7 @@ const Product = db.define('product', {
     }
   },
   price: {
-    type: Sequelize.FLOAT,
+    type: Sequelize.INTEGER,
     allowNull: false,
     validate: {
       notEmpty: true
@@ -20,14 +20,6 @@ const Product = db.define('product', {
   },
   description: {
     type: Sequelize.TEXT
-  },
-  imageUrl: {
-    type: Sequelize.STRING,
-    defaultValue: '../generic_apple.jpg'
-  },
-  category: {
-    type: Sequelize.STRING,
-    defaultValue: 'Apple'
   }
 })
 

@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
-import {NavLink} from 'react-router-dom'
-import {Navbar} from './components'
+import {Link} from 'react-router-dom'
+import {Navbar, Footer} from './components'
 import Routes from './routes'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './app.css'
@@ -27,13 +27,15 @@ const App = props => {
       <div className="container">
         <div className="row top-navbar-row">
           <div className="col-md-4 col-sm-12 col-xs-12 home-section">
-            <img alt="apple-logo" className="apple-logo" src={logo} />
-            <h1 className="granny-grace-header">GRANNY GRACE</h1>
+            <a href="http://localhost:8080">
+              <img alt="apple-logo" className="apple-logo" src={logo} />
+              <h1 className="granny-grace-header">GRANNY GRACE</h1>
+            </a>
           </div>
           <div className="col-md-8 col-sm-12 col-xs-12 my-account-parent">
-            <NavLink className="my-account" to="/myaccount">
+            <Link className="my-account" to="/myaccount">
               My Account
-            </NavLink>
+            </Link>
             <div className="cart-icon-div">
               <img className="cart-icon" alt="cart-icon" src={cartIcon} />
             </div>
@@ -64,61 +66,27 @@ const App = props => {
               </span>High Quality Apples
             </div>
             <div className="col-md-3 col-sm-6 col-xs-12 services-col">
-              <span className="service-icon">
-                <img
-                  className="service-icon"
-                  alt="return-icon"
-                  src={returnIcon}
-                />
-              </span>Return Policy
+              <Link to="/returns">
+                <span className="service-icon">
+                  <img
+                    className="service-icon"
+                    alt="return-icon"
+                    src={returnIcon}
+                  />
+                </span>Return Policy
+              </Link>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="container outer-products-container">
-        <div className="row">
-          <div className="col-md-4 col-sm-12">
-            <span className="product-filters-title">Product Filters</span>
-            <div className="product-filter-container">Product Filters</div>
-          </div>
-          <div className="col-md-8 col-sm-12">
-            <div className="toggle-product-styles">
-              <div className="dropdown">
-                <button
-                  className="btn btn-secondary dropdown-toggle"
-                  type="button"
-                  id="dropdownMenuButton"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  Default Sorting
-                </button>
-                <div
-                  className="dropdown-menu"
-                  aria-labelledby="dropdownMenuButton"
-                >
-                  <a className="dropdown-item" href="#">
-                    Action
-                  </a>
-                  <a className="dropdown-item" href="#">
-                    Another action
-                  </a>
-                  <a className="dropdown-item" href="#">
-                    Something else here
-                  </a>
-                </div>
-              </div>
-              <div className="grid">Grid</div>
-              <div className="list">List</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="container" id="products">
+      <div id="mainRoutes">
         <Routes />
       </div>
+
+      <>
+        <Footer />
+      </>
     </div>
   )
 }
