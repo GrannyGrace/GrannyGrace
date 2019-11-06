@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
+import {NavLink} from 'react-router-dom'
 import {Navbar} from './components'
 import Routes from './routes'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -31,7 +31,9 @@ const App = props => {
             <h1 className="granny-grace-header">GRANNY GRACE</h1>
           </div>
           <div className="col-md-8 col-sm-12 col-xs-12 my-account-parent">
-            <div className="my-account">My Account</div>
+            <NavLink className="my-account" to="/myaccount">
+              My Account
+            </NavLink>
             <div className="cart-icon-div">
               <img className="cart-icon" alt="cart-icon" src={cartIcon} />
             </div>

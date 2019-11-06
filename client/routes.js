@@ -6,7 +6,7 @@ import {Login, Signup, UserHome} from './components'
 import {me} from './store'
 import SingleProduct from './components/single-product'
 import AllProducts from './components/all-products'
-import AllReviews from './components/all-reviews'
+import MyAccount from './components/my-account'
 /**
  * COMPONENT
  */
@@ -17,13 +17,13 @@ class Routes extends Component {
 
   render() {
     const {isLoggedIn} = this.props
-
+    console.log('TCL: Routes -> render -> return', this.props)
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
         <Route exact path="/products" component={AllProducts} />
         <Route exact path="/products/:id" component={SingleProduct} />
-        <Route exact path="/allreviews" component={AllReviews} />
+        <Route exact path="/myaccount" component={MyAccount} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         {isLoggedIn && (

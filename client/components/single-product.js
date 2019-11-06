@@ -11,8 +11,7 @@ const SingleProduct = props => {
     props.fetchSingleProduct(+props.match.params.id) //have to convert to integer
   }, [])
   const product = props.curProduct
-  // console.log('TCL: props.match.params', props.match.params)
-  // console.log('TCL: props', props)
+
   return (
     <div style={{marginTop: 50}}>
       <h3>Product: {product.name}</h3>
