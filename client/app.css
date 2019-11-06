@@ -61,6 +61,10 @@
   color: #ffffff;
 }
 
+.product-image {
+  width: 100px;
+  height: 100px;
+}
 .services-col {
   text-align: center;
   line-height: 4.5;
