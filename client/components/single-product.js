@@ -15,8 +15,8 @@ const SingleProduct = props => {
   // console.log('TCL: props', props)
   return (
     <div style={{marginTop: 50}}>
-      <div>Name: {product.name}</div>
-      <div>Price: {product.price}</div>
+      <h3>Product: {product.name}</h3>
+      <p>$ {product.price}</p>
       <img className="product-image" src={product.imageUrl} alt="apple" />
 
       {props.user.isAdmin && <UpdateSingleProduct />}

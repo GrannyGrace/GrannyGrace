@@ -17,11 +17,7 @@ import SingleReview from './single-review'
 const AllReviews = props => {
   return (
     <div>
-      {/* {props.reviews.map(reviewObj => {
-        return <singleReview review={reviewObj} />
-      })} */}
-      <h1>Reviews here</h1>
-      {/* {console.log(props.allReviews)} */}
+      <h4>Customer Reviews</h4>
       {props.allReviews &&
         props.allReviews.map(reviewObj => {
           return <SingleReview key={reviewObj.content} reviewObj={reviewObj} />

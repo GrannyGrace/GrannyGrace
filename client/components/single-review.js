@@ -11,7 +11,7 @@ const SingleReview = props => {
 
   return (
     <div>
-      <h4>{props.reviewObj.title}</h4>
+      <h5>{props.reviewObj.title}</h5>
       <p>{props.reviewObj.content}</p>
       <p>
         Ratings : {printStars(+props.reviewObj.stars)} {props.reviewObj.stars}{' '}
