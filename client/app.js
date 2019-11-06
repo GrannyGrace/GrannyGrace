@@ -16,10 +16,7 @@ const App = () => {
           </div>
           <div className="col-8 my-account-parent">
             <span className="my-account">My Account</span>
-            <Routes />
-            <Link style={{backgroundColor: 'blue'}} to="/products/1">
-              Test Link to Product 1
-            </Link>
+
             {/* <span className="cart-icon"><img src={cartIcon}/></span> */}
             <span>
               <img className="cart-icon" alt="cart-icon" src={cartIcon} />
