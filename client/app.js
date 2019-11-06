@@ -52,13 +52,15 @@ const App = () => {
               </span>High Quality Apples
             </div>
             <div className="col-md-3 col-sm-6 col-xs-12 services-col">
-              <span className="service-icon">
-                <img
-                  className="service-icon"
-                  alt="return-icon"
-                  src={returnIcon}
-                />
-              </span>Return Policy
+              <Link to="/returns">
+                <span className="service-icon">
+                  <img
+                    className="service-icon"
+                    alt="return-icon"
+                    src={returnIcon}
+                  />
+                </span>Return Policy
+              </Link>
             </div>
           </div>
         </div>
