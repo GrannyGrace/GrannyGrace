@@ -10,6 +10,14 @@ import payment from './images/payment.png'
 import apple from './images/apple.png'
 import returnIcon from './images/return.png'
 import logo from './images/logo.png'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {
+  faCoffee,
+  faGripHorizontal,
+  faList
+} from '@fortawesome/free-solid-svg-icons'
+
+//so I want to import a grid icon
 
 const App = () => {
   return (
@@ -98,8 +106,12 @@ const App = () => {
                   </a>
                 </div>
               </div>
-              <div className="grid">Grid</div>
-              <div className="list">List</div>
+              <div className="grid">
+                <FontAwesomeIcon icon={faGripHorizontal} /> Grid
+              </div>
+              <div className="list">
+                <FontAwesomeIcon icon={faList} /> List
+              </div>
             </div>
             <div className="inner-products-container">Products</div>
           </div>
