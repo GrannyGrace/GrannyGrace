@@ -42,7 +42,7 @@ const UpdateSingleProduct = class extends React.Component {
   render() {
     return (
       <>
-        <h2>Update:</h2>
+        <h4>Update:</h4>
         <form onSubmit={this.handleSubmit}>
           <label htmlFor="name">Name</label>
           <input

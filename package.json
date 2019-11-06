@@ -41,6 +41,9 @@
   "author": "Fullstack Academy of Code",
   "license": "MIT",
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.25",
+    "@fortawesome/free-solid-svg-icons": "^5.11.2",
+    "@fortawesome/react-fontawesome": "^0.1.7",
     "axios": "^0.19.0",
     "bootstrap": "^4.3.1",
     "compression": "^1.7.3",
@@ -51,6 +54,7 @@
     "faker": "^4.1.0",
     "file-loader": "^4.2.0",
     "history": "^4.9.0",
+    "mdbreact": "^4.22.0",
     "morgan": "^1.9.1",
     "passport": "^0.4.0",
     "passport-google-oauth": "^2.0.0",
