@@ -28,7 +28,7 @@ async function seed() {
   ])
 
   const allProducts = []
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 200; i++) {
     let name = faker.commerce.productName()
     const existedProduct = await Product.findOne({where: {name: name}})
     const isExisted = existedProduct !== null
@@ -51,7 +51,7 @@ async function seed() {
   //SEED REVIEWS
   // use faker to generate random reviews
   const allReviews = []
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 200; i++) {
     let review = await Review.create({
       content: faker.lorem.sentences(),
       stars: Math.floor(Math.random() * 6)
@@ -61,33 +61,10 @@ async function seed() {
 
   //SET ASSOCIATION
   for (let i = 0; i < 100; i++) {
-    console.log(i)
     await users[i].addReviews(allReviews[i])
     await allProducts[i].addReviews(allReviews[i])
+    await allProducts[i].addReviews(allReviews[i + 100])
   }
-
-  // await users[1].addReviews(allReviews[1])
-  // await users[1].addReviews(allReviews[2])
-
-  // const allReviews = await Promise.all(
-  //   tempReviews
-  // [
-  //   Review.create({content: 'Great product!', stars: 5}),
-  //   Review.create({content: 'BADDD product :(', stars: 1.3})
-  // ]
-  // )
-
-  // await users[0].addReviews(reviews[0])
-  // await products[0].addReviews(reviews[0])
-  // await users[1].addReviews(reviews[1])
-  // await products[1].addReviews(reviews[1])
-
-  // await users[0].addOrders(orders)
-  // await orders[0].addProducts(products)
-
-  // for (let i = 0; i < 100; i++) {
-  //   await users[i].addReviews(allReviews[i])
-  // }
 
   console.log(`seeded ${users.length} users`)
   console.log(`seeded ${allProducts.length} products`)
