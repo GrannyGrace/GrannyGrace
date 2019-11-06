@@ -1,11 +1,22 @@
 import React from 'react'
 
 const SingleReview = props => {
+  function printStars(num) {
+    let star = []
+    for (let i = 0; i < num; i++) {
+      star[i] = '⭐️'
+    }
+    return star.join('')
+  }
+
   return (
     <div>
-      <h4>Title</h4>
-      <p>Content</p>
-      <h5>name</h5>
+      <h5>{props.reviewObj.title}</h5>
+      <p>{props.reviewObj.content}</p>
+      <p>
+        Ratings : {printStars(+props.reviewObj.stars)} {props.reviewObj.stars}{' '}
+        stars
+      </p>
     </div>
   )
 }
