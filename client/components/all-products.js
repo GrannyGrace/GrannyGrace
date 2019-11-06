@@ -2,6 +2,7 @@ import React, {useEffect} from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {fetchProducts} from '../store/allProducts'
+import {fetchUpdateCart} from '../store/curCart'
 
 const AllProducts = props => {
   useEffect(() => {
@@ -9,7 +10,12 @@ const AllProducts = props => {
     console.log(props.allProducts)
     console.log(props)
   }, [])
-
+  const addToCart = async productId => {
+    if (!props.user.id) {
+      //props.addUser()
+    }
+    await props.fetchUpdateCart(props.user.id, productId)
+  }
   return (
     <div className="inner-products-container">
       Products
@@ -27,6 +33,9 @@ const AllProducts = props => {
                     <p className="card-text">{elem.decription}</p>
                   </div>
                 </Link>
+                <button type="button" onClick={() => addToCart(elem.id)}>
+                  add to cart
+                </button>
               </div>
             )
           })}
@@ -37,13 +46,16 @@ const AllProducts = props => {
 }
 const mapStateToProps = state => {
   return {
-    allProducts: state.allProducts
+    allProducts: state.allProducts,
+    user: state.user
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    getProductsFromServer: () => dispatch(fetchProducts(dispatch))
+    getProductsFromServer: () => dispatch(fetchProducts(dispatch)),
+    fetchUpdateCart: (userId, productId) =>
+      dispatch(fetchUpdateCart(userId, productId))
   }
 }
 
