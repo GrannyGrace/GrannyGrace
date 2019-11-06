@@ -24,6 +24,10 @@ const Product = db.define('product', {
   imageUrl: {
     type: Sequelize.STRING,
     defaultValue: '../generic_apple.jpg'
+  },
+  category: {
+    type: Sequelize.STRING,
+    defaultValue: 'Apple'
   }
 })
 
