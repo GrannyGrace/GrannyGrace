@@ -24,3 +24,25 @@ a {
 .bottom-navbar-items {
   margin-left: 46px;
 }
+
+.display-at-mobile {
+  display: none;
+}
+
+@media screen and (min-width: 320px) and (max-width: 655px) {
+  .bottom-navbar-row {
+    background-color: #6f9449;
+    color: #ffffff;
+    height: 300px !important;
+  }
+  nav a:first-child {
+    margin-left: 5px;
+  }
+  nav a {
+    width: 100%;
+    margin-left: 50px;
+  }
+  .display-at-mobile {
+    display: inline;
+  }
+}

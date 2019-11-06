@@ -57,7 +57,6 @@
 
 .services-menu {
   background-color: #dc2242;
-  /*background-color: #007000;*/
   color: #ffffff;
 }
 
@@ -180,6 +179,17 @@
     margin-bottom: 0px !important;
     font-size: 30px;
   }
+}
+
+@media screen and (max-width: 655px) {
+  /* .bottom-navbar-items > a {
+    width: 100%;
+  }
+  .bottom-navbar-row {
+    background-color: #6f9449;
+    color: #ffffff;
+    height: 55px;
+  } */
 }
 
 @media screen and (max-width: 575px) {
