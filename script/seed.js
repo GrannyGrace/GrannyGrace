@@ -53,6 +53,7 @@ async function seed() {
   const allReviews = []
   for (let i = 0; i < 200; i++) {
     let review = await Review.create({
+      title: faker.lorem.sentence(),
       content: faker.lorem.sentences(),
       stars: Math.floor(Math.random() * 6)
     })

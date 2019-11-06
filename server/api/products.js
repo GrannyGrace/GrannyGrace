@@ -30,11 +30,12 @@ router.get('/:id', async (req, res, next) => {
 router.put('/:id', async (req, res, next) => {
   try {
     const product = await Product.findByPk(+req.params.id)
+    console.log('TCL: product', product)
     if (!product) {
       res.status(401).send('product not found')
     }
     const updated = await product.update(req.body)
-    res.json(updated)
+    res.send(updated)
   } catch (error) {
     next(error)
   }
