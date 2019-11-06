@@ -1,26 +1,25 @@
 import React from 'react'
 import {link} from 'react-router-dom'
 import {connect} from 'react-redux'
-import SingleProduct from './single-product'
+import {fetchProducts} from ' '
 
 class AllProducts extends React.Component {
-  componentDidMount() {
-    console.log('mounted')
-  }
+  componentDidMount() {}
 
   render() {
     return <text>Big Placeholder Apples Boi</text>
   }
 }
-// const mapStateToProps = state => {
-//   return {
-//   }
-// }
+const mapStateToProps = state => {
+  return {
+    allProducts: state.allProducts
+  }
+}
 
-// const mapDispatchToProps = dispatch => {
-//   return {
+const mapDispatchToProps = dispatch => {
+  return {
+    getProductsFromServer: () => dispatch(fetchProducts(dispatch))
+  }
+}
 
-//   }
-// }
-
-export default AllProducts
+export default connect(mapStateToProps, mapDispatchToProps)(AllProducts)
