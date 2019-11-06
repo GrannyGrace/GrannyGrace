@@ -1,6 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import {Navbar} from './components'
+import {Navbar, ProductFilter} from './components'
 import Routes from './routes'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './app.css'
@@ -11,13 +11,7 @@ import apple from './images/apple.png'
 import returnIcon from './images/return.png'
 import logo from './images/logo.png'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {
-  faCoffee,
-  faGripHorizontal,
-  faList
-} from '@fortawesome/free-solid-svg-icons'
-
-//so I want to import a grid icon
+import {faGripHorizontal, faList} from '@fortawesome/free-solid-svg-icons'
 
 const App = () => {
   return (
@@ -74,9 +68,10 @@ const App = () => {
 
       <div className="container outer-products-container">
         <div className="row">
-          <div className="col-md-4 col-sm-12">
-            <span className="product-filters-title">Product Filters</span>
-            <div className="product-filter-container">Product Filters</div>
+          <div className="col-md-4 col-sm-12 product-filters-outer-container">
+            <span className="product-filters-inner-title">Product Filters</span>
+            <div className="product-filters-inner-container">Category</div>
+            {/* <ProductFilter/> */}
           </div>
           <div className="col-md-8 col-sm-12">
             <div className="toggle-product-styles">
@@ -98,12 +93,6 @@ const App = () => {
                   <a className="dropdown-item" href="#">
                     Action
                   </a>
-                  <a className="dropdown-item" href="#">
-                    Another action
-                  </a>
-                  <a className="dropdown-item" href="#">
-                    Something else here
-                  </a>
                 </div>
               </div>
               <div className="grid">
@@ -113,11 +102,11 @@ const App = () => {
                 <FontAwesomeIcon icon={faList} /> List
               </div>
             </div>
+            <div id="products">
+              <Routes />
+            </div>
           </div>
         </div>
-      </div>
-      <div className="container" id="products">
-        <Routes />
       </div>
     </div>
   )
