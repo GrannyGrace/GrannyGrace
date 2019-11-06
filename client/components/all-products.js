@@ -1,14 +1,26 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {link} from 'react-router-dom'
 import {connect} from 'react-redux'
-import {fetchProducts} from ' '
+import {fetchProducts} from '../store/allProducts'
 
-class AllProducts extends React.Component {
-  componentDidMount() {}
+const AllProducts = props => {
+  useEffect(() => {
+    props.getProductsFromServer()
+    console.log(props.allProducts)
+    console.log(props)
+  }, [])
 
-  render() {
-    return <text>Big Placeholder Apples Boi</text>
-  }
+  return (
+    <div>
+      {props.allProducts.map(elem => {
+        return (
+          <div key={elem.id}>
+            <p className="font-weight-normal">{elem.name}</p>
+          </div>
+        )
+      })}
+    </div>
+  )
 }
 const mapStateToProps = state => {
   return {
