@@ -15,17 +15,17 @@ const App = () => {
     <div>
       <div className="container">
         <div className="row top-navbar-row">
-          <div className="col-4">
-            <div className="home-section">
-              <img alt="apple-logo" className="apple-logo" src={logo} />
-              <h1 className="granny-grace-header">GRANNY GRACE</h1>
-            </div>
+          {/* <div className="col-4 home-section"> */}
+          <div className="col-md-4 col-sm-12 col-xs-12 home-section">
+            <img alt="apple-logo" className="apple-logo" src={logo} />
+            <h1 className="granny-grace-header">GRANNY GRACE</h1>
           </div>
-          <div className="col-8 my-account-parent">
-            <span className="my-account">My Account</span>
-            <span>
+          {/* <div className="col-8 my-account-parent"> */}
+          <div className="col-md-8 col-sm-12 col-xs-12 my-account-parent">
+            <div className="my-account">My Account</div>
+            <div className="cart-icon-div">
               <img className="cart-icon" alt="cart-icon" src={cartIcon} />
-            </span>
+            </div>
           </div>
         </div>
       </div>
@@ -37,22 +37,22 @@ const App = () => {
       <div className="row services-menu">
         <div className="container">
           <div className="row services-row">
-            <div className="col services-col">
+            <div className="col-md-3 col-sm-6 col-xs-12 services-col">
               <span className="service-icon">
                 <img className="service-icon" alt="flag" src={flag} />
               </span>Ships Nation-Wide
             </div>
-            <div className="col services-col">
+            <div className="col-md-3 col-sm-6 col-xs-12 services-col">
               <span className="service-icon">
                 <img className="service-icon" alt="payment" src={payment} />
-              </span>Secure Payment System
+              </span>Secure Payments
             </div>
-            <div className="col services-col">
+            <div className="col-md-3 col-sm-6 col-xs-12 services-col">
               <span className="service-icon">
                 <img className="service-icon apple" alt="apple" src={apple} />
               </span>High Quality Apples
             </div>
-            <div className="col services-col">
+            <div className="col-md-3 col-sm-6 col-xs-12 services-col">
               <span className="service-icon">
                 <img
                   className="service-icon"

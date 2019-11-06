@@ -9,10 +9,11 @@
 .my-account {
   line-height: 3;
   margin: 5px 20px 5px 20px !important;
+  display: inline-block;
 }
 
 .home-section {
-  display: inline-block;
+  white-space: nowrap;
   margin-top: 6px;
 }
 
@@ -42,6 +43,10 @@
   width: 70px !important;
 }
 
+.cart-icon-div {
+  display: inline-block;
+}
+
 .services-container {
   padding-right: 15px;
   padding-left: 15px;
@@ -62,7 +67,6 @@
 }
 
 .services-row {
-  height: 75px;
 }
 
 .outer-products-container {
@@ -86,4 +90,21 @@
 
 .apple {
   width: 35px !important;
+}
+
+@media screen and (max-width: 767px) {
+  .top-navbar-row {
+    height: 130px;
+  }
+  .granny-grace-header {
+    color: #dc2242;
+    font-family: arial;
+    font-weight: bold;
+    margin-top: 5px;
+    white-space: nowrap;
+    display: inline-block;
+    vertical-align: middle;
+    margin-bottom: 0px !important;
+    font-size: 30px;
+  }
 }
