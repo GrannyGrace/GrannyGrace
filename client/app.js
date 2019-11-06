@@ -113,7 +113,6 @@ const App = () => {
                 <FontAwesomeIcon icon={faList} /> List
               </div>
             </div>
-            <div className="inner-products-container">Products</div>
           </div>
         </div>
       </div>

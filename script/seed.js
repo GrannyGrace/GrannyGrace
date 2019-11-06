@@ -8,73 +8,68 @@ async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
-  const users = await Promise.all([
-    User.create({email: 'don@email.com', password: '123'}),
-    User.create({email: 'amy@email.com', password: '123', isAdmin: true}),
-    User.create({
-      email: 'smoochfest@email.com',
-      password: '123',
-      username: 'smoochfest'
-    }),
-    User.create({
-      email: 'partyguy@email.com',
-      password: '123',
-      username: 'partyguy',
-      isAdmin: true
-    })
+  const Amy = await Promise.all([
+    User.create({email: 'amy@email.com', password: '123', isAdmin: true})
   ])
 
-  //use faker to generate random users
+  //SEED USERS - use faker to generate random users
+  const users = []
   for (let i = 0; i < 100; i++) {
-    await User.create({
+    let user = await User.create({
       email: faker.internet.email(),
       password: faker.internet.password()
     })
+    users.push(user)
   }
 
-  // use faker to generate random products
-  // console.log('TYPEOF ', typeof faker.commerce.product())
-  // console.log('TYPEOF ', +faker.commerce.price())
-  // console.log('TYPEOF ', typeof +faker.commerce.price())
-  for (let i = 0; i < 100; i++) {
+  //SEED PRODUCTS use faker to generate random products
+  const product1 = await Promise.all([
+    Product.create({name: 'Product 1', price: 220})
+  ])
+
+  const allProducts = []
+  for (let i = 0; i < 200; i++) {
     let name = faker.commerce.productName()
-    const product = await Product.findOne({where: {name: name}})
-    const isExisted = product !== null
+    const existedProduct = await Product.findOne({where: {name: name}})
+    const isExisted = existedProduct !== null
     //since Faker reuse product name, need to make sure that we don't create multiple of the same products
     if (!isExisted) {
-      await Product.create({
+      let product = await Product.create({
         name: name,
         price: +faker.commerce.price()
       })
+      allProducts.push(product)
     }
   }
 
-  const products = await Promise.all([
-    Product.create({name: 'Product 1', price: 220}),
-    Product.create({name: 'Product 2', price: 560})
-  ])
-
+  //SEED ORDERS
   const orders = await Promise.all([
     Order.create({status: 'pending'}),
     Order.create({status: 'shipped'})
   ])
-  const reviews = await Promise.all([
-    Review.create({content: 'Great product!', stars: 5}),
-    Review.create({content: 'BADDD product :(', stars: 1.3})
-  ])
 
-  await users[0].addReviews(reviews[0])
-  await products[0].addReviews(reviews[0])
-  await users[1].addReviews(reviews[1])
-  await products[1].addReviews(reviews[1])
+  //SEED REVIEWS
+  // use faker to generate random reviews
+  const allReviews = []
+  for (let i = 0; i < 200; i++) {
+    let review = await Review.create({
+      content: faker.lorem.sentences(),
+      stars: Math.floor(Math.random() * 6)
+    })
+    allReviews.push(review)
+  }
 
-  // await users[0].setSession(sessions[0])
-  await users[0].addOrders(orders)
-  await orders[0].addProducts(products)
+  //SET ASSOCIATION
+  for (let i = 0; i < 100; i++) {
+    await users[i].addReviews(allReviews[i])
+    await allProducts[i].addReviews(allReviews[i])
+    await allProducts[i].addReviews(allReviews[i + 100])
+  }
 
   console.log(`seeded ${users.length} users`)
-  console.log(`seeded ${products.length} users`)
-  console.log(`seeded ${orders.length} users`)
+  console.log(`seeded ${allProducts.length} products`)
+  console.log(`seeded ${orders.length} orders`)
+  console.log(`seeded ${allReviews.length} reviews`)
   console.log(`seeded successfully in ${Object.keys(db)}`)
 }
 
