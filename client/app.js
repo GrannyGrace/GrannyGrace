@@ -111,7 +111,6 @@ const App = props => {
               <div className="grid">Grid</div>
               <div className="list">List</div>
             </div>
-            <div className="inner-products-container">Products</div>
           </div>
         </div>
       </div>
