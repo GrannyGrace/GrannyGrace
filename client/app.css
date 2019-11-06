@@ -9,6 +9,17 @@
 .my-account {
   line-height: 3;
   margin: 5px 20px 5px 20px !important;
+  display: inline-block;
+}
+
+.home-section {
+  white-space: nowrap;
+  margin-top: 6px;
+}
+
+.apple-logo {
+  width: 44px;
+  margin-right: 7px;
 }
 
 .granny-grace-header {
@@ -17,16 +28,23 @@
   font-weight: bold;
   margin-top: 5px;
   white-space: nowrap;
+  display: inline-block;
+  vertical-align: middle;
+  margin-bottom: 0px !important;
 }
 
 .bottom-navbar-row {
-  background-color: #dc2242;
+  background-color: #6f9449;
   color: #ffffff;
   height: 55px;
 }
 
 .cart-icon {
   width: 70px !important;
+}
+
+.cart-icon-div {
+  display: inline-block;
 }
 
 .services-container {
@@ -38,7 +56,7 @@
 }
 
 .services-menu {
-  background-color: #014a7f;
+  background-color: #dc2242;
   /*background-color: #007000;*/
   color: #ffffff;
 }
@@ -49,9 +67,88 @@
 }
 .services-col {
   text-align: center;
-  line-height: 3.5;
+  line-height: 4.5;
 }
 
 .services-row {
-  height: 60px;
+}
+
+.outer-products-container {
+  padding-top: 20px;
+}
+
+.product-filter-container {
+  border: 2px solid #d3d3d3;
+  padding: 10px;
+  margin: 5px;
+  border-radius: 5px;
+}
+
+.inner-products-container {
+  margin-top: 50px !important;
+  border: 2px solid #d3d3d3;
+  padding: 10px;
+  margin: 5px;
+  border-radius: 5px;
+}
+
+.service-icon {
+  width: 50px;
+  margin-right: 5px;
+}
+
+.apple {
+  width: 35px !important;
+}
+
+.product-filters-title {
+  font-family: arial;
+  font-weight: bold;
+}
+
+.default-sorting-div {
+  background-color: #f9f9f9;
+}
+
+.btn-secondary:hover,
+.btn-secondary {
+  color: #000000;
+  background-color: #ffffff;
+  border-color: #d3d3d3;
+}
+
+.dropdown,
+.grid,
+.list {
+  display: inline-block;
+}
+
+.dropdown {
+  float: left;
+}
+
+.grid,
+.list {
+  float: right;
+}
+
+.toggle-product-styles:after {
+  clear: both !important;
+}
+
+@media screen and (max-width: 767px) {
+  .top-navbar-row {
+    height: 130px;
+  }
+  .granny-grace-header {
+    color: #dc2242;
+    font-family: arial;
+    font-weight: bold;
+    margin-top: 5px;
+    white-space: nowrap;
+    display: inline-block;
+    vertical-align: middle;
+    margin-bottom: 0px !important;
+    font-size: 30px;
+  }
 }
