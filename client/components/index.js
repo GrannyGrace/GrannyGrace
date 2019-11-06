@@ -5,4 +5,7 @@
  */
 export {default as Navbar} from './navbar'
 export {default as UserHome} from './user-home'
+export {default as Footer} from './footer'
 export {Login, Signup} from './auth-form'
+
+//you were trying to import footer file via index.js, but it's not exported in index.js
