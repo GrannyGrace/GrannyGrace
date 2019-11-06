@@ -1,17 +1,19 @@
-// import React from 'react'
-// import singleReview from './single-review'
+import React from 'react'
+import SingleReview from './single-review'
 
-// const allReviews = props => {
-//   return (
-//     <div>
-//       {props.reviews.map(reviewObj => {
-//         return <singleReview review={reviewObj} />
-//       })}
-//     </div>
-//   )
-// }
+const AllReviews = props => {
+  return (
+    <div>
+      {/* {props.reviews.map(reviewObj => {
+        return <singleReview review={reviewObj} />
+      })} */}
+      <h1>Reviews here</h1>
+      <SingleReview />
+    </div>
+  )
+}
 
-// export default AllReviews
+export default AllReviews
 
 // reviews
-//title, content, eager loading with product api
+// title, content, eager loading with product api

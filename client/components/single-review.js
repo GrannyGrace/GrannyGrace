@@ -1,7 +1,13 @@
-// import React from 'react'
+import React from 'react'
 
-// const singleReview = props => {
-//   return <div>hello</div>
-// }
+const SingleReview = props => {
+  return (
+    <div>
+      <h4>Title</h4>
+      <p>Content</p>
+      <h5>name</h5>
+    </div>
+  )
+}
 
-// export default singleReview
+export default SingleReview
