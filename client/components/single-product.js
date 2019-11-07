@@ -7,7 +7,6 @@ import AllReviews from './all-reviews'
 import './single-product.css'
 import SubmitReview from './submit-review'
 
-
 const SingleProduct = props => {
   console.log('rendering singleproduct')
   useEffect(() => {
