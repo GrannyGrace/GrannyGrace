@@ -41,7 +41,7 @@ const App = props => {
     },
     [props.user]
   )
-
+  console.log('cartIcon', cartIcon)
   return (
     <div>
       <div className="container">
@@ -56,7 +56,11 @@ const App = props => {
             <div className="my-account">My Account</div>
             <div className="cart-icon-div">
               <Link to={`/home/cart/${props.user.id}`}>
-                <img className="cart-icon" alt="cart-icon" src={cartIcon} />
+                <img
+                  className="cart-icon"
+                  alt="cart-icon"
+                  src={`/${cartIcon}`}
+                />
               </Link>
             </div>
           </div>
