@@ -10,6 +10,7 @@ import AllReviews from './components/all-reviews'
 import Cart from './components/cart'
 import ReturnPolicy from './components/return-policy'
 import Homepage from './components/homepage'
+import Checkout from './components/checkout'
 /**
  * COMPONENT
  */
@@ -24,6 +25,7 @@ class Routes extends Component {
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
+        <Route exact path="/checkout" componenet={Checkout} />
         <Route exact path="/products" component={AllProducts} />
         <Route exact path="/products/:id" component={SingleProduct} />
         <Route exact path="/allreviews" component={AllReviews} />
