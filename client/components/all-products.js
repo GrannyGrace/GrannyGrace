@@ -10,7 +10,7 @@ import {faGripHorizontal, faList} from '@fortawesome/free-solid-svg-icons'
 
 class AllProducts extends React.Component {
   state = {
-    products: [],
+    //products: [],
     view: 'grid',
     sortValue: 'lowToHigh'
   }
@@ -50,8 +50,8 @@ class AllProducts extends React.Component {
   }
 
   render() {
-    const {products, sortValue, view} = this.state
-    console.log('products***', products)
+    const {sortValue, view} = this.state
+    //console.log('products***', products)
     return (
       <div className="container outer-products-container">
         <div className="row">
@@ -96,7 +96,7 @@ class AllProducts extends React.Component {
                 <div className="container-fluid">
                   {view === 'grid' ? (
                     <div className="card-columns">
-                      {products.map(elem => {
+                      {this.props.allProducts.map(elem => {
                         console.log('elem**', elem)
                         return (
                           <div key={elem.id} className="card">
@@ -121,7 +121,7 @@ class AllProducts extends React.Component {
                     </div>
                   ) : (
                     <div className="list-group">
-                      {products.map(elem => {
+                      {this.props.allProducts.map(elem => {
                         return (
                           <div key={elem.id} className="list-group-item card">
                             <Link key={elem.id} to={`/products/${elem.id}`}>
