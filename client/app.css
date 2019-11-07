@@ -67,6 +67,7 @@
 .services-col {
   text-align: center;
   line-height: 4.5;
+  white-space: nowrap;
 }
 
 .services-row {
@@ -83,6 +84,8 @@
   border-radius: 5px;
   position: sticky;
   top: 15px;
+  background-color: #ffffff;
+  z-index: 4;
 }
 
 .inner-products-container {
@@ -151,7 +154,7 @@
 }
 
 .card-columns .card {
-  display: inline-block;
+  /*display: inline-block;*/
   width: 100%;
   height: 350px;
 }
@@ -163,7 +166,9 @@
     margin: 5px;
     border-radius: 5px;
     position: sticky;
-    top: 15px;
+    top: 0px;
+    z-index: 4;
+    background-color: #ffffff;
   }
   .top-navbar-row {
     height: 130px;
@@ -179,6 +184,12 @@
     margin-bottom: 0px !important;
     font-size: 30px;
   }
+}
+
+.card-img-top-list {
+  width: 25%;
+  border-top-left-radius: calc(0.25rem - 1px);
+  border-top-right-radius: calc(0.25rem - 1px);
 }
 
 @media screen and (max-width: 655px) {

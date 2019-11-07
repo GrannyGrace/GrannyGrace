@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {fetchProducts} from '../store/allProducts'
@@ -6,79 +6,151 @@ import {ProductFilter} from './product-filter'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faGripHorizontal, faList} from '@fortawesome/free-solid-svg-icons'
 
-const AllProducts = props => {
-  useEffect(() => {
-    props.getProductsFromServer()
-    console.log(props.allProducts)
-    console.log(props)
-  }, [])
+class AllProducts extends React.Component {
+  state = {
+    products: [],
+    view: 'grid',
+    sortValue: ''
+  }
 
-  return (
-    <div className="container outer-products-container">
-      <div className="row">
-        <div className="col-md-4 col-sm-12 product-filters-outer-container">
-          <span className="product-filters-inner-title">Product Filters</span>
-          <div className="product-filters-inner-container">Category</div>
-          {/* <ProductFilter/> */}
-        </div>
-        <div className="col-md-8 col-sm-12">
-          <div className="toggle-product-styles">
-            <div className="dropdown">
-              <button
-                className="btn btn-secondary dropdown-toggle"
-                type="button"
-                id="dropdownMenuButton"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                Default Sorting
-              </button>
+  componentDidMount() {
+    this.props.getProductsFromServer()
+  }
+
+  componentDidUpdate(prevProps) {
+    const newProducts = this.props.allProducts
+    if (
+      newProducts.length &&
+      newProducts.length !== prevProps.allProducts.length
+    ) {
+      this.setState({products: newProducts})
+    }
+  }
+
+  handleSort = e => {
+    console.log('new sort value', e.target.value)
+    const newSortValue = e.target.value
+    const {allProducts} = this.props
+    let newProducts = []
+    switch (newSortValue) {
+      case 'lowToHigh':
+        newProducts = allProducts.sort((a, b) => a.price - b.price)
+        break
+      case 'highToLow':
+        newProducts = allProducts.sort((a, b) => b.price - a.price)
+        break
+      case '':
+        newProducts = allProducts.sort((a, b) => a.price - b.price)
+        break
+      default:
+    }
+    this.setState({sortValue: newSortValue, products: newProducts})
+  }
+
+  render() {
+    const {products, sortValue, view} = this.state
+    return (
+      <div className="container outer-products-container">
+        <div className="row">
+          <div className="col-md-4 col-sm-12 product-filters-outer-container">
+            <span className="product-filters-inner-title">Product Filters</span>
+            <div className="product-filters-inner-container">Category</div>
+            {/* <ProductFilter/> */}
+          </div>
+          <div className="col-md-8 col-sm-12">
+            <div className="toggle-product-styles">
+              <div className="dropdown">
+                <select value={sortValue} onChange={this.handleSort}>
+                  <option value="">Default Sorting: </option>
+                  <option value="lowToHigh">Low to High</option>
+                  <option value="highToLow">High to Low</option>
+                </select>
+                <div
+                  className="dropdown-menu"
+                  aria-labelledby="dropdownMenuButton"
+                >
+                  <a className="dropdown-item" href="#">
+                    Action
+                  </a>
+                </div>
+              </div>
               <div
-                className="dropdown-menu"
-                aria-labelledby="dropdownMenuButton"
+                onClick={() => this.setState({view: 'grid'})}
+                className="grid"
               >
-                <a className="dropdown-item" href="#">
-                  Action
-                </a>
+                <FontAwesomeIcon icon={faGripHorizontal} /> Grid
+              </div>
+              <div
+                onClick={() => this.setState({view: 'list'})}
+                className="list"
+              >
+                <FontAwesomeIcon icon={faList} /> List
               </div>
             </div>
-            <div className="grid">
-              <FontAwesomeIcon icon={faGripHorizontal} /> Grid
-            </div>
-            <div className="list">
-              <FontAwesomeIcon icon={faList} /> List
-            </div>
-          </div>
-          <div id="products">
-            <div className="inner-products-container">
-              Products
-              <div className="container-fluid">
-                <div className="card-columns">
-                  {props.allProducts.map(elem => {
-                    return (
-                      <div key={elem.id} className="card">
-                        <Link key={elem.id} to={`/products/${elem.id}`}>
-                          <img className="card-img-top" src={elem.imageUrl} />
-                          <div className="card-body">
-                            <h4 className="card-title" style={{color: 'black'}}>
-                              {elem.name} for {elem.price}
-                            </h4>
-                            <p className="card-text">{elem.decription}</p>
+            <div id="products">
+              <div className="inner-products-container">
+                Products
+                <div className="container-fluid">
+                  {view === 'grid' ? (
+                    <div className="card-columns">
+                      {products.map(elem => {
+                        console.log('elem**', elem)
+                        return (
+                          <div key={elem.id} className="card">
+                            <Link key={elem.id} to={`/products/${elem.id}`}>
+                              <img
+                                className="card-img-top"
+                                src={elem.imageUrl}
+                              />
+                              <div className="card-body">
+                                <h4
+                                  className="card-title"
+                                  style={{color: 'black'}}
+                                >
+                                  {elem.name} for {elem.price}
+                                </h4>
+                                <p className="card-text">{elem.decription}</p>
+                              </div>
+                            </Link>
                           </div>
-                        </Link>
-                      </div>
-                    )
-                  })}
+                        )
+                      })}
+                    </div>
+                  ) : (
+                    <div className="list-group">
+                      {products.map(elem => {
+                        return (
+                          <div key={elem.id} className="list-group-item card">
+                            <Link key={elem.id} to={`/products/${elem.id}`}>
+                              <img
+                                className="card-img-top-list"
+                                src={elem.imageUrl}
+                              />
+                              <div className="card-body">
+                                <h4
+                                  className="card-title"
+                                  style={{color: 'black'}}
+                                >
+                                  {elem.name} for {elem.price}
+                                </h4>
+                                <p className="card-text">{elem.decription}</p>
+                              </div>
+                            </Link>
+                          </div>
+                        )
+                      })}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  )
+    )
+  }
 }
+
 const mapStateToProps = state => {
   return {
     allProducts: state.allProducts
