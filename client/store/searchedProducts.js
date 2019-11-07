@@ -13,7 +13,7 @@ export function fetchSearchResult(term) {
   return async dispatch => {
     try {
       const {data} = await Axios.get(`/api/products/search/${term}`)
-      console.log(data)
+      console.log('TCL: fetchSearchResult -> data', data)
       return dispatch(setSearchProducts(data))
     } catch (err) {
       console.log(err)

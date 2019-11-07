@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const {Product, Review} = require('../db/models')
+const Sequelize = require('sequelize')
 const Op = Sequelize.Op
 
 module.exports = router
@@ -47,9 +48,14 @@ router.get('/search/:term', async (req, res, next) => {
   try {
     console.log('req.params.term', req.params.term)
     const searchProducts = await Product.findAll({
-      where: {[Op.like]: `%${req.params.term}%`}
+      where: {
+        name: {
+          [Op.iLike]: `%${req.params.term}%`
+        }
+      }
     })
-    res.end()
+
+    res.send(searchProducts)
   } catch (err) {
     next(err)
   }

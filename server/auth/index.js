@@ -28,7 +28,7 @@ router.post('/restore', async (req, res, next) => {
         sessionId: req.sessionID
       }
     })
-    console.log('TCL: user/found', user)
+    // console.log('TCL: user/found', user)
     if (!user) {
       console.log('in /auth/restore and user was not found/created')
     }

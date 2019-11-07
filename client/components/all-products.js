@@ -5,14 +5,13 @@ import {fetchProducts} from '../store/allProducts'
 import {fetchUpdateCart} from '../store/curCart'
 import {sessionChecker, auth} from '../store/user'
 import {ProductFilter} from './product-filter'
+import SearchBar from './searchbar'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faGripHorizontal, faList} from '@fortawesome/free-solid-svg-icons'
 
 const AllProducts = props => {
   useEffect(() => {
     props.getProductsFromServer()
-    console.log(props.allProducts)
-    console.log(props)
   }, [])
   const addToCart = productId => {
     if (!props.user.id) {
@@ -25,6 +24,7 @@ const AllProducts = props => {
       <div className="row">
         <div className="col-md-4 col-sm-12 product-filters-outer-container">
           <span className="product-filters-inner-title">Product Filters</span>
+          <SearchBar />
           <div className="product-filters-inner-container">Category</div>
           {/* <ProductFilter/> */}
         </div>
