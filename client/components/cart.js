@@ -1,12 +1,10 @@
 import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
 import {fetchUpdateCart} from '../store/curCart'
+import {sessionChecker, auth} from '../store/user'
+import {withRouter} from 'react-router-dom'
 
 const Cart = props => {
-  //   useEffect(() => {
-  //     props.fetchUpdateCart(props.user.id)
-  //   }, [])
-
   console.log('TCL: props.curCart', props.curCart)
   let totalPrice = 0
   if (!props.curCart.products || !props.curCart.products[0]) {
@@ -28,6 +26,10 @@ const Cart = props => {
   )
 }
 
-export default connect(({curCart, user}) => ({curCart, user}), {
-  fetchUpdateCart
-})(Cart)
+export default withRouter(
+  connect(({curCart, user}) => ({curCart, user}), {
+    fetchUpdateCart,
+    sessionChecker,
+    auth
+  })(Cart)
+)

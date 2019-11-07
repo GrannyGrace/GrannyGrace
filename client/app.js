@@ -6,7 +6,7 @@ import Routes from './routes'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './app.css'
 import cartIcon from './images/cartIcon.png'
-import {getUser, auth} from './store/user'
+import {getUser, sessionChecker, auth} from './store/user'
 import flag from './images/flag.png'
 import payment from './images/payment.png'
 import apple from './images/apple.png'
@@ -17,9 +17,20 @@ import {fetchUpdateCart} from './store/curCart'
 
 const App = props => {
   //making the user on state default to admin user, change this useEffect to test different types of users
+
+  const asyncSessionCheck = async () => {
+    await props.sessionChecker()
+  }
   useEffect(() => {
     if (!props.user.id) {
-      props.auth(null, '1234', 'signup', true)
+      console.log('checking session')
+      asyncSessionCheck()
+
+      console.log('just checked session user is', props.user.id)
+
+      // if (!props.user.id) {
+      //   props.auth(null, '1234', 'signup', true)
+      // }
     }
   }, [])
   useEffect(
@@ -100,6 +111,9 @@ const App = props => {
   )
 }
 
-export default connect(({user}) => ({user}), {getUser, auth, fetchUpdateCart})(
-  App
-)
+export default connect(({user}) => ({user}), {
+  getUser,
+  auth,
+  sessionChecker,
+  fetchUpdateCart
+})(App)

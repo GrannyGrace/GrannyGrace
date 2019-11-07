@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {fetchProducts} from '../store/allProducts'
 import {fetchUpdateCart} from '../store/curCart'
+import {sessionChecker, auth} from '../store/user'
 import {ProductFilter} from './product-filter'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faGripHorizontal, faList} from '@fortawesome/free-solid-svg-icons'
@@ -104,7 +105,10 @@ const mapDispatchToProps = dispatch => {
   return {
     getProductsFromServer: () => dispatch(fetchProducts(dispatch)),
     fetchUpdateCart: (userId, productId) =>
-      dispatch(fetchUpdateCart(userId, productId))
+      dispatch(fetchUpdateCart(userId, productId)),
+    sessionChecker: () => dispatch(sessionChecker()),
+    auth: (email, password, method, isGuest) =>
+      dispatch(auth(email, password, method, isGuest))
   }
 }
 
