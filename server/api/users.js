@@ -18,21 +18,23 @@ router.get('/', async (req, res, next) => {
 
 router.put('/cart/:userId/:productId', async (req, res, next) => {
   try {
+    console.log('TCL: req.sessionID in fetchupdatethunk', req.sessionID)
+
     let [cart] = await Cart.findOrCreate({
       where: {
         userId: +req.params.userId
       },
       include: [Product]
     })
-
-    cart = await cart.update({
+    //retrieve user associated with id and then use magic method to associate it to cart
+    await cart.update({
       sessionId: req.sessionID
     })
+    const updated = await Cart.findByPk(cart.id, {include: [Product]})
 
-    console.log('TCL:  req.params.productId', req.params.productId)
     if (+req.params.productId === 0) {
       console.log('just finding/creating cart, not adding anything')
-      res.send(cart).end()
+      res.send(updated).end()
     } else {
       const product = await Product.findByPk(+req.params.productId)
       console.log(Object.keys(Cart.prototype))

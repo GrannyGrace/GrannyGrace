@@ -23,23 +23,26 @@ router.post('/login', async (req, res, next) => {
 
 router.post('/restore', async (req, res, next) => {
   try {
+    console.log('TCL: req.sessionID', req.sessionID)
+
     const [user, found] = await User.findOrCreate({
       where: {
         sessionId: req.sessionID
       }
     })
 
-    if (!user.email) {
-      const updated = await user.update({isGuest: true})
-      res.json(updated)
-    }
     if (found) {
       console.log('TCL: user/found', user)
     }
     if (!user) {
       console.log('in /auth/restore and user was not found/created')
     }
-    res.json(user)
+    if (!user.email) {
+      const updated = await user.update({isGuest: true})
+      res.json(updated)
+    } else {
+      res.json(user)
+    }
   } catch (error) {
     next(error)
   }
