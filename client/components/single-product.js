@@ -4,6 +4,7 @@ import {fetchSingleProduct} from '../store/curProduct'
 import {withRouter} from 'react-router-dom'
 import UpdateSingleProduct from './update-single-product'
 import AllReviews from './all-reviews'
+import SubmitReview from './submit-review'
 
 const SingleProduct = props => {
   console.log('rendering singleproduct')
@@ -23,6 +24,7 @@ const SingleProduct = props => {
 
         {props.user.isAdmin && <UpdateSingleProduct />}
         <AllReviews allReviews={product.reviews} />
+        <SubmitReview />
       </div>
     </div>
   )
