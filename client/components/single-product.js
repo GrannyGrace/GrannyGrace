@@ -4,7 +4,9 @@ import {fetchSingleProduct} from '../store/curProduct'
 import {withRouter} from 'react-router-dom'
 import UpdateSingleProduct from './update-single-product'
 import AllReviews from './all-reviews'
+import './single-product.css'
 import SubmitReview from './submit-review'
+
 
 const SingleProduct = props => {
   console.log('rendering singleproduct')
@@ -15,7 +17,7 @@ const SingleProduct = props => {
 
   return (
     <div className="container">
-      <div style={{marginTop: 50}}>
+      <div className="single-product-container">
         <h3>Product: {product.name}</h3>
         <p style={{fontWeight: 'bold'}}>$ {product.price}</p>
         <p style={{fontWeight: 'bold'}}>Category: </p>
