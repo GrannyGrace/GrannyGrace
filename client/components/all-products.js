@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
-import {fetchProducts, fetchSearchedProducts} from '../store/allProducts'
+import {fetchProducts, fetchSearchedProducts} from '../store/products'
 import {fetchUpdateCart} from '../store/curCart'
 import {sessionChecker, auth} from '../store/user'
 import {ProductFilter} from './product-filter'
@@ -26,7 +26,7 @@ class AllProducts extends React.Component {
   }
   //if no products in db, we need to seed.
   componentDidUpdate(prevProps) {
-    const newProducts = this.props.allProducts
+    const newProducts = this.props.products
   }
   addToCart(productId) {
     if (this.props.user.id) {
@@ -40,17 +40,17 @@ class AllProducts extends React.Component {
   handleSort = e => {
     console.log('new sort value', e.target.value)
     const newSortValue = e.target.value
-    const {allProducts} = this.props
+    const {products} = this.props
     let newProducts = []
     switch (newSortValue) {
       case 'lowToHigh':
-        newProducts = allProducts.sort((a, b) => a.price - b.price)
+        newProducts = products.sort((a, b) => a.price - b.price)
         break
       case 'highToLow':
-        newProducts = allProducts.sort((a, b) => b.price - a.price)
+        newProducts = products.sort((a, b) => b.price - a.price)
         break
       case '':
-        newProducts = allProducts.sort((a, b) => a.price - b.price)
+        newProducts = products.sort((a, b) => a.price - b.price)
         break
       default:
     }
@@ -105,7 +105,7 @@ class AllProducts extends React.Component {
                 <div className="container-fluid">
                   {view === 'grid' ? (
                     <div className="card-columns">
-                      {this.props.allProducts.map(elem => {
+                      {this.props.products.map(elem => {
                         return (
                           <div key={elem.id} className="card">
                             <Link key={elem.id} to={`/products/${elem.id}`}>
@@ -138,7 +138,7 @@ class AllProducts extends React.Component {
                     </div>
                   ) : (
                     <div className="list-group">
-                      {this.props.allProducts.map(elem => {
+                      {this.props.products.map(elem => {
                         return (
                           <div key={elem.id} className="list-group-item card">
                             <Link key={elem.id} to={`/products/${elem.id}`}>
@@ -173,7 +173,7 @@ class AllProducts extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    allProducts: state.allProducts.sort((a, b) => a.price - b.price),
+    products: state.products.sort((a, b) => a.price - b.price),
     user: state.user
   }
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import {fetchSearchedProducts} from '../store/allProducts'
+import {fetchSearchedProducts} from '../store/products'
 import {connect} from 'react-redux'
 
 class searchBar extends React.Component {

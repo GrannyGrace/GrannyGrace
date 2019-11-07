@@ -8,7 +8,7 @@ const SET_SEARCHED_PRODUCTS = 'SET_SEARCHED_PRODUCTS'
 export const setAllProducts = allproducts => {
   return {
     type: SET_ALLPRODUCTS,
-    allproducts: allproducts
+    products: allproducts
   }
 }
 export const setSearchedProducts = searchedProducts => {
@@ -41,13 +41,13 @@ export function fetchSearchedProducts(term) {
 }
 
 //reducer
-export default function allProductsReducer(allproducts = [], action) {
+export default function productsReducer(products = [], action) {
   switch (action.type) {
     case SET_ALLPRODUCTS:
-      return [...action.allproducts]
+      return [...action.products]
     case SET_SEARCHED_PRODUCTS:
       return [...action.searchedProducts]
     default:
-      return allproducts
+      return products
   }
 }
