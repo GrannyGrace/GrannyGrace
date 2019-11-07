@@ -7,7 +7,6 @@ import {me} from './store'
 import SingleProduct from './components/single-product'
 import AllProducts from './components/all-products'
 import MyAccount from './components/my-account'
-import AllReviews from './components/all-reviews'
 import Cart from './components/cart'
 import ReturnPolicy from './components/return-policy'
 import Homepage from './components/homepage'
@@ -21,7 +20,6 @@ class Routes extends Component {
 
   render() {
     const {isLoggedIn} = this.props
-    console.log('TCL: Routes -> render -> return', this.props)
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
