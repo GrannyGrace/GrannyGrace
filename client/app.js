@@ -53,7 +53,9 @@ const App = props => {
             </a>
           </div>
           <div className="col-md-8 col-sm-12 col-xs-12 my-account-parent">
-            <div className="my-account">My Account</div>
+            <Link className="my-account" to="/myaccount">
+              My Account
+            </Link>
             <div className="cart-icon-div">
               <Link to={`/home/cart/${props.user.id}`}>
                 <img
