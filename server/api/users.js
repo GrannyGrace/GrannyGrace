@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User, Cart, Product} = require('../db/models')
+const {User, Cart, Product, CartProduct} = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -18,14 +18,14 @@ router.get('/', async (req, res, next) => {
 
 router.put('/cart/:userId/:productId', async (req, res, next) => {
   try {
-    const [cart] = await Cart.findOrCreate({
+    let [cart] = await Cart.findOrCreate({
       where: {
         userId: +req.params.userId
       },
       include: [Product]
     })
 
-    await cart.update({
+    cart = await cart.update({
       sessionId: req.sessionID
     })
 
@@ -35,11 +35,22 @@ router.put('/cart/:userId/:productId', async (req, res, next) => {
       res.send(cart).end()
     } else {
       const product = await Product.findByPk(+req.params.productId)
-      await cart.addProduct(product)
-      await product.addCart(cart)
-      const updated = await Cart.findByPk(cart.id, {include: [Product]})
-      console.log('TCL: cart products', cart.products)
+      console.log(Object.keys(Cart.prototype))
+      if (await cart.hasProduct(product)) {
+        const cpJoin = await CartProduct.findOne({
+          where: {
+            cartId: cart.id
+          }
+        })
 
+        const updateCpJoin = await cpJoin.update({quantity: ++cpJoin.quantity})
+      } else {
+        await cart.addProduct(product)
+        await product.addCart(cart)
+      }
+      const updated = await Cart.findByPk(cart.id, {
+        include: [Product]
+      })
       res.send(updated)
     }
   } catch (error) {
