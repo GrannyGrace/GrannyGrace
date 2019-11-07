@@ -33,10 +33,10 @@ a {
   .bottom-navbar-row {
     background-color: #6f9449;
     color: #ffffff;
-    height: 300px !important;
+    height: 175px !important;
   }
   nav a:first-child {
-    margin-left: 5px;
+    margin-left: 50px;
   }
   nav a {
     width: 100%;
