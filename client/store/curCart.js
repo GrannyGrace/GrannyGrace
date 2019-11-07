@@ -6,7 +6,7 @@ const setCart = cart => {
   return {type: SET_CART, cart}
 }
 
-export const fetchUpdateCart = (userId, productId = 'create') => {
+export const fetchUpdateCart = (userId, productId = 0) => {
   return async dispatch => {
     try {
       const {data} = await axios.put(`/api/users/cart/${userId}/${productId}`)
