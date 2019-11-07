@@ -2,7 +2,7 @@ import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
 import {setCart, fetchUpdateCart} from '../store/curCart'
 import {sessionChecker, auth} from '../store/user'
-import {withRouter} from 'react-router-dom'
+import {withRouter, Link} from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../css/cart.css'
 
@@ -30,7 +30,8 @@ const Cart = props => {
           {props.curCart.map(prod => {
             totalPrice += prod.price
             return (
-              <a
+              <Link
+                to={`/products/${prod.id}`}
                 key={prod.id}
                 id="cart-item"
                 href="#!"
@@ -42,7 +43,7 @@ const Cart = props => {
                 </div>
                 <p className="mb-1 card-text">{prod.description}</p>
                 <small className="card-text">Price: ${prod.price}</small>
-              </a>
+              </Link>
               // <li className='list-group-item list-group-item-primary list-group-item-action flex-column align-items-start active' key={prod.id}>
               //   <div className='d-flex w-100 justify-content-between'>{prod.name}</div>
               //   <h5 className = 'mb-1'>Price: {prod.price}</h5>
@@ -50,7 +51,7 @@ const Cart = props => {
             )
           })}
           <h4 className="list-group-item mb-1 card-title">
-            Total Price: ${totalPrice}
+            Subtotal: ${totalPrice}
           </h4>
         </ul>
       </div>
