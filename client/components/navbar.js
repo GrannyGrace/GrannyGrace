@@ -4,7 +4,8 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
 import {fetchProducts} from '../store/products'
-import './navbar.css'
+
+import '../css/navbar.css'
 
 const Navbar = ({handleClick, isLoggedIn, getProductsFromServer}) => (
   <div className="lower-nav">

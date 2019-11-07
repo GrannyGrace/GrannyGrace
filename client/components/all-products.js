@@ -180,7 +180,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getProductsFromServer: () => dispatch(fetchProducts(dispatch)),
+    getProductsFromServer: () => dispatch(fetchProducts()),
     fetchUpdateCart: (userId, productId) =>
       dispatch(fetchUpdateCart(userId, productId)),
     sessionChecker: () => dispatch(sessionChecker()),
