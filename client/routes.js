@@ -8,6 +8,7 @@ import SingleProduct from './components/single-product'
 import AllProducts from './components/all-products'
 import MyAccount from './components/my-account'
 import AllReviews from './components/all-reviews'
+import SearchResults from './components/search-results'
 import Cart from './components/cart'
 import ReturnPolicy from './components/return-policy'
 import Homepage from './components/homepage'
@@ -21,12 +22,12 @@ class Routes extends Component {
 
   render() {
     const {isLoggedIn} = this.props
-    console.log('TCL: Routes -> render -> return', this.props)
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
         <Route exact path="/products" component={AllProducts} />
         <Route exact path="/products/:id" component={SingleProduct} />
+        <Route exact path="/products/search/:term" component={SearchResults} />
         <Route exact path="/home/cart/:userId" component={Cart} />
         <Route exact path="/returns" component={ReturnPolicy} />
         <Route path="/login" component={Login} />
