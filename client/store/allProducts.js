@@ -2,12 +2,19 @@ import axios from 'axios'
 
 //Action Define
 const SET_ALLPRODUCTS = 'SET_ALLPRODUCTS'
+const SET_SEARCHED_PRODUCTS = 'SET_SEARCHED_PRODUCTS'
 
 //Action Creators
 export const setAllProducts = allproducts => {
   return {
     type: SET_ALLPRODUCTS,
     allproducts: allproducts
+  }
+}
+export const setSearchedProducts = searchedProducts => {
+  return {
+    type: SET_SEARCHED_PRODUCTS,
+    searchedProducts: searchedProducts
   }
 }
 
@@ -22,12 +29,24 @@ export function fetchProducts() {
     }
   }
 }
+export function fetchSearchedProducts(term) {
+  return async dispatch => {
+    try {
+      const {data} = await axios.get(`/api/products/search/${term}`)
+      dispatch(setSearchedProducts(data))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
 
 //reducer
 export default function allProductsReducer(allproducts = [], action) {
   switch (action.type) {
     case SET_ALLPRODUCTS:
       return [...action.allproducts]
+    case SET_SEARCHED_PRODUCTS:
+      return [...action.searchedProducts]
     default:
       return allproducts
   }

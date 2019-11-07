@@ -9,7 +9,7 @@ const SearchResults = props => {
   useEffect(() => {
     props.search(props.match.params.term)
   }, [])
-  console.log('TESTING SEARCH', props)
+
   return (
     <div className="container outer-products-container">
       <div className="row">

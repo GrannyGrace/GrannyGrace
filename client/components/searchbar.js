@@ -1,6 +1,8 @@
 import React from 'react'
+import {fetchSearchedProducts} from '../store/allProducts'
+import {connect} from 'react-redux'
 
-export default class searchBar extends React.Component {
+class searchBar extends React.Component {
   constructor() {
     super()
     this.state = {term: ''}
@@ -12,6 +14,10 @@ export default class searchBar extends React.Component {
   }
   handleSubmit(event) {
     event.preventDefault()
+    console.log('clicked yea this.state.term', this.state.term)
+    console.log('clicked yea this.props', this.props)
+    this.setState({term: ''})
+    this.props.search(this.state.term)
   }
 
   render() {
@@ -23,8 +29,17 @@ export default class searchBar extends React.Component {
           value={this.state.term}
           onChange={this.handleChange}
         />
-        <button type="submit"> Search </button>
+        <button type="submit" className="btn btn-primary">
+          {' '}
+          Search{' '}
+        </button>
       </form>
     )
   }
 }
+
+const mapDispatchToProps = dispatch => {
+  return {search: term => dispatch(fetchSearchedProducts(term))}
+}
+
+export default connect(null, mapDispatchToProps)(searchBar)

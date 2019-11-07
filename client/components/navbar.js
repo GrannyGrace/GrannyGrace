@@ -3,9 +3,10 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
+import {fetchProducts} from '../store/allProducts'
 import './navbar.css'
 
-const Navbar = ({handleClick, isLoggedIn}) => (
+const Navbar = ({handleClick, isLoggedIn, getProductsFromServer}) => (
   <div className="lower-nav">
     {/* <h1 className="granny-grace-header">GRANNY GRACE</h1> */}
     <nav>
@@ -13,11 +14,12 @@ const Navbar = ({handleClick, isLoggedIn}) => (
         <div>
           {/* The navbar will show these links after you log in */}
           <Link to="/home">Home</Link>
-          <Link to="/products">All Products</Link>
+          <Link to="/products" onClick={getProductsFromServer}>
+            All Products
+          </Link>
           <a href="#" onClick={handleClick}>
             Logout
           </a>
-          <Link to="/products">All Products</Link>
         </div>
       ) : (
         <div className="bottom-navbar-container">
@@ -27,7 +29,10 @@ const Navbar = ({handleClick, isLoggedIn}) => (
             <hr className="display-at-mobile" />
             <Link to="/signup">Sign Up</Link>
             <hr className="display-at-mobile" />
-            <Link to="/products">All Products</Link>
+            <Link to="/products" onClick={getProductsFromServer}>
+              All Products
+            </Link>
+
             <hr className="display-at-mobile" />
             <Link to="/products/1">Test Link to Product 1</Link>
           </span>
@@ -51,7 +56,8 @@ const mapDispatch = dispatch => {
   return {
     handleClick() {
       dispatch(logout())
-    }
+    },
+    getProductsFromServer: () => dispatch(fetchProducts())
   }
 }
 
@@ -62,5 +68,6 @@ export default connect(mapState, mapDispatch)(Navbar)
  */
 Navbar.propTypes = {
   handleClick: PropTypes.func.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired
+  isLoggedIn: PropTypes.bool.isRequired,
+  getProductsFromServer: PropTypes.func.isRequired
 }

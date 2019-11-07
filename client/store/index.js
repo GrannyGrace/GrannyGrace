@@ -12,8 +12,8 @@ const reducer = combineReducers({
   user,
   allProducts,
   curProduct,
-  curCart,
-  searchedProducts
+  curCart
+  // searchedProducts
 })
 
 const middleware = composeWithDevTools(

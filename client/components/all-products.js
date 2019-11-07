@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
-import {fetchProducts} from '../store/allProducts'
+import {fetchProducts, fetchSearchedProducts} from '../store/allProducts'
 import {fetchUpdateCart} from '../store/curCart'
 import {sessionChecker, auth} from '../store/user'
 import {ProductFilter} from './product-filter'
@@ -59,13 +59,14 @@ class AllProducts extends React.Component {
 
   render() {
     const {sortValue, view} = this.state
-    //console.log('products***', products)
+
     return (
       <div className="container outer-products-container">
         <div className="row">
           <div className="col-md-4 col-sm-12 product-filters-outer-container">
             <span className="product-filters-inner-title">Product Filters</span>
             <div className="product-filters-inner-container">Category</div>
+            <SearchBar />
             {/* <ProductFilter/> */}
           </div>
           <div className="col-md-8 col-sm-12">
@@ -105,7 +106,6 @@ class AllProducts extends React.Component {
                   {view === 'grid' ? (
                     <div className="card-columns">
                       {this.props.allProducts.map(elem => {
-                        console.log('elem**', elem)
                         return (
                           <div key={elem.id} className="card">
                             <Link key={elem.id} to={`/products/${elem.id}`}>
@@ -185,7 +185,8 @@ const mapDispatchToProps = dispatch => {
       dispatch(fetchUpdateCart(userId, productId)),
     sessionChecker: () => dispatch(sessionChecker()),
     auth: (email, password, method, isGuest) =>
-      dispatch(auth(email, password, method, isGuest))
+      dispatch(auth(email, password, method, isGuest)),
+    search: term => dispatch(fetchSearchedProducts(term))
   }
 }
 
