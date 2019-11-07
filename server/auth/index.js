@@ -23,17 +23,19 @@ router.post('/login', async (req, res, next) => {
 
 router.post('/restore', async (req, res, next) => {
   try {
-    const [user] = await User.findOrCreate({
+    const [user, found] = await User.findOrCreate({
       where: {
         sessionId: req.sessionID
       }
     })
 
     if (!user.email) {
-      const updated = await User.update({isGuest: true})
+      const updated = await user.update({isGuest: true})
       res.json(updated)
     }
-    console.log('TCL: user/found', user)
+    if (found) {
+      console.log('TCL: user/found', user)
+    }
     if (!user) {
       console.log('in /auth/restore and user was not found/created')
     }
@@ -45,9 +47,16 @@ router.post('/restore', async (req, res, next) => {
 
 router.post('/signup', async (req, res, next) => {
   try {
-    const user = await User.create(req.body)
-    await user.update({sessionId: req.sessionID})
-    req.login(user, err => (err ? next(err) : res.json(user)))
+    const user = await User.findOne({
+      where: {
+        sessionId: req.sessionID
+      }
+    })
+    if (!user) {
+      console.log('guest user not found when signing up, check /restore route')
+    }
+    const updated = await user.update(req.body)
+    req.login(updated, err => (err ? next(err) : res.json(updated)))
   } catch (err) {
     if (err.name === 'SequelizeUniqueConstraintError') {
       res.status(401).send('User already exists')
