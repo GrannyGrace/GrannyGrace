@@ -1,6 +1,47 @@
 const router = require('express').Router()
-const {User, Cart, Product} = require('../db/models')
+const {User} = require('../db/models')
 module.exports = router
+
+/* LOGGED IN USER
+
+ADD TO CART:
+1. Add a row (with quantity) to UserCart table
+
+CHECKOUT:
+2. Add a row to Order table
+   const order = await Order.create(...)
+
+   const cartItems = await user.getCartItems()
+
+2a. Confirm valid quantity and inventory
+
+3. Add a row to OrderProduct table
+   const orderProducts = await order.addProducts(cartItems)
+
+4. Set price at time of purchase
+   await Promise.all(orderProducts.map(op => op.assignPrice()))
+
+5. Delete all the user's cartitems
+
+*/
+
+router.use((req, res, next) => {
+  if (!req.session.cartItems) {
+    req.session.cartItems = []
+  } else {
+    req.session.cartItems.push({
+      productId: Math.floor(Math.random() * 100),
+      quantity: Math.floor(Math.random() * 10)
+    })
+  }
+  console.log('req.session', req.session)
+  if (req.user) {
+    console.log('req.user.isAdmin', req.user.isAdmin)
+  } else {
+    console.log('not logged in')
+  }
+  next()
+})
 
 router.get('/', async (req, res, next) => {
   try {
@@ -13,36 +54,5 @@ router.get('/', async (req, res, next) => {
     res.json(users)
   } catch (err) {
     next(err)
-  }
-})
-
-router.put('/cart/:userId/:productId', async (req, res, next) => {
-  try {
-    const [cart] = await Cart.findOrCreate({
-      where: {
-        userId: +req.params.userId
-      },
-      include: [Product]
-    })
-
-    await cart.update({
-      sessionId: req.sessionID
-    })
-
-    console.log('TCL:  req.params.productId', req.params.productId)
-    if (+req.params.productId === 0) {
-      console.log('just finding/creating cart, not adding anything')
-      res.send(cart).end()
-    } else {
-      const product = await Product.findByPk(+req.params.productId)
-      await cart.addProduct(product)
-      await product.addCart(cart)
-      const updated = await Cart.findByPk(cart.id, {include: [Product]})
-      console.log('TCL: cart products', cart.products)
-
-      res.send(updated)
-    }
-  } catch (error) {
-    next(error)
   }
 })
