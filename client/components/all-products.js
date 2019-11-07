@@ -9,8 +9,13 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faGripHorizontal, faList} from '@fortawesome/free-solid-svg-icons'
 
 class AllProducts extends React.Component {
+  constructor() {
+    super()
+    this.addToCart = this.addToCart.bind(this)
+    this.handleSort = this.handleSort.bind(this)
+  }
+
   state = {
-    //products: [],
     view: 'grid',
     sortValue: 'lowToHigh'
   }
@@ -21,14 +26,16 @@ class AllProducts extends React.Component {
   //if no products in db, we need to seed.
   componentDidUpdate(prevProps) {
     const newProducts = this.props.allProducts
-    if (
-      newProducts.length &&
-      newProducts.length !== prevProps.allProducts.length
-    ) {
-      this.setState({products: newProducts})
+  }
+  addToCart(productId) {
+    if (this.props.user.id) {
+      this.props.fetchUpdateCart(this.props.user.id, productId)
+    } else {
+      console.log(
+        'user can only add to cart if logged in right now, need to add session support'
+      )
     }
   }
-
   handleSort = e => {
     console.log('new sort value', e.target.value)
     const newSortValue = e.target.value
@@ -46,7 +53,7 @@ class AllProducts extends React.Component {
         break
       default:
     }
-    this.setState({sortValue: newSortValue, products: newProducts})
+    this.setState({sortValue: newSortValue})
   }
 
   render() {
@@ -119,6 +126,15 @@ class AllProducts extends React.Component {
                                 <p className="card-text">{elem.decription}</p>
                               </div>
                             </Link>
+                            <button
+                              className="btn btn-primary"
+                              type="button"
+                              onClick={() => {
+                                this.addToCart(elem.id)
+                              }}
+                            >
+                              Add To Cart
+                            </button>
                           </div>
                         )
                       })}
@@ -167,7 +183,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getProductsFromServer: () => dispatch(fetchProducts(dispatch)),
+    getProductsFromServer: () => dispatch(fetchProducts()),
     fetchUpdateCart: (userId, productId) =>
       dispatch(fetchUpdateCart(userId, productId)),
     sessionChecker: () => dispatch(sessionChecker()),
