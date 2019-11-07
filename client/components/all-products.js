@@ -123,6 +123,7 @@ class AllProducts extends React.Component {
                               </div>
                             </Link>
                             <button
+                              className="btn btn-primary"
                               type="button"
                               onClick={() => {
                                 this.addToCart(elem.id)
