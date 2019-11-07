@@ -64,7 +64,11 @@ class AllProducts extends React.Component {
             <div className="toggle-product-styles">
               <div className="dropdown">
                 Sort By Price:{' '}
-                <select value={sortValue} onChange={this.handleSort}>
+                <select
+                  className="dropdown-menu-specific"
+                  value={sortValue}
+                  onChange={this.handleSort}
+                >
                   <option value="lowToHigh">Low to High</option>
                   <option value="highToLow">High to Low</option>
                 </select>

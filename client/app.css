@@ -136,9 +136,14 @@
   float: left;
 }
 
+.dropdown-menu-specific {
+  cursor: pointer;
+}
+
 .grid,
 .list {
   float: right;
+  cursor: pointer;
 }
 
 .list {
@@ -156,7 +161,7 @@
 .card-columns .card {
   /*display: inline-block;*/
   width: 100%;
-  height: 350px;
+  height: 370px;
 }
 
 @media screen and (max-width: 767px) {
