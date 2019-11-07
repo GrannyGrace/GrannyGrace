@@ -2,6 +2,8 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {fetchProducts} from '../store/allProducts'
+import {fetchUpdateCart} from '../store/curCart'
+import {sessionChecker, auth} from '../store/user'
 import {ProductFilter} from './product-filter'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faGripHorizontal, faList} from '@fortawesome/free-solid-svg-icons'
@@ -10,13 +12,13 @@ class AllProducts extends React.Component {
   state = {
     products: [],
     view: 'grid',
-    sortValue: ''
+    sortValue: 'lowToHigh'
   }
 
   componentDidMount() {
     this.props.getProductsFromServer()
   }
-
+  //if no products in db, we need to seed.
   componentDidUpdate(prevProps) {
     const newProducts = this.props.allProducts
     if (
@@ -49,6 +51,7 @@ class AllProducts extends React.Component {
 
   render() {
     const {products, sortValue, view} = this.state
+    console.log('products***', products)
     return (
       <div className="container outer-products-container">
         <div className="row">
@@ -60,8 +63,8 @@ class AllProducts extends React.Component {
           <div className="col-md-8 col-sm-12">
             <div className="toggle-product-styles">
               <div className="dropdown">
+                Sort By Price:{' '}
                 <select value={sortValue} onChange={this.handleSort}>
-                  <option value="">Default Sorting: </option>
                   <option value="lowToHigh">Low to High</option>
                   <option value="highToLow">High to Low</option>
                 </select>
@@ -153,13 +156,19 @@ class AllProducts extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    allProducts: state.allProducts
+    allProducts: state.allProducts.sort((a, b) => a.price - b.price),
+    user: state.user
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    getProductsFromServer: () => dispatch(fetchProducts(dispatch))
+    getProductsFromServer: () => dispatch(fetchProducts(dispatch)),
+    fetchUpdateCart: (userId, productId) =>
+      dispatch(fetchUpdateCart(userId, productId)),
+    sessionChecker: () => dispatch(sessionChecker()),
+    auth: (email, password, method, isGuest) =>
+      dispatch(auth(email, password, method, isGuest))
   }
 }
 

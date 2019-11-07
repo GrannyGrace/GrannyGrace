@@ -54,7 +54,7 @@ export const sessionChecker = () => {
   return async dispatch => {
     try {
       const {data} = await axios.post('/auth/restore')
-      console.log('TCL: session checker datadata', data)
+      //console.log('TCL: session checker datadata', data)
       if (!data) {
         console.log('user not found/created')
       }
