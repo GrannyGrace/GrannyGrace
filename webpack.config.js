@@ -8,7 +8,7 @@ module.exports = {
   ],
   output: {
     // __dirrname = current directory - images were getting dumped in the root after build. Added '/public', so that images will now appear in public folder after build
-    path: __dirname,
+    path: __dirname + '/public',
     filename: 'bundle.js'
   },
   resolve: {
