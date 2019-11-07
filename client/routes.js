@@ -6,7 +6,7 @@ import {Login, Signup, UserHome} from './components'
 import {me} from './store'
 import SingleProduct from './components/single-product'
 import AllProducts from './components/all-products'
-import AllReviews from './components/all-reviews'
+import MyAccount from './components/my-account'
 import Cart from './components/cart'
 import ReturnPolicy from './components/return-policy'
 import Homepage from './components/homepage'
@@ -20,13 +20,11 @@ class Routes extends Component {
 
   render() {
     const {isLoggedIn} = this.props
-
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
         <Route exact path="/products" component={AllProducts} />
         <Route exact path="/products/:id" component={SingleProduct} />
-        <Route exact path="/allreviews" component={AllReviews} />
         <Route exact path="/home/cart/:userId" component={Cart} />
         <Route exact path="/returns" component={ReturnPolicy} />
         <Route path="/login" component={Login} />
@@ -37,6 +35,10 @@ class Routes extends Component {
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={UserHome} />
+            <Route exact path="/products" component={AllProducts} />
+            <Route exact path="/products/:id" component={SingleProduct} />
+            <Route exact path="/myaccount" component={MyAccount} />
+            <Route exact path="/returns" component={ReturnPolicy} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}

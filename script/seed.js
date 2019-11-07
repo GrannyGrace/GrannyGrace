@@ -32,11 +32,12 @@ async function seed() {
     let name = faker.commerce.productName()
     const existedProduct = await Product.findOne({where: {name: name}})
     const isExisted = existedProduct !== null
-    //since Faker reuse product name, need to make sure that we don't create multiple of the same products
+    //since Faker reuse product name, this makes sure that we don't create multiple of the same products
     if (!isExisted) {
       let product = await Product.create({
         name: name,
-        price: +faker.commerce.price()
+        price: +faker.commerce.price(),
+        category: faker.commerce.productMaterial()
       })
       allProducts.push(product)
     }

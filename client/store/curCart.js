@@ -12,12 +12,12 @@ export const fetchUpdateCart = (userId, productId = 0) => {
       const {data} = await axios.put(`/api/carts/${userId}/${productId}`)
       console.log('TCL: cart data', data)
       if (!data) {
-        console.log('cart data not found/created')
+        // console.log('cart data not found/created')
       }
       dispatch(setCart(data))
     } catch (error) {
       console.error(error)
-      console.log('messed up in fetchUpdateCart thunk')
+      // console.log('messed up in fetchUpdateCart thunk')
     }
   }
 }
