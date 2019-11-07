@@ -9,7 +9,7 @@ const Cart = props => {
 
   console.log('TCL: props.curCart', props.curCart)
   let totalPrice = 0
-  if (!props.curCart.products.length) {
+  if (!props.curCart.products || !props.curCart.products[0]) {
     return <span>cart is empty</span>
   }
   return (

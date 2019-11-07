@@ -13,11 +13,11 @@ const AllProducts = props => {
     console.log(props.allProducts)
     console.log(props)
   }, [])
-  const addToCart = async productId => {
+  const addToCart = productId => {
     if (!props.user.id) {
       //props.addUser()
     }
-    await props.fetchUpdateCart(props.user.id, productId)
+    props.fetchUpdateCart(props.user.id, productId)
   }
   return (
     <div className="container outer-products-container">
@@ -75,7 +75,9 @@ const AllProducts = props => {
                         </Link>
                         <button
                           type="button"
-                          onClick={() => addToCart(elem.id)}
+                          onClick={evt => {
+                            addToCart(elem.id)
+                          }}
                         >
                           Add To Cart
                         </button>
