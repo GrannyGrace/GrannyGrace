@@ -28,6 +28,11 @@ router.post('/restore', async (req, res, next) => {
         sessionId: req.sessionID
       }
     })
+
+    if (!user.email) {
+      const updated = await User.update({isGuest: true})
+      res.json(updated)
+    }
     console.log('TCL: user/found', user)
     if (!user) {
       console.log('in /auth/restore and user was not found/created')
