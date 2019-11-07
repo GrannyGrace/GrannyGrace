@@ -1,9 +1,10 @@
 import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
 import {fetchSingleProduct} from '../store/curProduct'
-import {Link, withRouter} from 'react-router-dom'
+import {withRouter} from 'react-router-dom'
 import UpdateSingleProduct from './update-single-product'
 import AllReviews from './all-reviews'
+import SubmitReview from './submit-review'
 
 const SingleProduct = props => {
   console.log('rendering singleproduct')
@@ -11,17 +12,19 @@ const SingleProduct = props => {
     props.fetchSingleProduct(+props.match.params.id) //have to convert to integer
   }, [])
   const product = props.curProduct
-  // console.log('TCL: props.match.params', props.match.params)
-  // console.log('TCL: props', props)
+
   return (
     <div className="container">
       <div style={{marginTop: 50}}>
         <h3>Product: {product.name}</h3>
-        <p>$ {product.price}</p>
+        <p style={{fontWeight: 'bold'}}>$ {product.price}</p>
+        <p style={{fontWeight: 'bold'}}>Category: </p>
+        <p>{product.category}</p>
         <img className="product-image" src={product.imageUrl} alt="apple" />
 
         {props.user.isAdmin && <UpdateSingleProduct />}
         <AllReviews allReviews={product.reviews} />
+        <SubmitReview />
       </div>
     </div>
   )

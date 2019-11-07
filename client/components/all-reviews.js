@@ -1,19 +1,6 @@
 import React from 'react'
 import SingleReview from './single-review'
 
-// const reviews = [
-//   {
-//     title: 'Great products!',
-//     content: 'lalallam, dkkdkdk  dkkdkdkdkd',
-//     stars: 3
-//   },
-//   {
-//     title: 'YESSS bigg apples!',
-//     content: 'oh yeas',
-//     stars: 5
-//   }
-// ]
-
 const AllReviews = props => {
   return (
     <div>
