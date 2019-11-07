@@ -27,9 +27,9 @@ export const updateProduct = (id, productData) => {
       console.log('TCL: productData', productData)
 
       const {data} = await axios.put(`/api/products/${id}`, productData)
-      console.log('TCL: data', data)
+
       if (!data) {
-        console.log('data did not update')
+        console.log('product data did not update')
       }
       dispatch(setSingleProduct(data))
     } catch (error) {

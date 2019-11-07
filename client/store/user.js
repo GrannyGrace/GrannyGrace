@@ -30,19 +30,40 @@ export const me = () => async dispatch => {
   }
 }
 
-export const auth = (email, password, method) => async dispatch => {
+export const auth = (email, password, method, isGuest) => async dispatch => {
   let res
   try {
-    res = await axios.post(`/auth/${method}`, {email, password})
+    if (isGuest) {
+      res = await axios.post(`/auth/${method}`, {email, password, isGuest})
+    } else {
+      res = await axios.post(`/auth/${method}`, {email, password})
+    }
   } catch (authError) {
     return dispatch(getUser({error: authError}))
   }
 
   try {
-    dispatch(getUser(res.data))
+    dispatch(getUser(res.data || defaultUser))
     history.push('/home')
   } catch (dispatchOrHistoryErr) {
     console.error(dispatchOrHistoryErr)
+  }
+}
+
+export const sessionChecker = () => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.post('/auth/restore')
+      console.log('TCL: session checker datadata', data)
+      if (!data) {
+        console.log('user not found/created')
+      }
+
+      dispatch(getUser(data))
+    } catch (error) {
+      console.error(error)
+      console.log('messed up in sessionChecker')
+    }
   }
 }
 

@@ -7,6 +7,7 @@ import {me} from './store'
 import SingleProduct from './components/single-product'
 import AllProducts from './components/all-products'
 import AllReviews from './components/all-reviews'
+import Cart from './components/cart'
 import ReturnPolicy from './components/return-policy'
 import Homepage from './components/homepage'
 /**
@@ -26,8 +27,10 @@ class Routes extends Component {
         <Route exact path="/products" component={AllProducts} />
         <Route exact path="/products/:id" component={SingleProduct} />
         <Route exact path="/allreviews" component={AllReviews} />
+        <Route exact path="/home/cart/:userId" component={Cart} />
         <Route exact path="/returns" component={ReturnPolicy} />
         <Route path="/login" component={Login} />
+
         <Route path="/signup" component={Signup} />
         <Route exact path="/" component={Homepage} />
         {isLoggedIn && (
