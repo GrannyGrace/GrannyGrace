@@ -18,29 +18,29 @@ import {fetchUpdateCart} from './store/curCart'
 const App = props => {
   //making the user on state default to admin user, change this useEffect to test different types of users
 
-  const asyncSessionCheck = async () => {
-    await props.sessionChecker()
-  }
-  useEffect(() => {
-    if (!props.user.id) {
-      console.log('checking session')
-      asyncSessionCheck()
+  // const asyncSessionCheck = async () => {
+  //   await props.sessionChecker()
+  // }
+  // useEffect(() => {
+  //   if (!props.user.id) {
+  //     console.log('checking session')
+  //     asyncSessionCheck()
 
-      console.log('just checked session user is', props.user.id)
+  //     console.log('just checked session user is', props.user.id)
 
-      // if (!props.user.id) {
-      //   props.auth(null, '1234', 'signup', true)
-      // }
-    }
-  }, [])
-  useEffect(
-    () => {
-      if (props.user.id) {
-        props.fetchUpdateCart(props.user.id)
-      }
-    },
-    [props.user]
-  )
+  //     // if (!props.user.id) {
+  //     //   props.auth(null, '1234', 'signup', true)
+  //     // }
+  //   }
+  // }, [])
+  // useEffect(
+  //   () => {
+  //     if (props.user.id) {
+  //       props.fetchUpdateCart(props.user.id)
+  //     }
+  //   },
+  //   [props.user]
+  // )
   console.log('cartIcon', cartIcon)
   return (
     <div>
