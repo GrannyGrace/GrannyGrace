@@ -5,8 +5,7 @@ const db = require('../db')
 const User = db.define('user', {
   email: {
     type: Sequelize.STRING,
-    unique: true,
-    allowNull: false
+    unique: true
   },
   username: {
     type: Sequelize.STRING,
@@ -35,6 +34,11 @@ const User = db.define('user', {
   },
   googleId: {
     type: Sequelize.STRING
+  },
+  sessionId: Sequelize.STRING,
+  isGuest: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
   }
 })
 

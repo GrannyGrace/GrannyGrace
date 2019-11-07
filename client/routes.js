@@ -8,7 +8,9 @@ import SingleProduct from './components/single-product'
 import AllProducts from './components/all-products'
 import MyAccount from './components/my-account'
 import AllReviews from './components/all-reviews'
+import Cart from './components/cart'
 import ReturnPolicy from './components/return-policy'
+import Homepage from './components/homepage'
 /**
  * COMPONENT
  */
@@ -25,9 +27,12 @@ class Routes extends Component {
         {/* Routes placed here are available to all visitors */}
         <Route exact path="/products" component={AllProducts} />
         <Route exact path="/products/:id" component={SingleProduct} />
+        <Route exact path="/home/cart/:userId" component={Cart} />
         <Route exact path="/returns" component={ReturnPolicy} />
         <Route path="/login" component={Login} />
+
         <Route path="/signup" component={Signup} />
+        <Route exact path="/" component={Homepage} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
