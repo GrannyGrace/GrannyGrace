@@ -8,9 +8,9 @@ import './single-product.css'
 import SubmitReview from './submit-review'
 
 const SingleProduct = props => {
-  console.log('rendering singleproduct')
   useEffect(() => {
-    props.fetchSingleProduct(+props.match.params.id) //have to convert to integer
+    props.fetchSingleProduct(+props.match.params.id)
+    //have to convert to integer
   }, [])
   const product = props.curProduct
 
@@ -30,6 +30,18 @@ const SingleProduct = props => {
     </div>
   )
 }
+
+// const mapStateToProps = state =>{
+//   return {
+
+//   }
+// }
+
+// const mapDispatchToProps = dispatch => {
+//   return {
+
+//   }
+// }
 
 export default withRouter(
   connect(({curProduct, user}) => ({curProduct, user}), {fetchSingleProduct})(
