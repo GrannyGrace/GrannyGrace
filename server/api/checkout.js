@@ -4,7 +4,7 @@ module.exports = router
 // Token is created using Checkout or Elements!
 // Get the payment token ID submitted by the form:
 // Using Express
-const stripe = new stripeLoader('sk_test_dgylY7JHqVAMdl9kBnVE9Huy0075hFnPpR')
+const stripe = new stripeLoader(process.env.STRIPE)
 const chargeCreator = (tokenId, amount) => {
   return stripe.charges.create({
     amount: +amount * 100,
@@ -16,10 +16,19 @@ const chargeCreator = (tokenId, amount) => {
 router.post('/', async (req, res, next) => {
   console.log(req.body)
   try {
+    if (!req.body.token.name) {
+      res.send('Checkout not successful, include name')
+      return
+    }
+    if (!+req.body.amount) {
+      res.send('Checkout not successful, your cart has no apples')
+      return
+    }
     const charge = await chargeCreator(req.body.token.id, req.body.amount)
     console.log('my charge', charge)
     res.send('Successful Charge')
   } catch (error) {
+    res.send('Checkout not succesful')
     next(error)
   }
 })

@@ -11,7 +11,7 @@ import {StripeProvider} from 'react-stripe-elements'
 import './socket'
 
 ReactDOM.render(
-  <StripeProvider apiKey="pk_test_Wgfy6k8THsxgackgiUncde2J00TG893GGH">
+  <StripeProvider apiKey="pk_test_ANbeiBRVMrXtWKZSaf2snOia009HiTtJP2">
     <Provider store={store}>
       <Router history={history}>
         <App />

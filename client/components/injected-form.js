@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {CardElement, injectStripe} from 'react-stripe-elements'
 import axios from 'axios'
-import {fetchUpdateCart, setCart} from '../store/curCart'
+import {fetchUpdateCart, setCart, clearCart} from '../store/curCart'
 // import CardSection from './card-section'
 // import AddressSection from './address-section'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -10,11 +10,12 @@ const calcTotal = cart => {
   return cart.reduce((accum, cur) => accum + cur.price, 0)
 }
 class InjectedForm extends React.Component {
-  constructor(props) {
+  constructor() {
     super()
     this.state = {
       name: '',
-      amount: 0
+      amount: 0,
+      message: ''
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -24,8 +25,11 @@ class InjectedForm extends React.Component {
     this.setState({amount: price})
   }
   componentDidUpdate(prevProps) {
-    console.log('TCL: prevProps', prevProps)
-    if (prevProps.curCart !== this.props.curCart) {
+    if (
+      prevProps.curCart !== this.props.curCart &&
+      Array.isArray(this.props.curCart)
+    ) {
+      console.log('curCart in cdu', this.props.curCart)
       const price = calcTotal(this.props.curCart)
       this.setState({amount: price})
     }
@@ -37,8 +41,15 @@ class InjectedForm extends React.Component {
       name: this.state.name
     })
     let amount = this.state.amount
-    axios.post('/api/checkout', {token, amount})
-    console.log(token)
+    const {data} = await axios.post('/api/checkout', {token, amount})
+    console.log('TCL: data as message', data)
+
+    this.setState({message: data})
+    if (!this.state.message || !this.state.message.includes('not')) {
+      this.props.clearCart(this.props.user.id)
+      console.log(token)
+      this.setState({amount: 0, message: data})
+    }
   }
 
   handleChange(evt) {
@@ -75,7 +86,7 @@ class InjectedForm extends React.Component {
             placeholder="1000.00"
           /> */}
 
-              <label>Card/Exp/CV</label>
+              <label style={{display: 'block'}}>Card/Exp/CV</label>
               <CardElement
                 name="card"
                 className="card-element p-2 border border-dark"
@@ -87,6 +98,11 @@ class InjectedForm extends React.Component {
               >
                 Confirm order
               </button>
+              {this.state.message && this.state.message.includes('not') ? (
+                <span style={{color: 'red'}}>{this.state.message}</span>
+              ) : (
+                <span style={{color: 'green'}}>{this.state.message}</span>
+              )}
             </form>
           </div>
         )}
@@ -96,9 +112,11 @@ class InjectedForm extends React.Component {
 }
 
 export default injectStripe(
-  connect(({curCart, user}) => ({curCart, user}), {fetchUpdateCart, setCart})(
-    InjectedForm
-  )
+  connect(({curCart, user}) => ({curCart, user}), {
+    fetchUpdateCart,
+    setCart,
+    clearCart
+  })(InjectedForm)
 )
 
 // // Within the context of `Elements`, this call to createPaymentMethod knows from which Element to
