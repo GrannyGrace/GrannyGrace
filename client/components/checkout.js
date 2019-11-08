@@ -1,17 +1,17 @@
 import React from 'react'
 import {Elements} from 'react-stripe-elements'
 
-import InjectedStripe from './injected-stripe'
+import InjectedForm from './injected-form'
 
-class MyStoreCheckout extends React.Component {
+class Checkout extends React.Component {
   render() {
     console.log('in checkout')
     return (
       <Elements>
-        <InjectedStripe />
+        <InjectedForm />
       </Elements>
     )
   }
 }
 
-export default MyStoreCheckout
+export default Checkout
