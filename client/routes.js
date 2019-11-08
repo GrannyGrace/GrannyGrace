@@ -28,7 +28,6 @@ class Routes extends Component {
         <Route exact path="/home/cart/:userId" component={Cart} />
         <Route exact path="/returns" component={ReturnPolicy} />
         <Route path="/login" component={Login} />
-
         <Route path="/signup" component={Signup} />
         <Route exact path="/" component={Homepage} />
         {isLoggedIn && (

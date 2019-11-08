@@ -33,9 +33,7 @@ const Navbar = ({handleClick, isLoggedIn, getProductsFromServer}) => (
             <Link to="/products" onClick={getProductsFromServer}>
               All Products
             </Link>
-
             <hr className="display-at-mobile" />
-            <Link to="/products/1">Test Link to Product 1</Link>
           </span>
         </div>
       )}
