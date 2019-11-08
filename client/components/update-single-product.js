@@ -2,7 +2,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {updateProduct} from '../store/curProduct'
-// import './update-single-product.css'
+import './update-single-product.css'
 
 const UpdateSingleProduct = class extends React.Component {
   constructor() {
@@ -12,6 +12,7 @@ const UpdateSingleProduct = class extends React.Component {
       price: '',
       quantity: '',
       imageUrl: '',
+      category: '',
       description: ''
     }
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -25,6 +26,7 @@ const UpdateSingleProduct = class extends React.Component {
         name: this.props.curProduct.name,
         price: this.props.curProduct.price,
         imageUrl: this.props.curProduct.imageUrl,
+        category: this.props.curProduct.category,
         description: this.props.curProduct.description,
         quantity: this.props.curProduct.quantity
       })
@@ -83,6 +85,17 @@ const UpdateSingleProduct = class extends React.Component {
               name="quantity"
               type="text"
               value={this.state.quantity}
+              onChange={this.handleChange}
+              className="form-control"
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="category">Category: </label>
+            <input
+              name="category"
+              type="text"
+              value={this.state.category}
               onChange={this.handleChange}
               className="form-control"
             />
