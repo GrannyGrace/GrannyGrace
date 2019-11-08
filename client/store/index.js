@@ -6,12 +6,14 @@ import user from './user'
 import products from './products'
 import curProduct from './curProduct'
 import curCart from './curCart'
+import {OrdersReducer} from './orders'
 
 const reducer = combineReducers({
   user,
   products,
   curProduct,
-  curCart
+  curCart,
+  orders: OrdersReducer
 })
 
 const middleware = composeWithDevTools(

@@ -8,7 +8,6 @@ import '../css/navbar.css'
 
 const Navbar = ({handleClick, isLoggedIn, getProductsFromServer}) => (
   <div className="lower-nav">
-    {/* <h1 className="granny-grace-header">GRANNY GRACE</h1> */}
     <nav>
       {isLoggedIn ? (
         <div>
@@ -17,6 +16,7 @@ const Navbar = ({handleClick, isLoggedIn, getProductsFromServer}) => (
           <Link to="/products" onClick={getProductsFromServer}>
             All Products
           </Link>
+          <Link to="/orders">My Orders</Link>
           <a href="#" onClick={handleClick}>
             Logout
           </a>
@@ -58,7 +58,6 @@ const Navbar = ({handleClick, isLoggedIn, getProductsFromServer}) => (
         </nav>
       )}
     </nav>
-    {/* <hr /> */}
   </div>
 )
 

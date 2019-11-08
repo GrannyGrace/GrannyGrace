@@ -38,6 +38,10 @@ a {
   margin-top: -4px;
 }
 
+.lower-nav {
+  line-height: 0.5;
+}
+
 @media screen and (min-width: 320px) and (max-width: 655px) {
   .bottom-navbar-row {
     background-color: #6f9449;
