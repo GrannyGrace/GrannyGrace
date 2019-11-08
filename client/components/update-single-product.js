@@ -47,7 +47,10 @@ const UpdateSingleProduct = class extends React.Component {
       quantity: this.state.quantity || curProduct.quantity
     }
 
-    this.props.updateProduct(curProduct.id, newProduct)
+    this.props
+      .updateProduct(curProduct.id, newProduct)
+      .then(message => console.log('mssggg', message))
+
     this.setState({submitMessage: 'Information was updated. Thank you! 😄'})
   }
 

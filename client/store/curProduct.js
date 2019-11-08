@@ -53,6 +53,7 @@ export const updateProduct = (id, productData) => {
       if (!data) {
         console.log('product data did not update')
       }
+
       dispatch(setSingleProduct(data))
     } catch (error) {
       console.log('messed up in updateProduct thunk')
