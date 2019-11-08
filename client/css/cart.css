@@ -1,0 +1,10 @@
+.card-text,
+.card-title {
+  color: black;
+}
+
+.btn {
+  font-size: 10;
+  margin: 10px;
+  padding: 10px;
+}

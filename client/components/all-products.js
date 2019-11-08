@@ -1,10 +1,11 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
-import {fetchProducts} from '../store/allProducts'
+import {fetchProducts, fetchSearchedProducts} from '../store/products'
 import {fetchUpdateCart} from '../store/curCart'
 import {sessionChecker, auth} from '../store/user'
 import {ProductFilter} from './product-filter'
+import SearchBar from './searchbar'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faGripHorizontal, faList} from '@fortawesome/free-solid-svg-icons'
 
@@ -25,7 +26,7 @@ class AllProducts extends React.Component {
   }
   //if no products in db, we need to seed.
   componentDidUpdate(prevProps) {
-    const newProducts = this.props.allProducts
+    const newProducts = this.props.products
   }
   addToCart(productId) {
     if (this.props.user.id) {
@@ -39,17 +40,17 @@ class AllProducts extends React.Component {
   handleSort = e => {
     console.log('new sort value', e.target.value)
     const newSortValue = e.target.value
-    const {allProducts} = this.props
+    const {products} = this.props
     let newProducts = []
     switch (newSortValue) {
       case 'lowToHigh':
-        newProducts = allProducts.sort((a, b) => a.price - b.price)
+        newProducts = products.sort((a, b) => a.price - b.price)
         break
       case 'highToLow':
-        newProducts = allProducts.sort((a, b) => b.price - a.price)
+        newProducts = products.sort((a, b) => b.price - a.price)
         break
       case '':
-        newProducts = allProducts.sort((a, b) => a.price - b.price)
+        newProducts = products.sort((a, b) => a.price - b.price)
         break
       default:
     }
@@ -58,20 +59,25 @@ class AllProducts extends React.Component {
 
   render() {
     const {sortValue, view} = this.state
-    //console.log('products***', products)
+
     return (
       <div className="container outer-products-container">
         <div className="row">
           <div className="col-md-4 col-sm-12 product-filters-outer-container">
             <span className="product-filters-inner-title">Product Filters</span>
             <div className="product-filters-inner-container">Category</div>
+            <SearchBar />
             {/* <ProductFilter/> */}
           </div>
           <div className="col-md-8 col-sm-12">
             <div className="toggle-product-styles">
               <div className="dropdown">
                 Sort By Price:{' '}
-                <select value={sortValue} onChange={this.handleSort}>
+                <select
+                  className="dropdown-menu-specific"
+                  value={sortValue}
+                  onChange={this.handleSort}
+                >
                   <option value="lowToHigh">Low to High</option>
                   <option value="highToLow">High to Low</option>
                 </select>
@@ -103,7 +109,7 @@ class AllProducts extends React.Component {
                 <div className="container-fluid">
                   {view === 'grid' ? (
                     <div className="card-columns">
-                      {this.props.allProducts.map(elem => {
+                      {this.props.products.map(elem => {
                         return (
                           <div key={elem.id} className="card">
                             <Link key={elem.id} to={`/products/${elem.id}`}>
@@ -136,7 +142,7 @@ class AllProducts extends React.Component {
                     </div>
                   ) : (
                     <div className="list-group">
-                      {this.props.allProducts.map(elem => {
+                      {this.props.products.map(elem => {
                         return (
                           <div key={elem.id} className="list-group-item card">
                             <Link key={elem.id} to={`/products/${elem.id}`}>
@@ -171,19 +177,20 @@ class AllProducts extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    allProducts: state.allProducts.sort((a, b) => a.price - b.price),
+    products: state.products.sort((a, b) => a.price - b.price),
     user: state.user
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    getProductsFromServer: () => dispatch(fetchProducts(dispatch)),
+    getProductsFromServer: () => dispatch(fetchProducts()),
     fetchUpdateCart: (userId, productId) =>
       dispatch(fetchUpdateCart(userId, productId)),
     sessionChecker: () => dispatch(sessionChecker()),
     auth: (email, password, method, isGuest) =>
-      dispatch(auth(email, password, method, isGuest))
+      dispatch(auth(email, password, method, isGuest)),
+    search: term => dispatch(fetchSearchedProducts(term))
   }
 }
 

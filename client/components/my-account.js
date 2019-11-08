@@ -2,7 +2,6 @@ import React from 'react'
 import {connect} from 'react-redux'
 
 const MyAccount = props => {
-  console.log('HERE', props)
   return (
     <div>
       <h4>My Account</h4>

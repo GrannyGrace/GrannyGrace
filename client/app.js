@@ -4,51 +4,22 @@ import {Link} from 'react-router-dom'
 import {Navbar, Footer} from './components'
 import Routes from './routes'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import './app.css'
-import cartIcon from './images/cartIcon.png'
+import './css/app.css'
+
 import {getUser, sessionChecker, auth} from './store/user'
-import flag from './images/flag.png'
-import payment from './images/payment.png'
-import apple from './images/apple.png'
-import returnIcon from './images/return.png'
-import logo from './images/logo.png'
 
 import {fetchUpdateCart} from './store/curCart'
 
 const App = props => {
-  //making the user on state default to admin user, change this useEffect to test different types of users
+  //check session with useEffect(()=>{},[]), load cart data from Session, if there is any and put it on curCart, if user signs up, use addProductsToCart(curCart) thunk to add products from curCart onto user with magic method user.addProducts(req.body) -->req.body should be an array, then refetch updated, and res.json(user.products)
 
-  // const asyncSessionCheck = async () => {
-  //   await props.sessionChecker()
-  // }
-  // useEffect(() => {
-  //   if (!props.user.id) {
-  //     console.log('checking session')
-  //     asyncSessionCheck()
-
-  //     console.log('just checked session user is', props.user.id)
-
-  //     // if (!props.user.id) {
-  //     //   props.auth(null, '1234', 'signup', true)
-  //     // }
-  //   }
-  // }, [])
-  // useEffect(
-  //   () => {
-  //     if (props.user.id) {
-  //       props.fetchUpdateCart(props.user.id)
-  //     }
-  //   },
-  //   [props.user]
-  // )
-  console.log('cartIcon', cartIcon)
   return (
     <div>
       <div className="container">
         <div className="row top-navbar-row">
           <div className="col-md-4 col-sm-12 col-xs-12 home-section">
             <a href="http://localhost:8080">
-              <img alt="apple-logo" className="apple-logo" src={`/${logo}`} />
+              <img alt="apple-logo" className="apple-logo" src="/logo.png" />
               <h1 className="granny-grace-header">GRANNY GRACE</h1>
             </a>
           </div>
@@ -61,7 +32,7 @@ const App = props => {
                 <img
                   className="cart-icon"
                   alt="cart-icon"
-                  src={`/${cartIcon}`}
+                  src="/carticon.png"
                 />
               </Link>
             </div>
@@ -80,7 +51,7 @@ const App = props => {
           <div className="row services-row">
             <div className="col-md-3 col-sm-6 col-xs-12 services-col">
               <span className="service-icon">
-                <img className="service-icon" alt="flag" src={`/${flag}`} />
+                <img className="service-icon" alt="flag" src="/flag.png" />
               </span>Ships Nation-Wide
             </div>
             <div className="col-md-3 col-sm-6 col-xs-12 services-col">
@@ -88,7 +59,7 @@ const App = props => {
                 <img
                   className="service-icon"
                   alt="payment"
-                  src={`/${payment}`}
+                  src="/payment.png"
                 />
               </span>Secure Payments
             </div>
@@ -97,7 +68,7 @@ const App = props => {
                 <img
                   className="service-icon apple"
                   alt="apple"
-                  src={`/${apple}`}
+                  src="/apple.png"
                 />
               </span>High Quality Apples
             </div>
@@ -107,7 +78,7 @@ const App = props => {
                   <img
                     className="service-icon"
                     alt="return-icon"
-                    src={`/${returnIcon}`}
+                    src="/return.png"
                   />
                 </span>Return Policy
               </Link>
