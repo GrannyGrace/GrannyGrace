@@ -127,10 +127,14 @@ class AllProducts extends React.Component {
                               >
                                 {elem.name}
                               </h4>
-                              <p className="card-text">$ {elem.price}</p>
-                              <p className="card-text">{elem.decription}</p>
+                              <p className="card-subtitle mb-2 text-muted">
+                                $ {elem.price}
+                              </p>
+
                               {this.props.user.isAdmin ? (
-                                <p>Quantity: {elem.quantity}</p>
+                                <p className="card-subtitle mb-2 text-muted">
+                                  Quantity: {elem.quantity}
+                                </p>
                               ) : null}
                               <button
                                 className="btn btn-primary"

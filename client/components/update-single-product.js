@@ -13,7 +13,8 @@ const UpdateSingleProduct = class extends React.Component {
       quantity: '',
       imageUrl: '',
       category: '',
-      description: ''
+      description: '',
+      submitMessage: ''
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -47,6 +48,7 @@ const UpdateSingleProduct = class extends React.Component {
     }
 
     this.props.updateProduct(curProduct.id, newProduct)
+    this.setState({submitMessage: 'Information was updated. Thank you! 😄'})
   }
 
   handleChange(evt) {
@@ -127,6 +129,7 @@ const UpdateSingleProduct = class extends React.Component {
           </div>
           <button type="submit">Submit</button>
         </form>
+        <h4 style={{color: 'darkgreen'}}> {this.state.submitMessage}</h4>
       </div>
     )
   }
