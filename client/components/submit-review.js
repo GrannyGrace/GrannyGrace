@@ -23,7 +23,7 @@ class SubmitReview extends React.Component {
     return (
       <div>
         <form onSubmit={this.onSubmit}>
-          <div className="form-group row">
+          <div className="col-md-4 col-sm-12 col-xs-12">
             <h5>Write a Review!</h5>
             <div>
               <label htmlFor="title" />
@@ -31,7 +31,7 @@ class SubmitReview extends React.Component {
                 name="title"
                 type="text"
                 className="form-control"
-                placeHolder="title"
+                placeholder="title"
               />
             </div>
             <div>
@@ -40,7 +40,7 @@ class SubmitReview extends React.Component {
                 name="content"
                 type="text"
                 className="form-control"
-                placeHolder="What did you think?"
+                placeholder="What did you think?"
               />
             </div>
             <button type="submit" className="btn btn-primary">

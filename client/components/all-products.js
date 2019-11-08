@@ -104,7 +104,6 @@ class AllProducts extends React.Component {
                   {view === 'grid' ? (
                     <div className="card-columns">
                       {this.props.allProducts.map(elem => {
-                        console.log('elem**', elem)
                         return (
                           <div key={elem.id} className="card">
                             <Link key={elem.id} to={`/products/${elem.id}`}>
