@@ -25,7 +25,8 @@ const UpdateSingleProduct = class extends React.Component {
         name: this.props.curProduct.name,
         price: this.props.curProduct.price,
         imageUrl: this.props.curProduct.imageUrl,
-        description: this.props.curProduct.description
+        description: this.props.curProduct.description,
+        quantity: this.props.curProduct.quantity
       })
     }
   }
@@ -33,20 +34,14 @@ const UpdateSingleProduct = class extends React.Component {
   handleSubmit(evt) {
     evt.preventDefault()
     const curProduct = this.props.curProduct
-    console.log('TCL: curProduct ', curProduct)
 
     const newProduct = {
       name: this.state.name || curProduct.name,
       price: this.state.price || curProduct.price,
       imageUrl: this.state.imageUrl || curProduct.imageUrl
     }
-    console.log('TCL: newProduct', newProduct)
+
     this.props.updateProduct(curProduct.id, newProduct)
-    // this.setState({
-    //   name: '',
-    //   price: '',
-    //   imageUrl: ''
-    // })
   }
 
   handleChange(evt) {

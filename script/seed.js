@@ -37,7 +37,8 @@ async function seed() {
       let product = await Product.create({
         name: name,
         price: +faker.commerce.price(),
-        category: faker.commerce.productMaterial()
+        category: faker.commerce.productMaterial(),
+        quantity: 5
       })
       allProducts.push(product)
     }

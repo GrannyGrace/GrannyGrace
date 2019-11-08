@@ -19,7 +19,9 @@ const Product = db.define('product', {
     }
   },
   description: {
-    type: Sequelize.TEXT
+    type: Sequelize.TEXT,
+    defaultValue:
+      '"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 15'
   },
   imageUrl: {
     type: Sequelize.STRING,
@@ -28,6 +30,10 @@ const Product = db.define('product', {
   category: {
     type: Sequelize.STRING,
     defaultValue: 'Apple'
+  },
+  quantity: {
+    type: Sequelize.INTEGER,
+    defaultValue: 5
   }
 })
 
