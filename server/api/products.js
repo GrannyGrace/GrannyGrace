@@ -18,6 +18,7 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:id', async (req, res, next) => {
   try {
+    console.log(req.session)
     const product = await Product.findByPk(+req.params.id, {
       include: [{model: Review}]
     })
@@ -33,7 +34,6 @@ router.get('/:id', async (req, res, next) => {
 router.put('/:id', async (req, res, next) => {
   try {
     const product = await Product.findByPk(+req.params.id)
-    console.log('TCL: product', product)
     if (!product) {
       res.status(401).send('product not found')
     }
