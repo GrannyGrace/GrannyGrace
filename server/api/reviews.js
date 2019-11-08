@@ -4,8 +4,9 @@ module.exports = router
 
 router.post('/:productId/:userId', async (req, res, next) => {
   try {
-    console.log(Review.prototype)
-    console.log(Product.prototype)
+    if (!req.params.userId) {
+      res.status(403).send('no user logged in')
+    }
     const newReview = await Review.create(req.body)
     const asocUser = await User.findByPk(+req.params.userId)
     const asocProduct = await Product.findByPk(+req.params.productId)
