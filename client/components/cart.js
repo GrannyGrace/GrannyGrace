@@ -7,18 +7,18 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import '../css/cart.css'
 
 const Cart = props => {
-  // useEffect(
-  //   () => {
-  //     console.log(props.user.email)
-  //     if (props.user.id) {
-  //       props.fetchUpdateCart(props.user.id)
-  //     } else {
-  //       //change below to use a thunk that gets guest cart data from Session.data
-  //       props.setCart([])
-  //     }
-  //   },
-  //   [props.user.id]
-  // )
+  useEffect(
+    () => {
+      console.log(props.user.email)
+      if (props.user.id) {
+        props.fetchUpdateCart(props.user.id)
+      } else {
+        //change below to use a thunk that gets guest cart data from Session.data
+        props.setCart([])
+      }
+    },
+    [props.user.id]
+  )
   let totalPrice = 0
   if (!props.curCart || !props.curCart[0]) {
     return <span>cart is empty</span>

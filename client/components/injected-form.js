@@ -49,7 +49,7 @@ class InjectedForm extends React.Component {
   render() {
     return (
       <div>
-        add to the conditional below to include guestUser
+        {/* add to the conditional below to include guestUser */}
         {this.props.user.id && (
           <div className="container">
             <form
