@@ -160,9 +160,14 @@
 }
 
 .card-columns .card {
-  /* display: inline-block; */
   width: 100%;
   height: 420px;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #dc2242;
+  border-color: #dc2242;
 }
 
 @media screen and (max-width: 767px) {
