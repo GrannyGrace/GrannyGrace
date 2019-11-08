@@ -1,0 +1,123 @@
+.welcome-row {
+  /* background-image: url("/public/dotted_line.png"); */
+}
+
+.welcome-container {
+  margin-top: 15px;
+  /* border-bottom: 2px solid #d3d3d3; */
+}
+
+.welcome {
+  text-align: center;
+  color: #dc2242;
+  font-family: Arial;
+  font-weight: bold;
+}
+
+.description {
+  text-indent: 20px;
+  color: #000000;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  font-size: 1rem;
+}
+
+.welcome-description {
+  text-align: center;
+}
+
+.top-picks-container {
+  margin-bottom: 10px;
+}
+
+.top-picks {
+  color: #dc2242;
+  font-family: Arial;
+  font-weight: bold;
+}
+
+.apple-banner {
+  width: 100%;
+}
+
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: Arial;
+  font-weight: bold;
+}
+
+.top-title-row {
+  display: block;
+  font-size: 80px;
+  white-space: nowrap;
+  margin-bottom: -20px;
+  margin-top: -15px;
+}
+
+.bottom-title-row {
+  display: block;
+  font-size: 30px;
+  white-space: nowrap;
+  margin-top: 0;
+}
+
+.image-container {
+  position: relative;
+  text-align: center;
+  color: white;
+  width: 100%;
+}
+
+.title-br {
+  display: block;
+  margin: 10px;
+}
+
+@media screen and (max-width: 1100px) {
+  .top-title-row {
+    display: block;
+    font-size: 60px;
+    white-space: nowrap;
+    margin-bottom: -10px;
+  }
+  .bottom-title-row {
+    display: block;
+    font-size: 30px;
+    white-space: nowrap;
+    margin-top: 0;
+  }
+}
+
+@media screen and (max-width: 948px) {
+  .top-title-row {
+    display: block;
+    font-size: 40px;
+    white-space: nowrap;
+    margin-bottom: -10px;
+  }
+  .bottom-title-row {
+    display: block;
+    font-size: 20px;
+    white-space: nowrap;
+    margin-top: 0;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 425px) {
+  .top-title-row {
+    display: block;
+    font-size: 30px !important;
+    white-space: nowrap;
+    margin-bottom: -10px;
+  }
+  .bottom-title-row {
+    display: block;
+    font-size: 11px !important;
+    white-space: nowrap;
+    margin-top: 0;
+  }
+}

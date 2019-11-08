@@ -37,7 +37,7 @@
 .bottom-navbar-row {
   background-color: #6f9449;
   color: #ffffff;
-  height: 55px;
+  height: 40px;
 }
 
 .cart-icon {
@@ -75,7 +75,7 @@
 }
 
 .outer-products-container {
-  padding-top: 20px;
+  padding-top: 10px;
 }
 
 .product-filters-inner-container {
@@ -160,9 +160,9 @@
 }
 
 .card-columns .card {
-  /*display: inline-block;*/
+  /* display: inline-block; */
   width: 100%;
-  height: 370px;
+  height: 420px;
 }
 
 @media screen and (max-width: 767px) {

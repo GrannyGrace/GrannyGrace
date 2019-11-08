@@ -28,6 +28,7 @@ class AllProducts extends React.Component {
   componentDidUpdate(prevProps) {
     const newProducts = this.props.products
   }
+
   addToCart(productId) {
     if (this.props.user.id) {
       this.props.fetchUpdateCart(this.props.user.id, productId)
@@ -37,6 +38,7 @@ class AllProducts extends React.Component {
       )
     }
   }
+
   handleSort = e => {
     console.log('new sort value', e.target.value)
     const newSortValue = e.target.value
