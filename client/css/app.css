@@ -10,6 +10,7 @@
   line-height: 3;
   margin: 5px 20px 5px 20px !important;
   display: inline-block;
+  color: #dc2242 !important;
 }
 
 .home-section {
@@ -36,7 +37,7 @@
 .bottom-navbar-row {
   background-color: #6f9449;
   color: #ffffff;
-  height: 55px;
+  height: 40px;
 }
 
 .cart-icon {
@@ -74,7 +75,7 @@
 }
 
 .outer-products-container {
-  padding-top: 20px;
+  padding-top: 10px;
 }
 
 .product-filters-inner-container {
@@ -136,9 +137,14 @@
   float: left;
 }
 
+.dropdown-menu-specific {
+  cursor: pointer;
+}
+
 .grid,
 .list {
   float: right;
+  cursor: pointer;
 }
 
 .list {
@@ -154,9 +160,18 @@
 }
 
 .card-columns .card {
-  /*display: inline-block;*/
   width: 100%;
-  height: 350px;
+  height: 420px;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #dc2242;
+  border-color: #dc2242;
+}
+
+.btn-primary:hover {
+  background-color: #6f9449;
 }
 
 @media screen and (max-width: 767px) {
