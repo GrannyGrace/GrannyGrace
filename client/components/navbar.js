@@ -4,7 +4,6 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
 import {fetchProducts} from '../store/products'
-
 import '../css/navbar.css'
 
 const Navbar = ({handleClick, isLoggedIn, getProductsFromServer}) => (
@@ -23,19 +22,38 @@ const Navbar = ({handleClick, isLoggedIn, getProductsFromServer}) => (
           </a>
         </div>
       ) : (
-        <div className="bottom-navbar-container">
-          {/* The navbar will show these links before you log in */}
-          <span className="bottom-navbar-items">
-            <Link to="/login">Login</Link>
-            <hr className="display-at-mobile" />
-            <Link to="/signup">Sign Up</Link>
-            <hr className="display-at-mobile" />
-            <Link to="/products" onClick={getProductsFromServer}>
-              All Products
-            </Link>
-            <hr className="display-at-mobile" />
-          </span>
-        </div>
+        <nav className="navbar navbar-light light-blue lighten-4">
+          <button
+            className="navbar-toggler toggler-example"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarSupportedContent1"
+            aria-controls="navbarSupportedContent1"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="dark-blue-text">
+              <i className="fas fa-bars fa-1x" />
+              <span className="icon-bar" />
+              <span className="icon-bar" />
+              <span className="icon-bar" />
+            </span>
+          </button>
+
+          <div className="bottom-navbar-container">
+            {/* The navbar will show these links before you log in */}
+            <span className="bottom-navbar-items">
+              <Link to="/login">Login</Link>
+              <hr className="display-at-mobile" />
+              <Link to="/signup">Sign Up</Link>
+              <hr className="display-at-mobile" />
+              <Link to="/products" onClick={getProductsFromServer}>
+                All Products
+              </Link>
+              <hr className="display-at-mobile" />
+            </span>
+          </div>
+        </nav>
       )}
     </nav>
     {/* <hr /> */}
