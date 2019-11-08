@@ -170,6 +170,10 @@
   border-color: #dc2242;
 }
 
+.btn-primary:hover {
+  background-color: #6f9449;
+}
+
 @media screen and (max-width: 767px) {
   .product-filters-outer-container {
     border: 2px solid #d3d3d3;
