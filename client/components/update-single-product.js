@@ -40,7 +40,10 @@ const UpdateSingleProduct = class extends React.Component {
     const newProduct = {
       name: this.state.name || curProduct.name,
       price: this.state.price || curProduct.price,
-      imageUrl: this.state.imageUrl || curProduct.imageUrl
+      imageUrl: this.state.imageUrl || curProduct.imageUrl,
+      category: this.state.category || curProduct.category,
+      description: this.state.description || curProduct.description,
+      quantity: this.state.quantity || curProduct.quantity
     }
 
     this.props.updateProduct(curProduct.id, newProduct)

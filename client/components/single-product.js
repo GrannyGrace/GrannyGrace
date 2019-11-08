@@ -18,11 +18,12 @@ const SingleProduct = props => {
     <div className="container">
       <div className="single-product-container">
         <h3>Product: {product.name}</h3>
+        <img className="product-image" src={product.imageUrl} alt="apple" />
         <p style={{fontWeight: 'bold'}}>$ {product.price}</p>
         <p style={{fontWeight: 'bold'}}>Category:{product.category} </p>
         <p style={{fontWeight: 'bold'}}>Quantity: {product.quantity}</p>
-
-        <img className="product-image" src={product.imageUrl} alt="apple" />
+        <p style={{fontWeight: 'bold'}}>Product Descriptions: </p>
+        <p>{product.description}</p>
 
         {props.user.isAdmin && <UpdateSingleProduct />}
         <AllReviews allReviews={product.reviews} />
