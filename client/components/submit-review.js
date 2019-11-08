@@ -1,4 +1,6 @@
 import React from 'react'
+import {connect} from 'react-redux'
+import {addReview} from '../store/curProduct'
 
 /**
  * COMPONENT
@@ -6,28 +8,59 @@ import React from 'react'
 class SubmitReview extends React.Component {
   constructor() {
     super()
-    this.state = {}
     this.onSubmit = this.onSubmit.bind(this)
   }
 
-  onSubmit() {}
+  onSubmit(event) {
+    event.preventDefault()
+    const review = {
+      title: event.target.title.value,
+      content: event.target.content.value
+    }
+    this.props.addReview(review, this.props.curProduct.id, this.props.user.id)
+  }
   render() {
-    return (
-      <div>
-        <form onSubmit={this.onSubmit}>
-          <div>
-            <label htmlFor="title">Title: </label>
-            <input name="title" type="text" />
-          </div>
-          <div>
-            <label htmlFor="content">Your Review Here: </label>
-            <input name="content" type="text" />
-          </div>
-          <button type="submit">Submit Review</button>
-        </form>
-      </div>
-    )
+    if (!this.props.user.id) {
+      return (
+        <div className="col-md-4 col-sm-12 col-xs-12">
+          <h5>Sign Up or Log In to write a review</h5>
+        </div>
+      )
+    } else {
+      return (
+        <div className="container">
+          <form onSubmit={this.onSubmit}>
+            <div className="col-md-4 col-sm-12 col-xs-12 =">
+              <h5>Write a Review!</h5>
+              <div>
+                <label htmlFor="title" />
+                <input
+                  name="title"
+                  type="text"
+                  className="form-control"
+                  placeholder="title"
+                />
+              </div>
+              <div className="">
+                <label htmlFor="content" />
+                <textarea
+                  name="content"
+                  type="text"
+                  className="form-control"
+                  placeholder="What did you think?"
+                />
+              </div>
+              <button type="submit" className="btn btn-primary">
+                Submit Review
+              </button>
+            </div>
+          </form>
+        </div>
+      )
+    }
   }
 }
 
-export default SubmitReview
+export default connect(({user, curProduct}) => ({user, curProduct}), {
+  addReview
+})(SubmitReview)
