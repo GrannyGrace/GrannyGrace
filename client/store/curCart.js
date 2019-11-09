@@ -1,11 +1,14 @@
 import axios from 'axios'
 
+//action define
 const SET_CART = 'SET_CART'
 
+//action create
 export const setCart = cart => {
   return {type: SET_CART, cart}
 }
 
+//thunks
 export const fetchUpdateCart = (userId, productId = 0) => {
   return async dispatch => {
     try {
@@ -34,6 +37,8 @@ export const clearCart = id => {
     }
   }
 }
+
+//reducer
 
 export default function(curCart = [], action) {
   switch (action.type) {

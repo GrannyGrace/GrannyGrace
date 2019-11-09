@@ -1,16 +1,18 @@
 import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
 import {fetchSingleProduct} from '../store/curProduct'
+import {fetchUpdateCart} from '../store/curCart'
 import {withRouter} from 'react-router-dom'
 import UpdateSingleProduct from './update-single-product'
 import AllReviews from './all-reviews'
 import './single-product.css'
 import SubmitReview from './submit-review'
+import Button from 'react-bootstrap/Button'
 
 const SingleProduct = props => {
   useEffect(() => {
+    console.log(props)
     props.fetchSingleProduct(+props.match.params.id)
-    //have to convert to integer
   }, [])
   const product = props.curProduct
 
@@ -24,7 +26,9 @@ const SingleProduct = props => {
         <p style={{fontWeight: 'bold'}}>Quantity: {product.quantity}</p>
         <p style={{fontWeight: 'bold'}}>Product Descriptions: </p>
         <p>{product.description}</p>
-
+        <Button className="btn btn-primary" type="button" onClick={() => {}}>
+          add to cart
+        </Button>
         {props.user.isAdmin && <UpdateSingleProduct />}
         <AllReviews allReviews={product.reviews} />
         <SubmitReview />
