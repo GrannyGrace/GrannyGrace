@@ -3,9 +3,12 @@ const {Order} = require('../db/models')
 
 router.get('/users/:id', async (req, res, next) => {
   try {
-    Order.findAll({where: {userId: req.params.id}})
-      .then(orders => res.send(orders))
-      .catch(err => res.send(err))
+    const orders = await Order.findAll({
+      where: {
+        userId: req.params.id
+      }
+    })
+    res.send(orders)
   } catch (error) {
     next(error)
   }
