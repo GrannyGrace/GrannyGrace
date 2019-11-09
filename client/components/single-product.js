@@ -8,9 +8,9 @@ import './single-product.css'
 import SubmitReview from './submit-review'
 
 const SingleProduct = props => {
-  console.log('rendering singleproduct')
   useEffect(() => {
-    props.fetchSingleProduct(+props.match.params.id) //have to convert to integer
+    props.fetchSingleProduct(+props.match.params.id)
+    //have to convert to integer
   }, [])
   const product = props.curProduct
 
@@ -18,10 +18,12 @@ const SingleProduct = props => {
     <div className="container">
       <div className="single-product-container">
         <h3>Product: {product.name}</h3>
-        <p style={{fontWeight: 'bold'}}>$ {product.price}</p>
-        <p style={{fontWeight: 'bold'}}>Category: </p>
-        <p>{product.category}</p>
         <img className="product-image" src={product.imageUrl} alt="apple" />
+        <p style={{fontWeight: 'bold'}}>$ {product.price}</p>
+        <p style={{fontWeight: 'bold'}}>Category:{product.category} </p>
+        <p style={{fontWeight: 'bold'}}>Quantity: {product.quantity}</p>
+        <p style={{fontWeight: 'bold'}}>Product Descriptions: </p>
+        <p>{product.description}</p>
 
         {props.user.isAdmin && <UpdateSingleProduct />}
         <AllReviews allReviews={product.reviews} />
