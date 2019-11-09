@@ -52,8 +52,16 @@ async function seed() {
 
   //SEED ORDERS
   const orders = await Promise.all([
-    Order.create({status: 'pending'}),
-    Order.create({status: 'shipped'})
+    Order.create({
+      status: 'pending',
+      price: 1000,
+      userId: 1
+    }),
+    Order.create({
+      status: 'shipped',
+      price: 1000,
+      userId: 1
+    })
   ])
 
   //SEED REVIEWS
