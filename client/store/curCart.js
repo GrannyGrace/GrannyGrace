@@ -22,6 +22,19 @@ export const fetchUpdateCart = (userId, productId = 0) => {
   }
 }
 
+export const clearCart = id => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.delete(`/api/carts/${id}`)
+      console.log('TCL: data in clearCart', data)
+      dispatch(setCart(data))
+    } catch (error) {
+      console.error(error)
+      console.log('messed up in clearCart thunk')
+    }
+  }
+}
+
 export default function(curCart = [], action) {
   switch (action.type) {
     case SET_CART:
