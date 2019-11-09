@@ -14,9 +14,9 @@ const chargeCreator = (tokenId, amount) => {
   })
 }
 router.post('/', async (req, res, next) => {
-  console.log(req.body)
+  console.log('tokensdasdasdasdasdasdasd', req.body.token)
   try {
-    if (!req.body.token.name) {
+    if (!req.body.token.card.name) {
       res.send('Checkout not successful, include name')
       return
     }
