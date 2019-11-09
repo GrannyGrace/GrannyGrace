@@ -32,6 +32,10 @@ router.get('/:id', async (req, res, next) => {
 
 router.put('/:id', async (req, res, next) => {
   try {
+    if (!req.user || !req.user.isAdmin) {
+      res.send('User is not an admin').end()
+      return null
+    }
     const product = await Product.findByPk(+req.params.id)
     if (!product) {
       res.status(401).send('product not found')

@@ -44,7 +44,7 @@ async function seed() {
         name: name,
         price: +faker.commerce.price(),
         category: faker.commerce.productMaterial(),
-        inventory: 99
+        quantity: 5
       })
       allProducts.push(product)
     }
