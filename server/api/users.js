@@ -27,6 +27,7 @@ CHECKOUT:
 
 router.use((req, res, next) => {
   if (!req.session.cartItems) {
+    console.log(req.session)
     req.session.cartItems = []
   } else {
     req.session.cartItems.push({

@@ -28,6 +28,13 @@ const Product = db.define('product', {
   category: {
     type: Sequelize.STRING,
     defaultValue: 'Apple'
+  },
+  inventory: {
+    type: Sequelize.INTEGER,
+    defaultValue: 99,
+    validate: {
+      min: 0
+    }
   }
 })
 

@@ -18,7 +18,6 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:id', async (req, res, next) => {
   try {
-    console.log(req.session)
     const product = await Product.findByPk(+req.params.id, {
       include: [{model: Review}]
     })

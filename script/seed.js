@@ -23,8 +23,14 @@ async function seed() {
   }
 
   //SEED PRODUCTS use faker to generate random products
-  const product1 = await Promise.all([
-    Product.create({name: 'Product 1', price: 220})
+  const HoneyCrisp = await Promise.all([
+    Product.create({
+      name: 'Honey Crisp',
+      description: 'Refreshing, Crunchy, and Sweet!',
+      price: 220,
+      category: 'Apple',
+      inventory: 10
+    })
   ])
 
   const allProducts = []
@@ -37,7 +43,8 @@ async function seed() {
       let product = await Product.create({
         name: name,
         price: +faker.commerce.price(),
-        category: faker.commerce.productMaterial()
+        category: faker.commerce.productMaterial(),
+        inventory: 99
       })
       allProducts.push(product)
     }
