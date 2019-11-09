@@ -12,6 +12,39 @@ const MyAccount = props => {
       <p style={{fontWeight: 'bold'}}>
         Account Status:{props.user.isAdmin ? '  Admin' : '  Customer'}{' '}
       </p>
+      <h4>Order History: </h4>
+      {console.log(props.user)}
+      {props.user.orders === undefined ||
+      props.user.orders.length === 0 ? null : (
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Order #</th>
+              <th>Order Status</th>
+              <th>Total Price</th>
+              <th>Date Ordered</th>
+            </tr>
+          </thead>
+          <tbody>
+            {props.user.orders.map(order => {
+              return (
+                <>
+                  <tr key={order.id}>
+                    <td>{order.id}</td>
+                    <td>{order.status}</td>
+                    <td>{order.price}</td>
+                    <td>{order.createdAt.slice(0, 10)}</td>
+                  </tr>
+                  <tr key={order.id}>
+                    <td>d</td>
+                  </tr>
+                </>
+              )
+            })}
+          </tbody>
+        </table>
+      )}
+      <p />
     </div>
   )
 }

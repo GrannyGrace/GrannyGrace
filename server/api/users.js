@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User} = require('../db/models')
+const {User, Review, Order} = require('../db/models')
 module.exports = router
 
 /* LOGGED IN USER
@@ -57,3 +57,18 @@ router.get('/', async (req, res, next) => {
     next(err)
   }
 })
+
+// router.get('/:id', async (req, res, next) => {
+//   try {
+//     if (+req.user.id === +req.params.id) {
+//       console.log('Correct user is viewing his/her own account info')
+//     }
+
+//     const users = await User.findByPk(+req.user.id, {
+//       include: [{model: Review}, {model: Order}]
+//     })
+//     res.json(users)
+//   } catch (err) {
+//     next(err)
+//   }
+// })
