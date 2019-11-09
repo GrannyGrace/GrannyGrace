@@ -57,11 +57,22 @@ const createApp = () => {
       secret: process.env.SESSION_SECRET || 'my best friend is Cody',
       store: sessionStore,
       resave: false,
-      saveUninitialized: false
+      saveUninitialized: true
     })
   )
   app.use(passport.initialize())
   app.use(passport.session())
+
+  app.use((req, res, next) => {
+    // console.log(req.session, req.sessionID)
+    if (req.session.poop) {
+      // console.log(req.session.poop)
+    } else {
+      req.session.poop = {hats: 'are not cool'}
+    }
+
+    next()
+  })
 
   // auth and api routes
   app.use('/auth', require('./auth'))

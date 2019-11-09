@@ -4,7 +4,6 @@ import {connect} from 'react-redux'
 import {fetchProducts, fetchSearchedProducts} from '../store/products'
 import {fetchUpdateCart} from '../store/curCart'
 import {sessionChecker, auth} from '../store/user'
-import {ProductFilter} from './product-filter'
 import SearchBar from './searchbar'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faGripHorizontal, faList} from '@fortawesome/free-solid-svg-icons'
@@ -195,11 +194,15 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     getProductsFromServer: () => dispatch(fetchProducts()),
+
     fetchUpdateCart: (userId, productId) =>
       dispatch(fetchUpdateCart(userId, productId)),
+
     sessionChecker: () => dispatch(sessionChecker()),
+
     auth: (email, password, method, isGuest) =>
       dispatch(auth(email, password, method, isGuest)),
+
     search: term => dispatch(fetchSearchedProducts(term))
   }
 }

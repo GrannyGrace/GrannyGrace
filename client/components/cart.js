@@ -9,7 +9,6 @@ import '../css/cart.css'
 const Cart = props => {
   useEffect(
     () => {
-      console.log(props.user.email)
       if (props.user.id) {
         props.fetchUpdateCart(props.user.id)
       } else {

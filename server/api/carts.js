@@ -5,7 +5,7 @@ module.exports = router
 router.put('/:userId/:productId', async (req, res, next) => {
   try {
     const user = await User.findByPk(+req.params.userId, {include: [Product]})
-    console.log('TCL: user', user)
+    // console.log('TCL: user', user)
     if (!user) {
       res.status(401).send('user not found in /carts')
     }
