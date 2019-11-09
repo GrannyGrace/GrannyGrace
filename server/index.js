@@ -64,9 +64,9 @@ const createApp = () => {
   app.use(passport.session())
 
   app.use((req, res, next) => {
-    console.log(req.session, req.sessionID)
+    // console.log(req.session, req.sessionID)
     if (req.session.poop) {
-      console.log(req.session.poop)
+      // console.log(req.session.poop)
     } else {
       req.session.poop = {hats: 'are not cool'}
     }

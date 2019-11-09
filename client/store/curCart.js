@@ -12,10 +12,11 @@ export const setCart = cart => {
 export const fetchUpdateCart = (userId, productId = 0) => {
   return async dispatch => {
     try {
+      console.log('hats')
       const {data} = await axios.put(`/api/carts/${userId}/${productId}`)
       console.log('TCL: cart data', data)
       if (!data) {
-        // console.log('cart data not found/created')
+        console.log('cart data not found/created')
       }
       dispatch(setCart(data))
     } catch (error) {
