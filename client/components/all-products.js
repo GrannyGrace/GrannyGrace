@@ -7,6 +7,8 @@ import {sessionChecker, auth} from '../store/user'
 import SearchBar from './searchbar'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faGripHorizontal, faList} from '@fortawesome/free-solid-svg-icons'
+import '../css/allproducts.css'
+import _ from 'lodash'
 
 class AllProducts extends React.Component {
   constructor() {
@@ -17,15 +19,32 @@ class AllProducts extends React.Component {
 
   state = {
     view: 'grid',
-    sortValue: 'lowToHigh'
+    sortValue: 'lowToHigh',
+    products: []
   }
 
   componentDidMount() {
-    this.props.getProductsFromServer()
+    console.log('ouside')
+    const {products} = this.props
+    if (products.length) {
+      console.log('inside111')
+      this.setState({products})
+    } else {
+      console.log('inside222')
+      this.props.getProductsFromServer()
+    }
   }
   //if no products in db, we need to seed.
   componentDidUpdate(prevProps) {
     const newProducts = this.props.products
+    if (
+      newProducts.length &&
+      newProducts.length !== prevProps.products.length
+    ) {
+      this.setState({
+        products: newProducts
+      })
+    }
   }
 
   addToCart(productId) {
@@ -36,6 +55,12 @@ class AllProducts extends React.Component {
         'user can only add to cart if logged in right now, need to add session support'
       )
     }
+  }
+
+  filterProducts = category => {
+    this.setState({
+      products: this.props.products.filter(p => p.category === category)
+    })
   }
 
   handleSort = e => {
@@ -55,19 +80,35 @@ class AllProducts extends React.Component {
         break
       default:
     }
-    this.setState({sortValue: newSortValue})
+    this.setState({sortValue: newSortValue, products: newProducts})
   }
 
   render() {
-    const {sortValue, view} = this.state
+    const {sortValue, view, products} = this.state
 
     return (
       <div className="container outer-products-container">
         <div className="row">
           <div className="col-md-4 col-sm-12 product-filters-outer-container">
-            <span className="product-filters-inner-title">Product Filters</span>
-            <div className="product-filters-inner-container">Category</div>
-            <SearchBar />
+            <div className="product-filters-sticky-container">
+              <span className="product-filters-inner-title">
+                Product Filters
+              </span>
+              <div className="product-filters-inner-container">
+                Category
+                {_.uniqBy(this.props.products, 'category')
+                  .sort((a, b) => (a.category < b.category ? -1 : 1))
+                  .map((p, i) => (
+                    <div
+                      onClick={() => this.filterProducts(p.category)}
+                      key={i}
+                    >
+                      {p.category}
+                    </div>
+                  ))}
+              </div>
+              <SearchBar />
+            </div>
             {/* <ProductFilter/> */}
           </div>
           <div className="col-md-8 col-sm-12">
@@ -110,7 +151,7 @@ class AllProducts extends React.Component {
                 <div className="container-fluid">
                   {view === 'grid' ? (
                     <div className="card-columns">
-                      {this.props.products.map(elem => {
+                      {products.map(elem => {
                         return (
                           <div key={elem.id} className="card">
                             <Link key={elem.id} to={`/products/${elem.id}`}>
@@ -151,7 +192,7 @@ class AllProducts extends React.Component {
                     </div>
                   ) : (
                     <div className="list-group">
-                      {this.props.products.map(elem => {
+                      {products.map(elem => {
                         return (
                           <div key={elem.id} className="list-group-item card">
                             <Link key={elem.id} to={`/products/${elem.id}`}>

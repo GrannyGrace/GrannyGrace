@@ -1,0 +1,25 @@
+.product-filters-outer-container {
+  z-index: 4;
+  position: sticky;
+  top: 0;
+}
+
+.product-filters-sticky-container {
+  z-index: 4;
+  position: sticky;
+  top: 0;
+}
+
+.card-columns .card {
+  display: inline-block;
+  width: 100%;
+  height: 440px !important;
+}
+
+@media screen and (max-width: 575px) {
+  .card-columns .card {
+    display: inline-block;
+    width: 100%;
+    height: 550px;
+  }
+}
