@@ -24,13 +24,10 @@ class AllProducts extends React.Component {
   }
 
   componentDidMount() {
-    console.log('ouside')
     const {products} = this.props
     if (products.length) {
-      console.log('inside111')
       this.setState({products})
     } else {
-      console.log('inside222')
       this.props.getProductsFromServer()
     }
   }
@@ -64,7 +61,6 @@ class AllProducts extends React.Component {
   }
 
   handleSort = e => {
-    console.log('new sort value', e.target.value)
     const newSortValue = e.target.value
     const {products} = this.props
     let newProducts = []

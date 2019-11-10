@@ -23,13 +23,10 @@ class AllProducts extends React.Component {
   }
 
   componentDidMount() {
-    console.log('ouside HOME')
     const {products} = this.props
     if (products.length) {
-      console.log('INSIDE HOME11')
       this.setState({products})
     } else {
-      console.log('INSIDE HOME2')
       this.props.getProductsFromServer()
     }
   }
@@ -60,8 +57,6 @@ class AllProducts extends React.Component {
 
   render() {
     const {sortValue, view, products} = this.state
-    console.log('dataaaa from prropsss', this.props)
-    console.log('dataaaa from state', this.state)
     return (
       <>
         {/* APPLES BANNER IMAGE */}
@@ -85,7 +80,6 @@ class AllProducts extends React.Component {
         <div className="row welcome-row">
           <div className="container welcome-container">
             <h1 className="welcome">WELCOME</h1>
-            {/* <h2 className="welcome-description">To America's #1 Apple Supplier</h2> */}
             <p className="description">
               Since 1979, Granny Grace’s Apple Emporium has been the #1
               distributor of apples in the Midwest. In recent years, the
@@ -120,7 +114,6 @@ class AllProducts extends React.Component {
                   </div>
                   <SearchBar />
                 </div>
-                {/* <ProductFilter/> */}
               </div>
               <div className="col-md-8 col-sm-12">
                 <div id="products">
@@ -206,7 +199,7 @@ class AllProducts extends React.Component {
   }
 }
 
-// this is how your component know about data in the store
+// How the component knows about data in the store
 const mapStoreToProps = store => {
   return {
     products: store.products.sort((a, b) => a.price - b.price),
