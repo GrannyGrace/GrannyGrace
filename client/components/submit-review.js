@@ -19,7 +19,19 @@ class SubmitReview extends React.Component {
     }
     this.props.addReview(review, this.props.curProduct.id, this.props.user.id)
   }
+
+  addToCart = productId => {
+    if (this.props.user.id) {
+      this.props.fetchUpdateCart(this.props.user.id, productId)
+    } else {
+      console.log(
+        'user can only add to cart if logged in right now, need to add session support'
+      )
+    }
+  }
+
   render() {
+    const {curProduct} = this.props
     if (!this.props.user.id) {
       return (
         <div className="col-md-4 col-sm-12 col-xs-12">
@@ -28,7 +40,7 @@ class SubmitReview extends React.Component {
       )
     } else {
       return (
-        <div className="container">
+        <div className="less-margin-left">
           <form onSubmit={this.onSubmit}>
             <div className="col-md-4 col-sm-12 col-xs-12 =">
               <h5>Write a Review!</h5>

@@ -1,3 +1,7 @@
 .single-product-container {
   margin: 50px 0 50px 0;
 }
+
+.add-to-cart {
+  display: inline;
+}
