@@ -13,11 +13,15 @@
 .card-columns .card {
   display: inline-block;
   width: 100%;
-  height: 440px !important;
+  height: 500px !important;
 }
 
 .product-category {
   cursor: pointer;
+}
+
+.product-category:hover {
+  color: #dc2242;
 }
 
 @media screen and (max-width: 575px) {

@@ -100,11 +100,12 @@ class AllProducts extends React.Component {
                     Product Filters
                   </span>
                   <div className="product-filters-inner-container">
-                    Category
+                    <span className="category-title">Category</span>
                     {_.uniqBy(this.props.products, 'category')
                       .sort((a, b) => (a.category < b.category ? -1 : 1))
                       .map((p, i) => (
                         <div
+                          className="product-category"
                           onClick={() => this.filterProducts(p.category)}
                           key={i}
                         >
