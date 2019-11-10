@@ -7,7 +7,7 @@ const AllReviews = props => {
       <h4>Customer Reviews</h4>
       {props.allReviews &&
         props.allReviews.map(reviewObj => {
-          return <SingleReview key={reviewObj.content} reviewObj={reviewObj} />
+          return <SingleReview key={reviewObj.id} reviewObj={reviewObj} />
         })}
     </div>
   )

@@ -9,6 +9,9 @@ const MyAccount = props => {
       <p>{props.user.email}</p>
       <p style={{fontWeight: 'bold'}}>Username: </p>
       <p>{props.user.username}</p>
+      <p style={{fontWeight: 'bold'}}>
+        Account Status:{props.user.isAdmin ? '  Admin' : '  Customer'}{' '}
+      </p>
     </div>
   )
 }

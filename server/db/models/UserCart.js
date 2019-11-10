@@ -6,3 +6,6 @@ const UserCart = db.define('UserCart', {
 })
 
 module.exports = UserCart
+
+//  quantity: Sequelize.INTEGER,
+//defaultValue: 1

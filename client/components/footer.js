@@ -1,6 +1,12 @@
 import React from 'react'
 import {MDBCol, MDBContainer, MDBRow, MDBFooter} from 'mdbreact'
 import '../css/footer.css'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {
+  faInstagram,
+  faFacebook,
+  faTwitter
+} from '@fortawesome/free-brands-svg-icons'
 
 const Footer = () => {
   return (
@@ -8,26 +14,28 @@ const Footer = () => {
       <MDBContainer fluid className="text-center text-md-left">
         <MDBRow>
           <MDBCol md="6">
-            <h5 className="footer-title">Footer Content</h5>
+            <h5 className="footer-title">GRANNY GRACE</h5>
             <p className="footer-content">
-              Here you can use rows and columns here to organize your footer
-              content.
+              405 W Superior St, Chicago, IL 60654
             </p>
           </MDBCol>
           <MDBCol md="6">
-            <h5 className="links-title">Links</h5>
+            <h5 className="links-title">GRANNY SOCIAL</h5>
             <ul>
               <li className="list-unstyled">
-                <a href="#!">Link 1</a>
+                <a href="#!">
+                  Twitter <FontAwesomeIcon icon={faTwitter} />
+                </a>
               </li>
               <li className="list-unstyled">
-                <a href="#!">Link 2</a>
+                <a href="#!">
+                  Facebook <FontAwesomeIcon icon={faFacebook} />
+                </a>
               </li>
               <li className="list-unstyled">
-                <a href="#!">Link 3</a>
-              </li>
-              <li className="list-unstyled">
-                <a href="#!">Link 4</a>
+                <a href="#!">
+                  Instagram <FontAwesomeIcon icon={faInstagram} />
+                </a>
               </li>
             </ul>
           </MDBCol>

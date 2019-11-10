@@ -4,7 +4,6 @@ import {connect} from 'react-redux'
 import {fetchProducts, fetchSearchedProducts} from '../store/products'
 import {fetchUpdateCart} from '../store/curCart'
 import {sessionChecker, auth} from '../store/user'
-import {ProductFilter} from './product-filter'
 import SearchBar from './searchbar'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faGripHorizontal, faList} from '@fortawesome/free-solid-svg-icons'
@@ -119,25 +118,33 @@ class AllProducts extends React.Component {
                                 className="card-img-top"
                                 src={elem.imageUrl}
                               />
-                              <div className="card-body">
-                                <h4
-                                  className="card-title"
-                                  style={{color: 'black'}}
-                                >
-                                  {elem.name} for {elem.price}
-                                </h4>
-                                <p className="card-text">{elem.decription}</p>
-                              </div>
                             </Link>
-                            <button
-                              className="btn btn-primary"
-                              type="button"
-                              onClick={() => {
-                                this.addToCart(elem.id)
-                              }}
-                            >
-                              Add To Cart
-                            </button>
+                            <div className="card-body">
+                              <h4
+                                className="card-title"
+                                style={{color: 'black'}}
+                              >
+                                {elem.name}
+                              </h4>
+                              <p className="card-subtitle mb-2 text-muted">
+                                $ {elem.price}
+                              </p>
+
+                              {this.props.user.isAdmin ? (
+                                <p className="card-subtitle mb-2 text-muted">
+                                  Quantity: {elem.quantity}
+                                </p>
+                              ) : null}
+                              <button
+                                className="btn btn-primary"
+                                type="button"
+                                onClick={() => {
+                                  this.addToCart(elem.id)
+                                }}
+                              >
+                                Add To Cart
+                              </button>
+                            </div>
                           </div>
                         )
                       })}
@@ -187,11 +194,15 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     getProductsFromServer: () => dispatch(fetchProducts()),
+
     fetchUpdateCart: (userId, productId) =>
       dispatch(fetchUpdateCart(userId, productId)),
+
     sessionChecker: () => dispatch(sessionChecker()),
+
     auth: (email, password, method, isGuest) =>
       dispatch(auth(email, password, method, isGuest)),
+
     search: term => dispatch(fetchSearchedProducts(term))
   }
 }
