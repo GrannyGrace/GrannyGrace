@@ -4,8 +4,11 @@ module.exports = router
 
 /* LOGGED IN USER
 
+
+Finn's comments:
 ADD TO CART:
 1. Add a row (with quantity) to UserCart table
+
 
 CHECKOUT:
 2. Add a row to Order table
