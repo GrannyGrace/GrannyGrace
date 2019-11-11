@@ -20,7 +20,11 @@ router.put('/guest/:productId', async (req, res, next) => {
 
 router.put('/:userId/:productId', async (req, res, next) => {
   try {
-    console.log(req.body)
+    console.log('req.body.qty', req.body.qty)
+    if (req.body.qty) {
+      const qty = parseInt(req.body.qty, 10)
+      console.log(qty)
+    }
     const user = await User.findByPk(+req.params.userId, {include: [Product]})
     if (!user) {
       res.status(401).send('user not found in /carts')
@@ -32,6 +36,13 @@ router.put('/:userId/:productId', async (req, res, next) => {
       const product = await Product.findByPk(+req.params.productId)
       await product.addUser(user)
       await user.addProduct(product)
+      const usercart = await UserCart.findAll({
+        where: {
+          userId: +req.params.userId,
+          productId: +req.params.productId
+        }
+      })
+      console.log('usercart instance', usercart)
       const updatedUser = await User.findByPk(user.id, {include: [Product]})
       // console.log('in carts api', updatedUser.products)
       res.json(updatedUser.products)
