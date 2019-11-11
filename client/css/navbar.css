@@ -49,7 +49,7 @@ a {
     height: 170px !important;
   }
   nav a:first-child {
-    margin-left: 50px;
+    margin-left: 5px;
   }
   nav a {
     width: 100%;

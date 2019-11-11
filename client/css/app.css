@@ -178,8 +178,9 @@
   line-height: 1.2;
 }
 
-.btn-primary:hover {
-  background-color: #6f9449;
+.btn-primary:hover,
+.btn-primary:active {
+  background-color: #6f9449 !important;
 }
 
 .product-category {
