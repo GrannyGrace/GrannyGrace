@@ -106,14 +106,16 @@ router.put('/:userId/:productId', async (req, res, next) => {
 
 router.delete('/:userId', userCheck, async (req, res, next) => {
   try {
-    console.log('made it here')
     const cart = await Cart.findOne({
       where: {userId: +req.params.userId}
     })
-
+    const products = await cart.getProducts()
     await cart.removeProducts()
+    products.forEach(async prod => {
+      await prod.removeCart(cart)
+    })
     const updated = Cart.findByPk(cart.id, {include: [Product]})
-    res.json(updated.products)
+    res.json([])
   } catch (error) {
     next(error)
   }

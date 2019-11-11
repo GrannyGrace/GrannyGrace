@@ -1,6 +1,5 @@
 const router = require('express').Router()
-const {Order} = require('../db/models')
-const {Product} = require('../db/models')
+const {Product, Cart, User, Order} = require('../db/models')
 
 router.get('/users/:id', async (req, res, next) => {
   try {
@@ -11,6 +10,27 @@ router.get('/users/:id', async (req, res, next) => {
       include: [{model: Product}]
     })
     res.send(orders)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.post('/:userId', async (req, res, next) => {
+  try {
+    const cart = await Cart.findOne({
+      where: {userId: +req.params.userId}
+    })
+    console.log(Order.prototype)
+    const user = await cart.getUser()
+    const products = await cart.getProducts()
+    const order = await Order.create({
+      price: req.body.total,
+      lockedProducts: products
+    })
+    order.setUser(user)
+    const updated = await Order.findByPk(order.id, {include: [User]})
+    console.log('lockedproducts', order.lockedProducts)
+    res.json(updated)
   } catch (error) {
     next(error)
   }
