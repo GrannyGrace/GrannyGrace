@@ -55,9 +55,7 @@ const SingleProduct = props => {
         </Button>
         {props.user.isAdmin && <UpdateSingleProduct />}
         <AllReviews allReviews={product.reviews} />
-        {/* <div className="side-by-side"> */}
         <SubmitReview />
-        {/* </div> */}
       </div>
     </div>
   )

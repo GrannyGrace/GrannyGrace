@@ -13,6 +13,7 @@ import {fetchUpdateCart, setCart} from './store/curCart'
 const App = props => {
   const {curCart} = props
   //check session with useEffect(()=>{},[]), load cart data from Session, if there is any and put it on curCart, if user signs up, use addProductsToCart(curCart) thunk to add products from curCart onto user with magic method user.addProducts(req.body) -->req.body should be an array, then refetch updated, and res.json(user.products)
+
   useEffect(
     () => {
       if (props.user.id) {
@@ -44,7 +45,7 @@ const App = props => {
                 <img
                   className="cart-icon"
                   alt="cart-icon"
-                  src="/carticon.png"
+                  src="/cartIcon.png"
                 />
               </Link>
             </div>
