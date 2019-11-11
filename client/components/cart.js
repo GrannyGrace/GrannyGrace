@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
-import {setCart, fetchUpdateCart} from '../store/curCart'
+import {setCart, fetchUpdateCart, fetchGuestCart} from '../store/curCart'
 import {sessionChecker, auth} from '../store/user'
 import {withRouter, Link} from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -10,9 +10,12 @@ const Cart = props => {
   useEffect(
     () => {
       if (props.user.id) {
+        console.log(props.user.id, 'use effect run')
         props.fetchUpdateCart(props.user.id)
       } else {
-        //change below to use a thunk that gets guest cart data from Session.data
+        console.log(props)
+        //change below to use a thunk that gets guest cart data from the session
+        props.fetchGuestCart(0)
         props.setCart([])
       }
     },
@@ -66,6 +69,7 @@ const Cart = props => {
 export default withRouter(
   connect(({curCart, user}) => ({curCart, user}), {
     fetchUpdateCart,
+    fetchGuestCart,
     setCart,
     sessionChecker,
     auth

@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
 import {fetchSingleProduct} from '../store/curProduct'
-import {fetchUpdateCart} from '../store/curCart'
+import {fetchUpdateCart, fetchGuestCart} from '../store/curCart'
 import {withRouter} from 'react-router-dom'
 import UpdateSingleProduct from './update-single-product'
 import AllReviews from './all-reviews'
@@ -34,9 +34,8 @@ const SingleProduct = props => {
               console.log('item should now be in cart')
               props.fetchUpdateCart(props.user.id, product.id)
             } else {
-              console.log(
-                'user can only add to cart if logged in right now, need to add session support'
-              )
+              console.log('single-product component')
+              props.fetchGuestCart(product.id)
             }
           }}
         >

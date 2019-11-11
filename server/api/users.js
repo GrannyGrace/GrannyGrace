@@ -6,7 +6,7 @@ module.exports = router
 
 
 Finn's comments,
-to implement sessionCart
+to implement cart stuff
 ADD TO CART:
 1. Add a row (with quantity) to UserCart table
 
