@@ -125,10 +125,10 @@ class AllProducts extends React.Component {
                     </div>
                     <div className="container-fluid">
                       {view === 'grid' ? (
-                        <div className="card-columns">
+                        <div className="row col-sm-12">
                           {products.slice(0, 9).map(elem => {
                             return (
-                              <div key={elem.id} className="card">
+                              <div key={elem.id} className="card col-sm-4">
                                 <Link key={elem.id} to={`/products/${elem.id}`}>
                                   <img
                                     className="card-img-top"
