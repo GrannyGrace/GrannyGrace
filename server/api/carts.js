@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User, UserCart, Product} = require('../db/models')
+const {User, Cart, Product} = require('../db/models')
 module.exports = router
 
 router.put('/guest/:productId', async (req, res, next) => {
@@ -20,37 +20,52 @@ router.put('/guest/:productId', async (req, res, next) => {
 
 router.put('/:userId/:productId', async (req, res, next) => {
   try {
-    console.log('req.body.qty', req.body.qty)
     if (req.body.qty) {
       const qty = parseInt(req.body.qty, 10)
       console.log(qty)
     }
-    const user = await User.findByPk(+req.params.userId, {include: [Product]})
-    if (!user) {
-      res.status(401).send('user not found in /carts')
+
+    const user = await User.findByPk(+req.params.userId, {include: [Cart]})
+    if (!user.cart) {
+      console.log(user)
+      const newCart = await Cart.create({userId: +req.params.userId})
     }
+
     if (+req.params.productId === 0) {
-      // console.log('user printing from cart API', user.products)
-      res.json(user.products)
-    } else {
-      const product = await Product.findByPk(+req.params.productId)
-      await product.addUser(user)
-      await user.addProduct(product)
-      const usercart = await UserCart.findAll({
-        where: {
-          userId: +req.params.userId,
-          productId: +req.params.productId
-        }
-      })
-      console.log('usercart instance', usercart)
-      const updatedUser = await User.findByPk(user.id, {include: [Product]})
-      // console.log('in carts api', updatedUser.products)
-      res.json(updatedUser.products)
+      res.send()
     }
+
+    // const cart = await Cart.findOrCreate({
+    //   where: {
+    //     userId: +req.params.userId,
+    //   }
+    // })
   } catch (error) {
     next(error)
   }
 })
+//     console.log(JSON.parse(JSON.stringify(user)))
+//     if (!user) {
+//       res.status(401).send('user not found in /carts')
+//     }
+
+//     else {
+//       const product = await Product.findByPk(+req.params.productId)
+//       await product.addUser(user)
+//       await user.addProduct(product)
+
+//       const usercart = await UserCart.findAll({
+//         where: {
+//           userId: +req.params.userId,
+//           productId: +req.params.productId
+//         }
+//       })
+//       const userCartQuantity = JSON.parse(JSON.stringify(usercart))
+
+//       const updatedUser = await User.findByPk(user.id, {include: })
+//       res.json(updatedUser.products)
+//     }
+// })
 
 router.delete('/:userId', async (req, res, next) => {
   try {
