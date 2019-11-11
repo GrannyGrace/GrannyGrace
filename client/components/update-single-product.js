@@ -3,6 +3,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {updateProduct} from '../store/curProduct'
 import './update-single-product.css'
+import Button from 'react-bootstrap/Button'
 
 const UpdateSingleProduct = class extends React.Component {
   constructor() {
@@ -138,7 +139,7 @@ const UpdateSingleProduct = class extends React.Component {
             </select>
           </div>
 
-          <button type="submit">Submit</button>
+          <Button type="submit">Submit</Button>
         </form>
         <h4 style={{color: 'darkgreen'}}> {this.state.submitMessage}</h4>
       </div>

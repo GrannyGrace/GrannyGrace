@@ -77,6 +77,14 @@
   margin: 10px;
 }
 
+.product-category {
+  cursor: pointer;
+}
+
+.product-category:hover {
+  color: #dc2242;
+}
+
 @media screen and (max-width: 1100px) {
   .top-title-row {
     display: block;

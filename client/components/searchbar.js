@@ -1,6 +1,7 @@
 import React from 'react'
 import {fetchSearchedProducts} from '../store/products'
 import {connect} from 'react-redux'
+import '../css/searchbar.css'
 
 class searchBar extends React.Component {
   constructor() {
@@ -26,6 +27,7 @@ class searchBar extends React.Component {
       <form onSubmit={this.handleSubmit}>
         <label htmlFor="term">Search: </label>
         <input
+          className="search-term"
           name="term"
           value={this.state.term}
           onChange={this.handleChange}
