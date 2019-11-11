@@ -49,11 +49,13 @@ export const updateProduct = (id, productData) => {
       console.log('TCL: productData', productData)
 
       const {data} = await axios.put(`/api/products/${id}`, productData)
+      console.log('TCL: updateProduct -> data', data)
+      console.log('TCL: updateProduct -> data.split()', data.category)
 
       if (!data) {
         console.log('product data did not update')
       }
-
+      // data.category = data.category.split(',')
       dispatch(setSingleProduct(data))
     } catch (error) {
       console.log('messed up in updateProduct thunk')

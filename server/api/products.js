@@ -31,6 +31,7 @@ router.get('/:id', async (req, res, next) => {
 })
 
 router.put('/:id', async (req, res, next) => {
+  console.log('TCL: req.body.category', req.body.category)
   try {
     if (!req.user || !req.user.isAdmin) {
       res.send('User is not an admin').end()
@@ -49,8 +50,8 @@ router.put('/:id', async (req, res, next) => {
       price: req.body.price,
       description: req.body.description,
       imageUrl: req.body.imageUrl,
-      category: [...req.body.category.split(',')],
-      availablility: req.body.availablility,
+      category: req.body.category,
+      availability: req.body.availability,
       quantity: req.body.quantity,
       createdAt: req.body.createdAt,
       updatedAt: req.body.updatedAt
