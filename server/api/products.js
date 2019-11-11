@@ -31,16 +31,31 @@ router.get('/:id', async (req, res, next) => {
 })
 
 router.put('/:id', async (req, res, next) => {
+  console.log('TCL: req.body.category', req.body.category)
   try {
     if (!req.user || !req.user.isAdmin) {
       res.send('User is not an admin').end()
       return null
     }
+
     const product = await Product.findByPk(+req.params.id)
     if (!product) {
       res.status(401).send('product not found')
     }
-    const updated = await product.update(req.body)
+    console.log('TCL: product in db', product.category)
+    // const updated = await product.update(req.body)
+    const updated = await product.update({
+      id: req.body.id,
+      name: req.body.name,
+      price: req.body.price,
+      description: req.body.description,
+      imageUrl: req.body.imageUrl,
+      category: req.body.category,
+      availability: req.body.availability,
+      quantity: req.body.quantity,
+      createdAt: req.body.createdAt,
+      updatedAt: req.body.updatedAt
+    })
     res.send(updated)
   } catch (error) {
     next(error)

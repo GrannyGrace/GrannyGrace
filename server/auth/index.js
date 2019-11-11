@@ -69,7 +69,6 @@ router.post('/logout', (req, res) => {
 router.get('/me', (req, res) => {
   //Session.create({sessionId:req.sessionID})
   //Session.setUserId(req.user.id)
-  // console.log('in auth me', req.user)
   res.json(req.user)
 })
 
