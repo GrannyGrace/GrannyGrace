@@ -13,18 +13,24 @@ const chargeCreator = (tokenId, amount) => {
     description: 'Statement Description'
   })
 }
-router.post('/', async (req, res, next) => {
-  console.log('tokensdasdasdasdasdasdasd', req.body.token)
-  console.log('checkout api')
+
+const checkFields = (req, res, next) => {
+  if (!req.body.address) {
+    res.send('Checkout not successful, include shipping address')
+  }
+  if (!req.body.token.card.name) {
+    res.send('Checkout not successful, include name')
+    return
+  }
+  if (!+req.body.amount) {
+    res.send('Checkout not successful, your cart has no apples')
+    return
+  }
+  next()
+}
+
+router.post('/', checkFields, async (req, res, next) => {
   try {
-    if (!req.body.token.card.name) {
-      res.send('Checkout not successful, include name')
-      return
-    }
-    if (!+req.body.amount) {
-      res.send('Checkout not successful, your cart has no apples')
-      return
-    }
     const charge = await chargeCreator(req.body.token.id, req.body.amount)
     console.log('my charge', charge)
     res.send('Successful Charge')

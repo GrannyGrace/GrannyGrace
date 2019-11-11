@@ -12,6 +12,8 @@ import Cart from './components/cart'
 import ReturnPolicy from './components/return-policy'
 import Homepage from './components/homepage'
 import Checkout from './components/checkout'
+import AdminPortal from './components/admin-portal'
+import OrderSummary from './components/order-summary'
 /**
  * COMPONENT
  */
@@ -26,6 +28,7 @@ class Routes extends Component {
       <Switch>
         {/* Routes placed here are available to all visitors */}
         <Route exact path="/checkout" component={Checkout} />
+        <Route exact path="/order-summary" component={OrderSummary} />
         <Route exact path="/products" component={AllProducts} />
         <Route exact path="/products/:id" component={SingleProduct} />
         <Route exact path="/home/cart/:userId" component={Cart} />
@@ -41,6 +44,7 @@ class Routes extends Component {
             <Route exact path="/orders" component={Orders} />
             <Route exact path="/products/:id" component={SingleProduct} />
             <Route exact path="/myaccount" component={MyAccount} />
+            <Route exact path="/adminportal" component={AdminPortal} />
             <Route exact path="/returns" component={ReturnPolicy} />
           </Switch>
         )}

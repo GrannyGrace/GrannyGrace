@@ -21,6 +21,7 @@ class SubmitReview extends React.Component {
     }
     this.props.addReview(review, this.props.curProduct.id, this.props.user.id)
   }
+
   render() {
     if (!this.props.user.id) {
       return (
@@ -30,7 +31,7 @@ class SubmitReview extends React.Component {
       )
     } else {
       return (
-        <div className="container">
+        <div className="less-margin-left">
           <Form onSubmit={this.onSubmit}>
             <div className="col-md-4 col-sm-12 col-xs-12 =">
               <h5>Write a Review!</h5>

@@ -7,13 +7,17 @@ const Order = db.define('order', {
     type: Sequelize.STRING,
     validate: {
       isIn: [['pending', 'shipped', 'delivered', 'canceled']]
-    }
+    },
+    defaultValue: 'pending'
   },
   price: {
     type: Sequelize.INTEGER,
     validate: {
       min: 0
     }
+  },
+  lockedProducts: {
+    type: Sequelize.ARRAY(Sequelize.JSONB)
   }
 })
 

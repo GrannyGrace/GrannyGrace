@@ -6,7 +6,7 @@ import {logout} from '../store'
 import {fetchProducts} from '../store/products'
 import '../css/navbar.css'
 
-const Navbar = ({handleClick, isLoggedIn, getProductsFromServer}) => (
+const Navbar = ({handleClick, isLoggedIn, isAdmin, getProductsFromServer}) => (
   <div className="lower-nav">
     <nav>
       {isLoggedIn ? (
@@ -20,6 +20,7 @@ const Navbar = ({handleClick, isLoggedIn, getProductsFromServer}) => (
           <a href="#" onClick={handleClick}>
             Logout
           </a>
+          <Link to="/adminportal">Admin Portal</Link>
         </div>
       ) : (
         <nav className="navbar navbar-light light-blue lighten-4">
@@ -65,7 +66,8 @@ const Navbar = ({handleClick, isLoggedIn, getProductsFromServer}) => (
  */
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    isAdmin: state.user.isAdmin
   }
 }
 

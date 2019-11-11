@@ -44,6 +44,16 @@
   width: 70px !important;
 }
 
+.cart-item-number {
+  color: #dc2242;
+  z-index: 5;
+  position: absolute;
+  right: 56px;
+  top: 10px;
+  font-family: arial;
+  font-weight: bold;
+}
+
 .cart-icon-div {
   display: inline-block;
 }
