@@ -84,7 +84,7 @@ router.put('/:userId/:productId', async (req, res, next) => {
 
         console.log(cartQuantity.quantity)
         const newQty = cartQuantity.quantity + qty
-        console.log(newQty)
+        console.log('new qty', newQty)
 
         await CartProduct.update(
           {quantity: newQty},
