@@ -100,7 +100,7 @@ const UpdateSingleProduct = class extends React.Component {
           </div>
 
           <div className="form-group">
-            <label htmlFor="category">Category: </label>
+            <label htmlFor="category">Category: (separated by ',')</label>
             <input
               name="category"
               type="text"
