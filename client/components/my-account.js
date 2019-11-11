@@ -1,5 +1,6 @@
-import React, {useState, useEffect} from 'react'
+import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 import {fetchOrders} from '../store/orders'
 
 const MyAccount = props => {
@@ -24,10 +25,11 @@ const MyAccount = props => {
           <thead>
             <tr>
               <th>Order #</th>
-              <th>Description</th>
-              <th>Order Status</th>
-              <th>Total Price</th>
-              <th>Date Ordered</th>
+              <th> Description</th>
+              <th style={{width: '150px'}}>Order Status</th>
+              <th style={{width: '150px'}}>Total Price</th>
+              <th>Quantity</th>
+              <th style={{width: '150px'}}>Date Ordered</th>
             </tr>
           </thead>
           <tbody>
@@ -39,6 +41,7 @@ const MyAccount = props => {
                     <td />
                     <td>{order.status}</td>
                     <td>${order.price}</td>
+                    <td />
                     <td>{order.createdAt.slice(0, 10)}</td>
                   </tr>
                   {console.log('order.products', order)}
@@ -49,16 +52,19 @@ const MyAccount = props => {
                         <tr key={product.id}>
                           <td>
                             {product.name}
-                            <br />
-                            <img
-                              className="product-image"
-                              src={product.imageUrl}
-                              alt="apple"
-                            />
+                            <Link to={`/products/${product.id}`}>
+                              <br />
+                              <img
+                                className="product-image"
+                                src={product.imageUrl}
+                                alt="apple"
+                              />
+                            </Link>
                           </td>
                           <td>{product.description}</td>
                           <td />
                           <td>${product.price}</td>
+                          <td>quantity ..?</td>
                         </tr>
                       )
                     })}
