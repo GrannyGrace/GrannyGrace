@@ -12,6 +12,7 @@ import Cart from './components/cart'
 import ReturnPolicy from './components/return-policy'
 import Homepage from './components/homepage'
 import Checkout from './components/checkout'
+import AdminPortal from './components/admin-portal'
 /**
  * COMPONENT
  */
@@ -41,6 +42,7 @@ class Routes extends Component {
             <Route exact path="/orders" component={Orders} />
             <Route exact path="/products/:id" component={SingleProduct} />
             <Route exact path="/myaccount" component={MyAccount} />
+            <Route exact path="/adminportal" component={AdminPortal} />
             <Route exact path="/returns" component={ReturnPolicy} />
           </Switch>
         )}
