@@ -100,7 +100,7 @@ const UpdateSingleProduct = class extends React.Component {
           </div>
 
           <div className="form-group">
-            <label htmlFor="category">Category: </label>
+            <label htmlFor="category">Category: (separated by ',')</label>
             <input
               name="category"
               type="text"
@@ -131,6 +131,14 @@ const UpdateSingleProduct = class extends React.Component {
               className="form-control"
             />
           </div>
+
+          <div className="form-group">
+            <select>
+              <option value="available">available</option>
+              <option value="unavailable">unavailable</option>
+            </select>
+          </div>
+
           <Button type="submit">Submit</Button>
         </form>
         <h4 style={{color: 'darkgreen'}}> {this.state.submitMessage}</h4>

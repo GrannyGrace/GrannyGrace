@@ -28,8 +28,9 @@ async function seed() {
     Product.create({
       name: 'Honey Crisp',
       description: 'Refreshing, Crunchy, and Sweet!',
+      availability: false,
       price: 220,
-      category: 'Apple',
+      category: ['Apple', 'HoneyCrisp'],
       inventory: 10
     })
   ])
@@ -44,7 +45,10 @@ async function seed() {
       let product = await Product.create({
         name: name,
         price: +faker.commerce.price(),
-        category: faker.commerce.productMaterial(),
+        category: [
+          faker.commerce.productMaterial(),
+          faker.commerce.productMaterial()
+        ],
         quantity: 5
       })
       allProducts.push(product)

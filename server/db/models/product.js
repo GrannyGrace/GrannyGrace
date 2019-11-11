@@ -27,9 +27,13 @@ const Product = db.define('product', {
     defaultValue: '../generic_apple.jpg'
   },
   category: {
-    type: Sequelize.STRING,
-    defaultValue: 'Apple',
+    type: Sequelize.ARRAY(Sequelize.STRING),
+    defaultValue: ['Apple', 'Food'],
     allowNull: false
+  },
+  availablility: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: true
   },
   quantity: {
     type: Sequelize.INTEGER,
