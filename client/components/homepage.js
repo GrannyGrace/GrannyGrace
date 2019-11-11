@@ -58,6 +58,11 @@ class AllProducts extends React.Component {
 
   render() {
     const {sortValue, view, products} = this.state
+    let productCats = []
+    this.props.products.forEach(
+      p => (productCats = productCats.concat(p.category))
+    )
+    productCats = _.uniq(productCats).sort((a, b) => (a < b ? -1 : 1))
     return (
       <>
         {/* APPLES BANNER IMAGE */}
@@ -102,17 +107,15 @@ class AllProducts extends React.Component {
                   </span>
                   <div className="product-filters-inner-container">
                     <span className="category-title">Category</span>
-                    {_.uniqBy(this.props.products, 'category')
-                      .sort((a, b) => (a.category < b.category ? -1 : 1))
-                      .map((p, i) => (
-                        <div
-                          className="product-category"
-                          onClick={() => this.filterProducts(p.category)}
-                          key={i}
-                        >
-                          {p.category}
-                        </div>
-                      ))}
+                    {productCats.map((p, i) => (
+                      <div
+                        className="product-category"
+                        onClick={() => this.filterProducts(p)}
+                        key={i}
+                      >
+                        {p}
+                      </div>
+                    ))}
                   </div>
                   <SearchBar />
                 </div>
