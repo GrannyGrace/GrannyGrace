@@ -10,13 +10,9 @@ const Cart = props => {
   useEffect(
     () => {
       if (props.user.id) {
-        console.log(props.user.id, 'use effect run')
         props.fetchUpdateCart(props.user.id)
       } else {
-        console.log(props)
-        //change below to use a thunk that gets guest cart data from the session
         props.fetchGuestCart(0)
-        props.setCart([])
       }
     },
     [props.user.id]

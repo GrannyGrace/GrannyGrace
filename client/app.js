@@ -8,17 +8,17 @@ import './css/app.css'
 
 import {getUser, sessionChecker, auth} from './store/user'
 
-import {fetchUpdateCart, setCart} from './store/curCart'
+import {fetchUpdateCart, fetchGuestCart, setCart} from './store/curCart'
 
 const App = props => {
+  const {curCart} = props
   //check session with useEffect(()=>{},[]), load cart data from Session, if there is any and put it on curCart, if user signs up, use addProductsToCart(curCart) thunk to add products from curCart onto user with magic method user.addProducts(req.body) -->req.body should be an array, then refetch updated, and res.json(user.products)
   useEffect(
     () => {
       if (props.user.id) {
         props.fetchUpdateCart(props.user.id)
       } else {
-        //change below to use a thunk that gets guest cart data from Session.data
-        props.setCart([])
+        props.fetchGuestCart(0)
       }
     },
     [props.user.id]
@@ -39,6 +39,7 @@ const App = props => {
             </Link>
             <div className="cart-icon-div">
               <Link to={`/home/cart/${props.user.id}`}>
+                <span className="cart-item-number">{curCart.length}</span>
                 <img
                   className="cart-icon"
                   alt="cart-icon"
@@ -108,10 +109,16 @@ const App = props => {
   )
 }
 
-export default connect(({user}) => ({user}), {
+const mapStateToProps = store => ({
+  user: store.user,
+  curCart: store.curCart
+})
+
+export default connect(mapStateToProps, {
   getUser,
   auth,
   sessionChecker,
   fetchUpdateCart,
+  fetchGuestCart,
   setCart
 })(App)
