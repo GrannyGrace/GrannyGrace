@@ -9,7 +9,8 @@ const Cart = db.define('cart', {
     primaryKey: true
   },
   sid: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    unique: true
   }
 })
 
