@@ -14,6 +14,7 @@ router.put('/guest/:productId', async (req, res, next) => {
       res.send(req.session.cart)
     }
   } catch (error) {
+    console.log(error)
     next(error)
   }
 })
