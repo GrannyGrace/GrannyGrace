@@ -6,7 +6,7 @@ import {
   fetchGuestCart,
   removeFromCart
 } from '../store/curCart'
-import {sessionChecker, auth} from '../store/user'
+
 import {withRouter, Link} from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../css/cart.css'

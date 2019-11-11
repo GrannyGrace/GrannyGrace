@@ -59,7 +59,6 @@ export const removeFromCart = (userId, productId) => {
   return async dispatch => {
     try {
       const {data} = await axios.delete(`/api/carts/${userId}/${productId}`)
-      console.log('TCL: data in clearCart', data)
       dispatch(setCart(data))
     } catch (error) {
       console.error(error)

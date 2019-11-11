@@ -1,8 +1,10 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {Redirect, withRouter} from 'react-router-dom'
 import {CardElement, injectStripe} from 'react-stripe-elements'
 import axios from 'axios'
 import {fetchUpdateCart, setCart, clearCart} from '../store/curCart'
+import {addOrder} from '../store/orders'
 // import CardSection from './card-section'
 // import AddressSection from './address-section'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -33,6 +35,7 @@ class InjectedForm extends React.Component {
       const price = calcTotal(this.props.curCart)
       this.setState({amount: price})
     }
+    console.log('state message', this.state.message)
   }
   async handleSubmit(ev) {
     ev.preventDefault()
@@ -46,6 +49,7 @@ class InjectedForm extends React.Component {
 
     this.setState({message: data})
     if (!this.state.message || !this.state.message.includes('not')) {
+      this.props.addOrder(this.props.user.id, amount)
       this.props.clearCart(this.props.user.id)
       console.log(token)
       this.setState({amount: 0, message: data})
@@ -115,17 +119,21 @@ class InjectedForm extends React.Component {
             </form>
           </div>
         )}
+        {this.props.orders && <Redirect to="/order-summary" />}
       </div>
     )
   }
 }
 
-export default injectStripe(
-  connect(({curCart, user}) => ({curCart, user}), {
-    fetchUpdateCart,
-    setCart,
-    clearCart
-  })(InjectedForm)
+export default withRouter(
+  injectStripe(
+    connect(({curCart, user, order}) => ({curCart, user, order}), {
+      fetchUpdateCart,
+      setCart,
+      clearCart,
+      addOrder
+    })(InjectedForm)
+  )
 )
 
 // // Within the context of `Elements`, this call to createPaymentMethod knows from which Element to
