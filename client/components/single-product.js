@@ -52,6 +52,7 @@ const SingleProduct = props => {
 export default withRouter(
   connect(({curProduct, user}) => ({curProduct, user}), {
     fetchSingleProduct,
-    fetchUpdateCart
+    fetchUpdateCart,
+    fetchGuestCart
   })(SingleProduct)
 )

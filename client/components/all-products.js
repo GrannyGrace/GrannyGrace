@@ -234,6 +234,8 @@ const mapDispatchToProps = dispatch => {
     fetchUpdateCart: (userId, productId) =>
       dispatch(fetchUpdateCart(userId, productId)),
 
+    fetchGuestCart: productId => dispatch(fetchGuestCart(productId)),
+
     sessionChecker: () => dispatch(sessionChecker()),
 
     auth: (email, password, method, isGuest) =>
