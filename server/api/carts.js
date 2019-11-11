@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User, Cart, Product} = require('../db/models')
+const {User, Cart, Product, CartProduct} = require('../db/models')
 module.exports = router
 
 const userCheck = (req, res, next) => {
@@ -12,12 +12,6 @@ const userCheck = (req, res, next) => {
 
 router.put('/guest/:productId', async (req, res, next) => {
   try {
-    if (req.body.qty) {
-      const qty = parseInt(req.body.qty, 10)
-      console.log(qty)
-    }
-    console.log('sessionID from carts api', req.sessionID)
-
     const [resCart] = await Cart.findOrCreate({
       where: {
         sid: req.sessionID
@@ -41,10 +35,6 @@ router.put('/guest/:productId', async (req, res, next) => {
 
 router.put('/:userId/:productId', async (req, res, next) => {
   try {
-    if (req.body.qty) {
-      const qty = parseInt(req.body.qty, 10)
-    }
-
     const [resCart] = await Cart.findOrCreate({
       where: {
         userId: +req.params.userId
@@ -55,10 +45,59 @@ router.put('/:userId/:productId', async (req, res, next) => {
     if (+req.params.productId === 0) {
       res.send(resCart.products)
     } else {
-      const product = await Product.findByPk(+req.params.productId)
-      await resCart.addProduct(product)
-      const updatedCart = await Cart.findByPk(+resCart.id, {include: [Product]})
-      res.send(updatedCart.products)
+      const qty = +req.body.qty
+      const foundProduct = resCart.products
+        .map(prod => {
+          return {id: prod.id, name: prod.name}
+        })
+        .find(elem => {
+          return elem.id === +req.params.productId
+        })
+
+      if (!foundProduct) {
+        const product = await Product.findByPk(+req.params.productId)
+        await resCart.addProduct(product)
+        await CartProduct.update(
+          {quantity: qty},
+          {
+            where: {
+              productId: +req.params.productId,
+              cartId: +resCart.id
+            },
+            returning: true
+          }
+        )
+        const updatedCart = await Cart.findByPk(+resCart.id, {
+          include: [Product]
+        })
+        res.send(updatedCart.products)
+      }
+
+      if (foundProduct) {
+        const [cartQuantity] = await CartProduct.findAll({
+          where: {
+            productId: +req.params.productId,
+            cartId: +resCart.id
+          },
+          attributes: ['quantity']
+        })
+
+        console.log(cartQuantity.quantity)
+        const newQty = cartQuantity.quantity + qty
+        console.log(newQty)
+
+        await CartProduct.update(
+          {quantity: newQty},
+          {
+            where: {
+              productId: +req.params.productId,
+              cartId: +resCart.id
+            },
+            returning: true
+          }
+        )
+        res.send(resCart.products)
+      }
     }
   } catch (error) {
     next(error)
