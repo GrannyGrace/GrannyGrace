@@ -5,7 +5,7 @@ import {fetchUpdateCart, fetchGuestCart} from '../store/curCart'
 import {withRouter} from 'react-router-dom'
 import UpdateSingleProduct from './update-single-product'
 import AllReviews from './all-reviews'
-import './single-product.css'
+import '../css/single-product.css'
 import SubmitReview from './submit-review'
 import Button from 'react-bootstrap/Button'
 
