@@ -31,7 +31,7 @@ const Product = db.define('product', {
     defaultValue: ['Apple', 'Food'],
     allowNull: false
   },
-  availablility: {
+  availability: {
     type: Sequelize.BOOLEAN,
     defaultValue: true
   },
