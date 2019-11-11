@@ -33,7 +33,9 @@ passport.serializeUser((user, done) => done(null, user.id))
 
 passport.deserializeUser(async (id, done) => {
   try {
-    const user = await db.models.user.findByPk(id)
+    const user = await db.models.user.findByPk(id, {
+      include: [{model: db.models.review}, {model: db.models.order}]
+    })
     done(null, user)
   } catch (err) {
     done(err)
@@ -63,14 +65,15 @@ const createApp = () => {
   app.use(passport.initialize())
   app.use(passport.session())
 
-  app.use((req, res, next) => {
-    // console.log(req.session, req.sessionID)
-    if (req.session.poop) {
-      // console.log(req.session.poop)
-    } else {
-      req.session.poop = {hats: 'are not cool'}
-    }
+  //session object
 
+  app.use((req, res, next) => {
+    if (!req.session.cart) {
+      console.log('added cart to session')
+      req.session.cart = []
+    } else {
+      console.log('from index in server root', req.session.cart)
+    }
     next()
   })
 

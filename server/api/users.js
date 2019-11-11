@@ -1,11 +1,15 @@
 const router = require('express').Router()
-const {User} = require('../db/models')
+const {User, Review, Order} = require('../db/models')
 module.exports = router
 
 /* LOGGED IN USER
 
+
+Finn's comments,
+to implement cart stuff
 ADD TO CART:
 1. Add a row (with quantity) to UserCart table
+
 
 CHECKOUT:
 2. Add a row to Order table
@@ -57,3 +61,18 @@ router.get('/', async (req, res, next) => {
     next(err)
   }
 })
+
+// router.get('/:id', async (req, res, next) => {
+//   try {
+//     if (+req.user.id === +req.params.id) {
+//       console.log('Correct user is viewing his/her own account info')
+//     }
+
+//     const users = await User.findByPk(+req.user.id, {
+//       include: [{model: Review}, {model: Order}]
+//     })
+//     res.json(users)
+//   } catch (err) {
+//     next(err)
+//   }
+// })
