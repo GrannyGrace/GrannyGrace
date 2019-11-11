@@ -29,6 +29,7 @@ const SingleProduct = props => {
       props.fetchUpdateCart(props.user.id, product.id, data)
     } else {
       console.log('single-product component')
+      console.log('guest qty', data)
       props.fetchGuestCart(product.id, data)
     }
   }

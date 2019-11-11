@@ -66,12 +66,12 @@ async function seed() {
   ])
 
   //SEED CART
-  const cart = await Promise.all([
-    Cart.create({
-      id: 1,
-      userId: 1
-    })
-  ])
+  // const cart = await Promise.all([
+  //   Cart.create({
+  //     id: 1,
+  //     userId: 1
+  //   })
+  // ])
 
   //SEED REVIEWS
   // use faker to generate random reviews
@@ -92,9 +92,9 @@ async function seed() {
     await allProducts[i].addReviews(allReviews[i + 100])
   }
 
-  await cart[0].addProducts(allProducts[37])
-  await cart[0].addProducts(allProducts[23])
-  await cart[0].addProducts(allProducts[12])
+  // await cart[0].addProducts(allProducts[37])
+  // await cart[0].addProducts(allProducts[23])
+  // await cart[0].addProducts(allProducts[12])
 
   await orders[0].addProducts(allProducts[32])
   await orders[0].addProducts(allProducts[13])

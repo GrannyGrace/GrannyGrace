@@ -27,7 +27,7 @@ export const fetchUpdateCart = (userId, productId = 0, qty) => {
 }
 
 export const fetchGuestCart = (productId = 0, qty) => {
-  console.log('fetchGuestCart run')
+  console.log('fetchGuestCart run', qty)
   return async dispatch => {
     try {
       const {data} = await axios.put(`/api/carts/guest/${productId}`, qty)
