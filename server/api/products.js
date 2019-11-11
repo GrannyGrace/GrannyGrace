@@ -49,7 +49,7 @@ router.put('/:id', async (req, res, next) => {
 
 router.get('/search/:term', async (req, res, next) => {
   try {
-    console.log('req.params.term', req.params.term)
+    // console.log('req.params.term', req.params.term)
     const searchProducts = await Product.findAll({
       where: {
         name: {

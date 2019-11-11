@@ -20,6 +20,7 @@ router.put('/guest/:productId', async (req, res, next) => {
 
 router.put('/:userId/:productId', async (req, res, next) => {
   try {
+    console.log(req.body)
     const user = await User.findByPk(+req.params.userId, {include: [Product]})
     if (!user) {
       res.status(401).send('user not found in /carts')
@@ -32,6 +33,7 @@ router.put('/:userId/:productId', async (req, res, next) => {
       await product.addUser(user)
       await user.addProduct(product)
       const updatedUser = await User.findByPk(user.id, {include: [Product]})
+      // console.log('in carts api', updatedUser.products)
       res.json(updatedUser.products)
     }
   } catch (error) {

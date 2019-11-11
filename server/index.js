@@ -69,10 +69,9 @@ const createApp = () => {
 
   app.use((req, res, next) => {
     if (!req.session.cart) {
-      console.log('added cart to session')
       req.session.cart = []
     } else {
-      console.log('from index in server root', req.session.cart)
+      // console.log('from index in server root', req.session.cart)
     }
     next()
   })
