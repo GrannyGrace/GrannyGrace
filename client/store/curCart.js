@@ -16,10 +16,29 @@ export const fetchUpdateCart = (userId, productId = 0) => {
       if (!data) {
         console.log('cart data not found/created')
       }
+      console.log('from curcart', data)
       dispatch(setCart(data))
     } catch (error) {
       console.error(error)
       console.log('messed up in fetchUpdateCart thunk')
+    }
+  }
+}
+
+export const fetchGuestCart = (productId = 0) => {
+  console.log('fetchGuestCart run')
+  return async dispatch => {
+    try {
+      const {data} = await axios.put(`/api/carts/guest/${productId}`)
+      if (!data) {
+        console.log('fetchGuestCart returned no data')
+      }
+      if (data) {
+        console.log(data)
+        dispatch(setCart(data))
+      }
+    } catch (error) {
+      console.log('error in fetchGuestCart', error)
     }
   }
 }

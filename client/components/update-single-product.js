@@ -3,6 +3,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {updateProduct} from '../store/curProduct'
 import './update-single-product.css'
+import Button from 'react-bootstrap/Button'
 
 const UpdateSingleProduct = class extends React.Component {
   constructor() {
@@ -21,7 +22,6 @@ const UpdateSingleProduct = class extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log('bout to mount')
     if (prevProps.curProduct.name !== this.props.curProduct.name) {
       this.setState({
         name: this.props.curProduct.name,
@@ -62,7 +62,8 @@ const UpdateSingleProduct = class extends React.Component {
   render() {
     return (
       <div className="update-form-container">
-        <h4 className="update-title">Update This Product</h4>
+        <h4 className="update-title">Admin Tools</h4>
+        <p className="update-title">Update this product below:</p>
 
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
@@ -130,7 +131,7 @@ const UpdateSingleProduct = class extends React.Component {
               className="form-control"
             />
           </div>
-          <button type="submit">Submit</button>
+          <Button type="submit">Submit</Button>
         </form>
         <h4 style={{color: 'darkgreen'}}> {this.state.submitMessage}</h4>
       </div>

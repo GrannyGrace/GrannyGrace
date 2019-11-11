@@ -1,13 +1,17 @@
 const router = require('express').Router()
 const User = require('../db/models/user')
 const Product = require('../db/models/product')
+const Review = require('../db/models/review')
+const Order = require('../db/models/order')
 module.exports = router
 
 router.post('/login', async (req, res, next) => {
   try {
+    console.log('in login')
     const user = await User.findOne({
       where: {email: req.body.email},
-      include: [Product]
+      include: [{model: Review}, {model: Order}]
+      // include: [Product]
     })
     if (!user) {
       console.log('No such user found:', req.body.email)
@@ -65,6 +69,7 @@ router.post('/logout', (req, res) => {
 router.get('/me', (req, res) => {
   //Session.create({sessionId:req.sessionID})
   //Session.setUserId(req.user.id)
+  console.log('in auth me', req.user)
   res.json(req.user)
 })
 

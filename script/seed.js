@@ -1,3 +1,4 @@
+/* eslint-disable max-statements */
 'use strict'
 
 const db = require('../server/db')
@@ -54,7 +55,7 @@ async function seed() {
   const orders = await Promise.all([
     Order.create({
       status: 'pending',
-      price: 1000,
+      price: 100,
       userId: 1
     }),
     Order.create({
@@ -82,6 +83,12 @@ async function seed() {
     await allProducts[i].addReviews(allReviews[i])
     await allProducts[i].addReviews(allReviews[i + 100])
   }
+
+  await orders[0].addProducts(allProducts[32])
+  await orders[0].addProducts(allProducts[13])
+  await orders[0].addProducts(allProducts[1])
+  await orders[1].addProducts(allProducts[22])
+  await orders[1].addProducts(allProducts[2])
 
   console.log(`seeded ${users.length} users`)
   console.log(`seeded ${allProducts.length} products`)

@@ -28,7 +28,8 @@ const Product = db.define('product', {
   },
   category: {
     type: Sequelize.STRING,
-    defaultValue: 'Apple'
+    defaultValue: 'Apple',
+    allowNull: false
   },
   quantity: {
     type: Sequelize.INTEGER,

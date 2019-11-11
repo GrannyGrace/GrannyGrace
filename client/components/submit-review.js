@@ -1,6 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {addReview} from '../store/curProduct'
+import Button from 'react-bootstrap/Button'
+import Form from 'react-bootstrap/Form'
 
 /**
  * COMPONENT
@@ -40,8 +42,8 @@ class SubmitReview extends React.Component {
       )
     } else {
       return (
-        <div className="less-margin-left">
-          <form onSubmit={this.onSubmit}>
+        <div className="container">
+          <Form onSubmit={this.onSubmit}>
             <div className="col-md-4 col-sm-12 col-xs-12 =">
               <h5>Write a Review!</h5>
               <div>
@@ -54,19 +56,19 @@ class SubmitReview extends React.Component {
                 />
               </div>
               <div className="">
-                <label htmlFor="content" />
-                <textarea
+                <Form.Label htmlFor="content" />
+                <Form.Control
+                  as="textarea"
+                  rows="3"
                   name="content"
                   type="text"
                   className="form-control"
                   placeholder="What did you think?"
                 />
               </div>
-              <button type="submit" className="btn btn-primary">
-                Submit Review
-              </button>
+              <Button type="submit">Submit Review</Button>
             </div>
-          </form>
+          </Form>
         </div>
       )
     }
