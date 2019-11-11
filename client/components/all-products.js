@@ -54,7 +54,7 @@ class AllProducts extends React.Component {
 
   filterProducts = category => {
     this.setState({
-      products: this.props.products.filter(p => p.category === category)
+      products: this.props.products.filter(p => p.category.includes(category))
     })
   }
 
@@ -79,7 +79,11 @@ class AllProducts extends React.Component {
 
   render() {
     const {sortValue, view, products} = this.state
-
+    let productCats = []
+    this.props.products.forEach(
+      p => (productCats = productCats.concat(p.category))
+    )
+    productCats = _.uniq(productCats).sort((a, b) => (a < b ? -1 : 1))
     return (
       <div className="container outer-products-container">
         <div className="row">
@@ -90,17 +94,15 @@ class AllProducts extends React.Component {
               </span>
               <div className="product-filters-inner-container">
                 <span className="category-title">Category</span>
-                {_.uniqBy(this.props.products, 'category')
-                  .sort((a, b) => (a.category < b.category ? -1 : 1))
-                  .map((p, i) => (
-                    <div
-                      className="product-category"
-                      onClick={() => this.filterProducts(p.category)}
-                      key={i}
-                    >
-                      {p.category}
-                    </div>
-                  ))}
+                {productCats.map((p, i) => (
+                  <div
+                    className="product-category"
+                    onClick={() => this.filterProducts(p)}
+                    key={i}
+                  >
+                    {p}
+                  </div>
+                ))}
               </div>
               <SearchBar />
             </div>
