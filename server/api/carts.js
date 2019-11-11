@@ -25,25 +25,36 @@ router.put('/:userId/:productId', async (req, res, next) => {
       console.log(qty)
     }
 
-    const user = await User.findByPk(+req.params.userId, {include: [Cart]})
-    if (!user.cart) {
-      console.log(user)
-      const newCart = await Cart.create({userId: +req.params.userId})
-    }
+    // const user = await User.findByPk(+req.params.userId, {include: [Cart]})
+    // console.log(user)
+    // const newCart = await Cart.create({userId: +req.params.userId})
 
+    const [resCart] = await Cart.findOrCreate({
+      where: {
+        userId: +req.params.userId
+      },
+      include: [Product]
+    })
+    console.log('from api carts', resCart.products)
     if (+req.params.productId === 0) {
-      res.send()
+      res.send(resCart.products)
+    } else {
+      const product = await Product.findByPk(+req.params.productId)
+      await resCart.addProduct(product)
+      const updatedCart = await Cart.findByPk(+resCart.id, {include: [Product]})
+      console.log('from api carts else', updatedCart.products)
+      res.send(updatedCart.products)
     }
-
-    // const cart = await Cart.findOrCreate({
-    //   where: {
-    //     userId: +req.params.userId,
-    //   }
-    // })
   } catch (error) {
     next(error)
   }
 })
+
+// const cart = await Cart.findOrCreate({
+//   where: {
+//     userId: +req.params.userId,
+//   }
+// })
 //     console.log(JSON.parse(JSON.stringify(user)))
 //     if (!user) {
 //       res.status(401).send('user not found in /carts')
