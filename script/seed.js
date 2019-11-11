@@ -27,6 +27,7 @@ async function seed() {
     Product.create({
       name: 'Honey Crisp',
       description: 'Refreshing, Crunchy, and Sweet!',
+      availability: false,
       price: 220,
       category: 'Apple',
       inventory: 10

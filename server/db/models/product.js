@@ -30,6 +30,10 @@ const Product = db.define('product', {
     type: Sequelize.STRING,
     defaultValue: 'Apple'
   },
+  availablility: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: true
+  },
   quantity: {
     type: Sequelize.INTEGER,
     defaultValue: 99,

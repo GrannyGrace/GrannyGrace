@@ -130,6 +130,14 @@ const UpdateSingleProduct = class extends React.Component {
               className="form-control"
             />
           </div>
+
+          <div className="form-group">
+            <select>
+              <option value="available">available</option>
+              <option value="unavailable">unavailable</option>
+            </select>
+          </div>
+
           <button type="submit">Submit</button>
         </form>
         <h4 style={{color: 'darkgreen'}}> {this.state.submitMessage}</h4>
