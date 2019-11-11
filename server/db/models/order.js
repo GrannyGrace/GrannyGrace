@@ -9,7 +9,12 @@ const Order = db.define('order', {
       isIn: [['pending', 'shipped', 'delivered', 'canceled']]
     }
   },
-  price: Sequelize.INTEGER
+  price: {
+    type: Sequelize.INTEGER,
+    validate: {
+      min: 0
+    }
+  }
 })
 
 module.exports = Order

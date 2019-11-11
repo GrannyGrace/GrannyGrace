@@ -32,7 +32,10 @@ const Product = db.define('product', {
   },
   quantity: {
     type: Sequelize.INTEGER,
-    defaultValue: 5
+    defaultValue: 99,
+    validate: {
+      min: 0
+    }
   }
 })
 

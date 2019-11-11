@@ -27,6 +27,7 @@ CHECKOUT:
 
 router.use((req, res, next) => {
   if (!req.session.cartItems) {
+    // console.log(req.session)
     req.session.cartItems = []
   } else {
     req.session.cartItems.push({
@@ -34,7 +35,7 @@ router.use((req, res, next) => {
       quantity: Math.floor(Math.random() * 10)
     })
   }
-  console.log('req.session', req.session)
+  // console.log('req.session', req.session)
   if (req.user) {
     console.log('req.user.isAdmin', req.user.isAdmin)
   } else {

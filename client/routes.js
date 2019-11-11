@@ -11,6 +11,7 @@ import MyAccount from './components/my-account'
 import Cart from './components/cart'
 import ReturnPolicy from './components/return-policy'
 import Homepage from './components/homepage'
+import Checkout from './components/checkout'
 /**
  * COMPONENT
  */
@@ -24,6 +25,7 @@ class Routes extends Component {
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
+        <Route exact path="/checkout" component={Checkout} />
         <Route exact path="/products" component={AllProducts} />
         <Route exact path="/products/:id" component={SingleProduct} />
         <Route exact path="/home/cart/:userId" component={Cart} />

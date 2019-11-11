@@ -9,7 +9,6 @@ import '../css/cart.css'
 const Cart = props => {
   useEffect(
     () => {
-      console.log(props.user.email)
       if (props.user.id) {
         props.fetchUpdateCart(props.user.id)
       } else {
@@ -55,9 +54,11 @@ const Cart = props => {
           </h4>
         </ul>
       </div>
-      <button type="button" className="btn btn-lg btn-primary">
-        Checkout
-      </button>
+      <Link to="/checkout">
+        <button type="button" className="btn btn-lg btn-primary">
+          Checkout
+        </button>
+      </Link>
     </React.Fragment>
   )
 }

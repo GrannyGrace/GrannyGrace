@@ -15,7 +15,7 @@ nav a {
   margin: 1em;
 }
 
-form div {
+form div:not(.card-element) {
   margin: 1em;
   /*display: inline-block;*/
 }

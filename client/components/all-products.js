@@ -232,11 +232,15 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     getProductsFromServer: () => dispatch(fetchProducts()),
+
     fetchUpdateCart: (userId, productId) =>
       dispatch(fetchUpdateCart(userId, productId)),
+
     sessionChecker: () => dispatch(sessionChecker()),
+
     auth: (email, password, method, isGuest) =>
       dispatch(auth(email, password, method, isGuest)),
+
     search: term => dispatch(fetchSearchedProducts(term))
   }
 }
