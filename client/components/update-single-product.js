@@ -2,7 +2,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {updateProduct} from '../store/curProduct'
-import './update-single-product.css'
+import '../css/update-single-product.css'
 import Button from 'react-bootstrap/Button'
 
 const UpdateSingleProduct = class extends React.Component {

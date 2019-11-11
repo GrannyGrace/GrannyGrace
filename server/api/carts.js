@@ -2,6 +2,14 @@ const router = require('express').Router()
 const {User, Cart, Product} = require('../db/models')
 module.exports = router
 
+const userCheck = (req, res, next) => {
+  if (!req.user || req.user.id !== +req.params.userId) {
+    res.json('must be logged in to correct user to edit cart')
+  } else {
+    next()
+  }
+}
+
 router.put('/guest/:productId', async (req, res, next) => {
   try {
     if (req.body.qty) {
@@ -35,7 +43,6 @@ router.put('/:userId/:productId', async (req, res, next) => {
   try {
     if (req.body.qty) {
       const qty = parseInt(req.body.qty, 10)
-      console.log(qty)
     }
 
     const [resCart] = await Cart.findOrCreate({
@@ -51,7 +58,7 @@ router.put('/:userId/:productId', async (req, res, next) => {
       const product = await Product.findByPk(+req.params.productId)
       await resCart.addProduct(product)
       const updatedCart = await Cart.findByPk(+resCart.id, {include: [Product]})
-      console.log('from api carts else', updatedCart.products)
+
       res.send(updatedCart.products)
     }
   } catch (error) {
@@ -59,25 +66,31 @@ router.put('/:userId/:productId', async (req, res, next) => {
   }
 })
 
-router.delete('/:userId', async (req, res, next) => {
+router.delete('/:userId', userCheck, async (req, res, next) => {
   try {
-    const user = await User.findByPk(+req.params.userId)
-    const products = await Product.findAll({
-      include: [
-        {
-          model: User,
-          where: {
-            id: user.id
-          }
-        }
-      ]
+    console.log('made it here')
+    const cart = await Cart.findOne({
+      where: {userId: +req.params.userId}
     })
-    products.forEach(async prod => {
-      await prod.removeUser(user)
+
+    await cart.removeProducts()
+    const updated = Cart.findByPk(cart.id, {include: [Product]})
+    res.json(updated.products)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.delete('/:userId/:productId', userCheck, async (req, res, next) => {
+  try {
+    const cart = await Cart.findOne({
+      where: {
+        userId: +req.params.userId
+      }
     })
-    await user.removeProducts(user.products)
-    const updated = User.findByPk(user.id, {include: [Product]})
-    console.log('user in clear cart route', updated)
+    const product = await Product.findByPk(+req.params.productId)
+    await cart.removeProduct(product)
+    const updated = await Cart.findByPk(cart.id, {include: [Product]})
     res.json(updated.products)
   } catch (error) {
     next(error)

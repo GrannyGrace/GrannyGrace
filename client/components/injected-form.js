@@ -15,6 +15,7 @@ class InjectedForm extends React.Component {
     this.state = {
       name: '',
       amount: 0,
+      address: '',
       message: ''
     }
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -29,7 +30,6 @@ class InjectedForm extends React.Component {
       prevProps.curCart !== this.props.curCart &&
       Array.isArray(this.props.curCart)
     ) {
-      console.log('curCart in cdu', this.props.curCart)
       const price = calcTotal(this.props.curCart)
       this.setState({amount: price})
     }
@@ -40,8 +40,8 @@ class InjectedForm extends React.Component {
     let {token} = await this.props.stripe.createToken({
       name: this.state.name
     })
-    let amount = this.state.amount
-    const {data} = await axios.post('/api/checkout', {token, amount})
+    let {amount, address} = this.state
+    const {data} = await axios.post('/api/checkout', {token, amount, address})
     console.log('TCL: data as message', data)
 
     this.setState({message: data})
@@ -75,6 +75,15 @@ class InjectedForm extends React.Component {
                 onChange={this.handleChange}
                 value={this.state.name}
                 placeholder="Joe Shmo"
+              />
+              <label>Shipping Address</label>
+              <input
+                className="input-group border border-dark my-1 p-1"
+                name="address"
+                type="text"
+                onChange={this.handleChange}
+                value={this.state.address}
+                placeholder="123 Someplace Ave."
               />
               <div>Amount: ${this.state.amount}</div>
               {/* <input

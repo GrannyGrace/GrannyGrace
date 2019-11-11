@@ -48,11 +48,22 @@ export const clearCart = id => {
   return async dispatch => {
     try {
       const {data} = await axios.delete(`/api/carts/${id}`)
-      console.log('TCL: data in clearCart', data)
       dispatch(setCart(data))
     } catch (error) {
       console.error(error)
       console.log('messed up in clearCart thunk')
+    }
+  }
+}
+export const removeFromCart = (userId, productId) => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.delete(`/api/carts/${userId}/${productId}`)
+      console.log('data in clearCart', data)
+      dispatch(setCart(data))
+    } catch (error) {
+      console.error(error)
+      console.log('messed up in removeFromCart thunk')
     }
   }
 }
