@@ -8,7 +8,7 @@ import './css/app.css'
 
 import {getUser, sessionChecker, auth} from './store/user'
 
-import {fetchUpdateCart, setCart} from './store/curCart'
+import {fetchUpdateCart, fetchGuestCart, setCart} from './store/curCart'
 
 const App = props => {
   const {curCart} = props
@@ -19,8 +19,7 @@ const App = props => {
       if (props.user.id) {
         props.fetchUpdateCart(props.user.id)
       } else {
-        //change below to use a thunk that gets guest cart data from Session.data
-        props.setCart([])
+        props.fetchGuestCart(0)
       }
     },
     [props.user.id]
@@ -111,15 +110,16 @@ const App = props => {
   )
 }
 
-const mapStoreToProps = store => ({
+const mapStateToProps = store => ({
   user: store.user,
   curCart: store.curCart
 })
 
-export default connect(mapStoreToProps, {
+export default connect(mapStateToProps, {
   getUser,
   auth,
   sessionChecker,
   fetchUpdateCart,
+  fetchGuestCart,
   setCart
 })(App)

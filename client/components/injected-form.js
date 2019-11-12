@@ -1,8 +1,10 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {Redirect, withRouter} from 'react-router-dom'
 import {CardElement, injectStripe} from 'react-stripe-elements'
 import axios from 'axios'
 import {fetchUpdateCart, setCart, clearCart} from '../store/curCart'
+import {addOrder} from '../store/orders'
 // import CardSection from './card-section'
 // import AddressSection from './address-section'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -15,6 +17,7 @@ class InjectedForm extends React.Component {
     this.state = {
       name: '',
       amount: 0,
+      address: '',
       message: ''
     }
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -29,10 +32,10 @@ class InjectedForm extends React.Component {
       prevProps.curCart !== this.props.curCart &&
       Array.isArray(this.props.curCart)
     ) {
-      console.log('curCart in cdu', this.props.curCart)
       const price = calcTotal(this.props.curCart)
       this.setState({amount: price})
     }
+    console.log('state message', this.state.message)
   }
   async handleSubmit(ev) {
     ev.preventDefault()
@@ -40,12 +43,13 @@ class InjectedForm extends React.Component {
     let {token} = await this.props.stripe.createToken({
       name: this.state.name
     })
-    let amount = this.state.amount
-    const {data} = await axios.post('/api/checkout', {token, amount})
+    let {amount, address} = this.state
+    const {data} = await axios.post('/api/checkout', {token, amount, address})
     console.log('TCL: data as message', data)
 
     this.setState({message: data})
     if (!this.state.message || !this.state.message.includes('not')) {
+      this.props.addOrder(this.props.user.id, amount)
       this.props.clearCart(this.props.user.id)
       console.log(token)
       this.setState({amount: 0, message: data})
@@ -75,6 +79,15 @@ class InjectedForm extends React.Component {
                 onChange={this.handleChange}
                 value={this.state.name}
                 placeholder="Joe Shmo"
+              />
+              <label>Shipping Address</label>
+              <input
+                className="input-group border border-dark my-1 p-1"
+                name="address"
+                type="text"
+                onChange={this.handleChange}
+                value={this.state.address}
+                placeholder="123 Someplace Ave."
               />
               <div>Amount: ${this.state.amount}</div>
               {/* <input
@@ -106,17 +119,21 @@ class InjectedForm extends React.Component {
             </form>
           </div>
         )}
+        {this.props.orders && <Redirect to="/order-summary" />}
       </div>
     )
   }
 }
 
-export default injectStripe(
-  connect(({curCart, user}) => ({curCart, user}), {
-    fetchUpdateCart,
-    setCart,
-    clearCart
-  })(InjectedForm)
+export default withRouter(
+  injectStripe(
+    connect(({curCart, user, order}) => ({curCart, user, order}), {
+      fetchUpdateCart,
+      setCart,
+      clearCart,
+      addOrder
+    })(InjectedForm)
+  )
 )
 
 // // Within the context of `Elements`, this call to createPaymentMethod knows from which Element to

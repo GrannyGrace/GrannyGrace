@@ -2,7 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {fetchProducts, fetchSearchedProducts} from '../store/products'
-import {fetchUpdateCart} from '../store/curCart'
+import {fetchUpdateCart, fetchGuestCart} from '../store/curCart'
 import {sessionChecker, auth} from '../store/user'
 import {ProductFilter} from './product-filter'
 import SearchBar from './searchbar'
@@ -40,12 +40,11 @@ class AllProducts extends React.Component {
   }
 
   addToCart(productId) {
+    const qty = 1
     if (this.props.user.id) {
       this.props.fetchUpdateCart(this.props.user.id, productId)
     } else {
-      console.log(
-        'user can only add to cart if logged in right now, need to add session support'
-      )
+      this.props.fetchGuestCart(productId)
     }
   }
 
@@ -215,8 +214,12 @@ const mapStoreToProps = store => {
 const mapDispatchToProps = dispatch => {
   return {
     getProductsFromServer: () => dispatch(fetchProducts()),
+
     fetchUpdateCart: (userId, productId) =>
       dispatch(fetchUpdateCart(userId, productId)),
+
+    fetchGuestCart: productId => dispatch(fetchGuestCart(productId)),
+
     sessionChecker: () => dispatch(sessionChecker()),
     auth: (email, password, method, isGuest) =>
       dispatch(auth(email, password, method, isGuest)),

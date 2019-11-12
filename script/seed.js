@@ -2,7 +2,7 @@
 'use strict'
 
 const db = require('../server/db')
-const {User, Order, Product, Review} = require('../server/db/models')
+const {User, Order, Product, Review, Cart} = require('../server/db/models')
 const faker = require('faker')
 
 async function seed() {
@@ -49,7 +49,7 @@ async function seed() {
           faker.commerce.productMaterial(),
           faker.commerce.productMaterial()
         ],
-        quantity: 5
+        quantity: 12
       })
       allProducts.push(product)
     }
@@ -69,6 +69,14 @@ async function seed() {
     })
   ])
 
+  //SEED CART
+  // const cart = await Promise.all([
+  //   Cart.create({
+  //     id: 1,
+  //     userId: 1
+  //   })
+  // ])
+
   //SEED REVIEWS
   // use faker to generate random reviews
   const allReviews = []
@@ -87,6 +95,10 @@ async function seed() {
     await allProducts[i].addReviews(allReviews[i])
     await allProducts[i].addReviews(allReviews[i + 100])
   }
+
+  // await cart[0].addProducts(allProducts[37])
+  // await cart[0].addProducts(allProducts[23])
+  // await cart[0].addProducts(allProducts[12])
 
   await orders[0].addProducts(allProducts[32])
   await orders[0].addProducts(allProducts[13])
