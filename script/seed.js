@@ -15,6 +15,8 @@ async function seed() {
     User.create({email: 'amy@email.com', password: '123', isAdmin: true})
   ])
 
+  const AmyCart = await Promise.all([Cart.create({userId: 1})])
+
   //SEED USERS - use faker to generate random users
   const users = []
   for (let i = 0; i < 100; i++) {
