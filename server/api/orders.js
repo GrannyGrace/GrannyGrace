@@ -43,7 +43,7 @@ router.post('/', async (req, res, next) => {
       await order.update({email: req.user.email})
       updated = await Order.findByPk(order.id, {include: [User]})
     } else {
-      updated = await order.update({email: req.body.email})
+      updated = await order.update({email: req.body.email, sid: req.sessionID})
     }
 
     console.log('lockedproducts', order.lockedProducts)

@@ -189,7 +189,7 @@ router.delete('/', async (req, res, next) => {
     console.log('TCL: req.user', req.user)
     if (req.user) {
       cart = await Cart.findOne({
-        where: {userId: +req.params.userId}
+        where: {userId: +req.user.id}
       })
     } else {
       cart = await Cart.findOne({

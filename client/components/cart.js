@@ -43,7 +43,7 @@ const Cart = props => {
   return (
     <React.Fragment>
       <div className="card">
-        <ul className="list-group list-group-flush">
+        <div className="list-group list-group-flush">
           {props.curCart.map(prod => {
             totalPrice += prod.price * prod.CartProducts.quantity
             return (
@@ -82,7 +82,7 @@ const Cart = props => {
           <h4 key="subtotal" className="list-group-item mb-1 card-title">
             Subtotal: ${totalPrice}
           </h4>
-        </ul>
+        </div>
       </div>
       <Link to="/checkout">
         <button type="button" className="btn btn-lg btn-primary">

@@ -87,7 +87,19 @@ class InjectedForm extends React.Component {
               value={this.state.name}
               placeholder="Joe Shmo"
             />
-
+            {(!this.props.user || !this.props.user.id) && (
+              <React.Fragment>
+                <label>Email</label>
+                <input
+                  className="input-group border border-dark my-1 p-1"
+                  name="email"
+                  type="text"
+                  onChange={this.handleChange}
+                  value={this.state.email}
+                  placeholder="joe@shmo.com"
+                />
+              </React.Fragment>
+            )}
             <label>Shipping Address</label>
             <input
               className="input-group border border-dark my-1 p-1"
