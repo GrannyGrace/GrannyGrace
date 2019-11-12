@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
+import '../css/userhome.css'
 
 /**
  * COMPONENT
@@ -8,7 +9,7 @@ import {connect} from 'react-redux'
 export const UserHome = props => {
   const {email} = props
   return (
-    <div className="container">
+    <div className="container needs-margin-top">
       <h3>Welcome, {email}</h3>
     </div>
   )

@@ -191,9 +191,9 @@
   color: #dc2242;
 }
 
-#mainRoutes {
+/* #mainRoutes {
   margin-top: 20px;
-}
+} */
 
 @media screen and (max-width: 767px) {
   .product-filters-outer-container {
