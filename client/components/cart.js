@@ -24,7 +24,11 @@ const Cart = props => {
   )
   let totalPrice = 0
   if (!props.curCart || !props.curCart[0]) {
-    return <span>cart is empty</span>
+    return (
+      <div className="container needs-margin-top">
+        <span>cart is empty</span>
+      </div>
+    )
   }
 
   const deleteFromCart = productId => {
