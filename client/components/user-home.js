@@ -10,7 +10,14 @@ export const UserHome = props => {
   const {email} = props
   return (
     <div className="container needs-margin-top">
-      <h3>Welcome, {email}</h3>
+      <div className="left-column">
+        <h3>Welcome, {email}</h3>
+      </div>
+      <div className="right-column">
+        <button type="button" className="reset-password-button">
+          Reset Password
+        </button>
+      </div>
     </div>
   )
 }

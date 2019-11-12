@@ -48,7 +48,6 @@ export const deleteUser = userId => async dispatch => {
 }
 
 export const updateUser = ({userId, ...data}) => async dispatch => {
-  console.log('useriddd', userId, 'datttt', data)
   try {
     const res = await axios.put(`/api/users/${userId}`, data)
     dispatch(updateUserSuccess(res.data))

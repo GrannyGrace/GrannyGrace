@@ -1,3 +1,18 @@
 .needs-margin-top {
   margin-top: 20px;
 }
+
+.left-column {
+  display: inline-block;
+}
+
+.right-column {
+  display: inline-block;
+  margin-left: 20px;
+}
+
+.reset-password-button {
+  background-color: #dc2242;
+  color: #ffffff;
+  border: none;
+}
