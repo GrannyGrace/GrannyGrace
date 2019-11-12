@@ -46,10 +46,10 @@ a {
   .bottom-navbar-row {
     background-color: #6f9449;
     color: #ffffff;
-    height: 170px !important;
+    height: 100% !important;
   }
   nav a:first-child {
-    margin-left: 5px;
+    /*margin-left: 5px;*/
   }
   nav a {
     width: 100%;

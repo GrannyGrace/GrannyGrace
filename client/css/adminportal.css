@@ -1,0 +1,29 @@
+.change-admin-status {
+  margin-right: 10px;
+}
+
+.delete-user-button {
+  background-color: #dc2242;
+  color: #ffffff;
+  border: none;
+}
+
+.needs-top-margin {
+  margin-top: 20px;
+}
+
+.active-user-div {
+  margin: 10px 0 10px 0;
+  border: 1px solid;
+  padding: 10px;
+  width: 40%;
+}
+
+@media screen and (max-width: 575px) {
+  .active-user-div {
+    margin: 10px 0 10px 0;
+    border: 1px solid;
+    padding: 10px;
+    width: 100%;
+  }
+}
