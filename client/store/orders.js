@@ -18,10 +18,10 @@ export const addToOrder = newOrder => {
 }
 
 //thunks
-export const fetchOrders = userId => {
+export const fetchOrders = () => {
   return async dispatch => {
     try {
-      const {data} = await axios.get(`/api/orders/users/${userId}`)
+      const {data} = await axios.get(`/api/orders/users`)
       dispatch(setOrders(data))
     } catch (err) {
       console.log('error fetching orders', err)

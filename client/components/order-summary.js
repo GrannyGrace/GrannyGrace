@@ -7,11 +7,11 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 const OrderSummary = props => {
   useEffect(
     () => {
-      if (props.user) {
-        props.fetchOrders(props.user.id)
+      if (props.user.id) {
+        props.fetchOrders()
       }
     },
-    [props.user]
+    [props.user.id]
   )
   const latest =
     props.match.params.ind === 'current'
@@ -35,7 +35,12 @@ const OrderSummary = props => {
                   <small />
                 </div>
                 <p className="mb-1 card-text">{prod.description}</p>
-                <small className="card-text">Price: ${prod.price}</small>
+                <small className="card-text">
+                  Quantity: {prod.CartProducts.quantity}
+                </small>
+                <small className="card-text">
+                  Price: ${prod.price * prod.CartProducts.quantity}
+                </small>
               </Link>
             </div>
           )

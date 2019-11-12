@@ -61,7 +61,8 @@ const mapper = (curCart, amount) => {
     result += `<ul>
       <li>
       <div>Name: ${prod.name}</div>
-      <div>Price: $${prod.price}</div>
+      <div>Quantity: $${prod.CartProducts.quantity}</div>
+      <div>Price: $${prod.price * prod.CartProducts.quantity}</div>
       </li>
     </ul>`
   })

@@ -61,7 +61,9 @@ class InjectedForm extends React.Component {
         curCart
       })
       this.setState({message: data})
+
       await addOrder(amount, email)
+
       await clearCart()
       history.push('/order-summary/current')
     } catch (error) {

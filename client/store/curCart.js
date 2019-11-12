@@ -9,12 +9,12 @@ export const setCart = cart => {
 }
 
 //thunks
-export const fetchUpdateCart = (userId, productId = 0, qty) => {
+export const fetchUpdateCart = (productId = 0, qty = {qty: '1'}) => {
   console.log(qty)
   return async dispatch => {
     try {
       console.log('from store', qty)
-      const {data} = await axios.put(`/api/carts/${userId}/${productId}`, {qty})
+      const {data} = await axios.put(`/api/carts/user/${productId}`, qty)
       if (!data) {
         console.log('cart data not found/created')
       }
@@ -27,7 +27,7 @@ export const fetchUpdateCart = (userId, productId = 0, qty) => {
   }
 }
 
-export const fetchGuestCart = (productId = 0, qty) => {
+export const fetchGuestCart = (productId = 0, qty = {qty: '1'}) => {
   console.log('fetchGuestCart run', qty)
   return async dispatch => {
     try {

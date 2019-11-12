@@ -5,7 +5,7 @@ import {fetchOrders} from '../store/orders'
 
 const MyAccount = props => {
   useEffect(() => {
-    props.fetchOrders(props.user.id)
+    props.fetchOrders()
   }, [])
   console.log('props', props)
   return (
@@ -83,7 +83,7 @@ const mapStateToProps = state => {
   return {user: state.user, order: state.orders}
 }
 const mapDispatchToProps = dispatch => {
-  return {fetchOrders: id => dispatch(fetchOrders(id))}
+  return {fetchOrders: () => dispatch(fetchOrders())}
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyAccount)

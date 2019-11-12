@@ -16,7 +16,7 @@ const Cart = props => {
   useEffect(
     () => {
       if (props.user.id) {
-        props.fetchUpdateCart(props.user.id)
+        props.fetchUpdateCart()
       } else {
         props.fetchGuestCart(0)
       }

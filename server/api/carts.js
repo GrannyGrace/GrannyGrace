@@ -62,10 +62,8 @@ router.put('/guest/:productId', async (req, res, next) => {
           include: [Product]
         })
         res.send(updatedCart.products)
-      }
-
-      //adding quantity to cart of existing product
-      if (foundProduct) {
+      } else {
+        //adding quantity to cart of existing product
         const [cartQuantity] = await CartProduct.findAll({
           where: {
             productId: +req.params.productId,
@@ -96,11 +94,11 @@ router.put('/guest/:productId', async (req, res, next) => {
   }
 })
 
-router.put('/:userId/:productId', async (req, res, next) => {
+router.put('/user/:productId', async (req, res, next) => {
   try {
     const [resCart] = await Cart.findOrCreate({
       where: {
-        userId: +req.params.userId
+        userId: +req.user.id
       },
       include: [Product]
     })
@@ -149,10 +147,8 @@ router.put('/:userId/:productId', async (req, res, next) => {
           include: [Product]
         })
         res.send(updatedCart.products)
-      }
-
-      //adding quantity to cart of existing product
-      if (foundProduct) {
+      } else if (foundProduct) {
+        //adding quantity to cart of existing product
         const [cartQuantity] = await CartProduct.findAll({
           where: {
             productId: +req.params.productId,
