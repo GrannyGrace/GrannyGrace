@@ -31,7 +31,7 @@ router.post('/', async (req, res, next) => {
   try {
     let cart
     let user
-    console.log('TCL: req.user', req.user)
+
     if (req.user) {
       cart = await Cart.findOne({
         where: {userId: req.user.id}
@@ -46,6 +46,7 @@ router.post('/', async (req, res, next) => {
     }
 
     const products = await cart.getProducts()
+
     const order = await Order.create({
       price: req.body.total,
       lockedProducts: products
@@ -59,7 +60,6 @@ router.post('/', async (req, res, next) => {
       updated = await Order.findByPk(order.id, {include: [User]})
     }
 
-    console.log('lockedproducts', order.lockedProducts)
     res.json(updated)
   } catch (error) {
     next(error)

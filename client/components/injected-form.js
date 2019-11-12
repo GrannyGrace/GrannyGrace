@@ -62,9 +62,9 @@ class InjectedForm extends React.Component {
       })
       this.setState({message: data})
 
-      await addOrder(amount, email)
+      addOrder(amount, email)
 
-      await clearCart()
+      clearCart()
       history.push('/order-summary/current')
     } catch (error) {
       this.setState({message: error.response.data})
