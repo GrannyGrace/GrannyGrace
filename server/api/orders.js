@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const {Product, Cart, User, Order} = require('../db/models')
 
+//finding orders associated with a user
 router.get('/users/:id', async (req, res, next) => {
   try {
     const orders = await Order.findAll({
@@ -12,6 +13,18 @@ router.get('/users/:id', async (req, res, next) => {
     res.send(orders)
   } catch (error) {
     next(error)
+  }
+})
+
+router.put('/:id', async (req, res, next) => {
+  try {
+    const updated = await Order.update(
+      {status: req.body.newStatus},
+      {where: {id: req.body.orderId}}
+    )
+    res.send(updated)
+  } catch (err) {
+    console.log(err)
   }
 })
 

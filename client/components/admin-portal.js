@@ -1,6 +1,10 @@
 import React, {useEffect, useState} from 'react'
 import {connect} from 'react-redux'
-import {fetchAllOrders, fetchTypeOfOrders} from '../store/allOrders.js'
+import {
+  fetchAllOrders,
+  fetchTypeOfOrders,
+  fetchUpdateOrder
+} from '../store/allOrders.js'
 import {fetchAllUsers, deleteUser, updateUser} from '../store/allUsers'
 import '../css/adminportal.css'
 // import {fetchAllOrders} from '../store/orders'
@@ -51,6 +55,23 @@ const AdminPortal = props => {
               <div className="active-user-div" key={eachOrder.id}>
                 <p>Order id: {eachOrder.id}</p>
                 <p>Order status: {eachOrder.status}</p>
+                <select
+                  id="eachOrderStatus"
+                  value={eachOrder.status}
+                  onChange={event => {
+                    props.fetchUpdateOrder({
+                      orderId: eachOrder.id,
+                      newStatus: event.target.value
+                    })
+                    props.fetchAllOrders()
+                  }}
+                >
+                  <option value="all">All</option>
+                  <option value="pending">Pending</option>
+                  <option value="shipped">Shipped</option>
+                  <option value="delivered">Delivered</option>
+                  <option value="canceled">Canceled</option>
+                </select>
                 <p>Order total: ${eachOrder.price}</p>
               </div>
             )
@@ -107,6 +128,7 @@ const mapDispatchToProps = dispatch => {
     fetchAllUsers: () => dispatch(fetchAllUsers()),
     fetchAllOrders: () => dispatch(fetchAllOrders()),
     fetchTypeOfOrders: filter => dispatch(fetchTypeOfOrders(filter)),
+    fetchUpdateOrder: info => dispatch(fetchUpdateOrder(info)),
     deleteUser: id => dispatch(deleteUser(id)),
     updateUser: data => dispatch(updateUser(data))
   }

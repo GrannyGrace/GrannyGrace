@@ -6,6 +6,7 @@ import axios from 'axios'
 
 const GET_ALL_ORDERS = 'GET_ALL_ORDERS'
 const GET_TYPE_OF_ORDER = 'GET_TYPE_OF_ORDER'
+const UPDATE_ORDER_STATUS = 'UPDATE_ORDER_STATUS'
 
 /**
  * INITIAL STATE
@@ -21,6 +22,7 @@ export const getTypeOfOrders = partialOrders => ({
   type: GET_TYPE_OF_ORDER,
   partialOrders
 })
+export const updateOrder = newStatus => ({type: updateOrder, newStatus})
 
 /**
  * THUNK CREATORS
@@ -29,7 +31,9 @@ export const getTypeOfOrders = partialOrders => ({
 export const fetchAllOrders = () => async dispatch => {
   try {
     const {data} = await axios.get('/api/orders')
-    // console.log('TCL: data', data)
+    data.sort(function(a, b) {
+      return a.id - b.id
+    })
     dispatch(getAllOrders(data))
   } catch (err) {
     console.log(err)
@@ -47,6 +51,14 @@ export const fetchTypeOfOrders = filter => {
     }
   }
 }
+export const fetchUpdateOrder = info => async dispatch => {
+  try {
+    await axios.put(`/api/orders/${info.orderId}`, info)
+    dispatch(updateOrder(info.orderId))
+  } catch (err) {
+    console.error(err)
+  }
+}
 
 /**
  * REDUCER
@@ -57,6 +69,8 @@ export default function(state = defaultOrders, action) {
       return action.allOrders
     case GET_TYPE_OF_ORDER:
       return action.partialOrders
+    case UPDATE_ORDER_STATUS:
+      return action.newStatus
 
     default:
       return state
