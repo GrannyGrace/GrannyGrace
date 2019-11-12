@@ -34,13 +34,13 @@ const Cart = props => {
   return (
     <React.Fragment>
       <div className="card">
-        <ul className="list-group list-group-flush">
-          {props.curCart.map(prod => {
+        <div className="list-group list-group-flush">
+          {props.curCart.map((prod, ind) => {
             totalPrice += prod.price
             return (
               <div
                 className="list-group-item list-group-item-action flex-column align-items-start"
-                key={prod.id}
+                key={ind}
               >
                 <Link to={`/products/${prod.id}`} id="cart-item" href="#!">
                   <div className="d-flex w-100 justify-content-between">
@@ -70,7 +70,7 @@ const Cart = props => {
           <h4 key="subtotal" className="list-group-item mb-1 card-title">
             Subtotal: ${totalPrice}
           </h4>
-        </ul>
+        </div>
       </div>
       <Link to="/checkout">
         <button type="button" className="btn btn-lg btn-primary">
