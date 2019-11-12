@@ -4,6 +4,8 @@
 const db = require('../server/db')
 const {User, Order, Product, Review, Cart} = require('../server/db/models')
 const faker = require('faker')
+const axios = require('axios')
+const fruitdb = require('../public/fruitdb.json')
 
 async function seed() {
   await db.sync({force: true}) //forcefully drop existing tables(if any) and creates new ones. creates if they don't exist at all.
@@ -36,39 +38,42 @@ async function seed() {
   ])
 
   const allProducts = []
-  for (let i = 0; i < 200; i++) {
-    let name = faker.commerce.productName()
-    const existedProduct = await Product.findOne({where: {name: name}})
-    const isExisted = existedProduct !== null
+  for (let i = 0; i < 100; i++) {
+    // let name = faker.commerce.productName()
+    // const existedProduct = await Product.findOne({where: {name: name}})
+    // const isExisted = existedProduct !== null
     //since Faker reuse product name, this makes sure that we don't create multiple of the same products
-    if (!isExisted) {
-      let product = await Product.create({
-        name: name,
-        price: +faker.commerce.price(),
-        category: [
-          faker.commerce.productMaterial(),
-          faker.commerce.productMaterial()
-        ],
-        quantity: 12
-      })
-      allProducts.push(product)
-    }
+    // if (!isExisted) {
+    // let name = fruitdb.vegetables[i]
+    let product = await Product.create({
+      name:
+        fruitdb.vegetables[i][0].toUpperCase() +
+        fruitdb.vegetables[i].substr(1),
+      price: +faker.commerce.price(),
+      category: [
+        faker.commerce.productMaterial(),
+        faker.commerce.productMaterial()
+      ],
+      quantity: 12
+    })
+    allProducts.push(product)
+    // }
   }
 
   //SEED ORDERS
-  const orders = await Promise.all([
-    Order.create({
-      status: 'pending',
-      price: 100,
-      userId: 1
-    }),
-    Order.create({
-      status: 'shipped',
-      price: 1000,
-      userId: 1
+  const orders = []
+  let randomOrderStatus = ['pending', 'shipped', 'delivered', 'canceled']
+  for (let i = 0; i < 90; i++) {
+    let order = await Order.create({
+      status: randomOrderStatus[Math.floor(Math.random() * 4)],
+      price: Math.floor(Math.random() * 1000),
+      userId: Math.floor(Math.random() * 20 + 1),
+      lockedProducts: allProducts.slice(i, i + 7)
     })
-  ])
 
+    orders.push(order)
+  }
+  // console.log('allProducts.slice(i, i + 7)', allProducts.slice(1, 2 + 7))
   //SEED CART
   // const cart = await Promise.all([
   //   Cart.create({

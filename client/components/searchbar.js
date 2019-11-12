@@ -18,7 +18,7 @@ class searchBar extends React.Component {
     event.preventDefault()
     console.log('clicked yea this.state.term', this.state.term)
     console.log('clicked yea this.props', this.props)
-    this.setState({term: ''})
+
     this.props.search(this.state.term)
   }
 

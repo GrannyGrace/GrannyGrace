@@ -40,7 +40,12 @@ const SingleProduct = props => {
           <h3>Product: {product.name}</h3>
           <img className="product-image" src={product.imageUrl} alt="apple" />
           <p style={{fontWeight: 'bold'}}>$ {product.price}</p>
-          <p style={{fontWeight: 'bold'}}>Category:{product.category} </p>
+          <p style={{fontWeight: 'bold'}}>
+            Category:
+            {product.category[0]
+              ? product.category.join(', ')
+              : product.category}{' '}
+          </p>
           <p style={{fontWeight: 'bold'}}>Quantity: {product.quantity}</p>
           <p style={{fontWeight: 'bold'}}>Product Descriptions: </p>
           <p>{product.description}</p>
