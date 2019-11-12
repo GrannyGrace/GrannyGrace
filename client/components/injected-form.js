@@ -17,6 +17,7 @@ class InjectedForm extends React.Component {
     this.state = {
       name: '',
       amount: 0,
+      email: '',
       address: '',
       message: ''
     }
@@ -40,15 +41,17 @@ class InjectedForm extends React.Component {
   async handleSubmit(ev) {
     ev.preventDefault()
     //const user = this.props.user
+    const identity = this.props.user ? this.props.user.id : 0
     let {token} = await this.props.stripe.createToken({
       name: this.state.name
     })
-    let {amount, address} = this.state
+    let {amount, address, email} = this.state
     try {
       const {data} = await axios.post('/api/checkout', {token, amount, address})
-      this.setState({message: data})
-      await this.props.addOrder(this.props.user.id, amount)
-      await this.props.clearCart(this.props.user.id)
+      this.setState({message: data})(this.state.email)
+        ? await this.props.addOrder(identity, amount, email)
+        : await this.props.addOrder(identity, amount)
+      await this.props.clearCart(identity)
       this.props.history.push('/order-summary/current')
     } catch (error) {
       this.setState({message: error.response.data})
@@ -85,6 +88,19 @@ class InjectedForm extends React.Component {
               value={this.state.name}
               placeholder="Joe Shmo"
             />
+            {(!this.props.user || !this.props.user.id) && (
+              <React.Fragment>
+                <label>Email</label>
+                <input
+                  className="input-group border border-dark my-1 p-1"
+                  name="email"
+                  type="text"
+                  onChange={this.handleChange}
+                  value={this.state.email}
+                  placeholder="joe@shmo.com"
+                />
+              </React.Fragment>
+            )}
             <label>Shipping Address</label>
             <input
               className="input-group border border-dark my-1 p-1"

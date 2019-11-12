@@ -19,7 +19,7 @@ const OrderSummary = props => {
       : props.orders[+props.match.params.ind]
 
   console.log('prop orders', latest)
-  return latest ? (
+  return props.orders.length > 0 && latest ? (
     <div className="card">
       <h1>Order Summary</h1>
       <ul className="list-group list-group-flush">
@@ -46,7 +46,9 @@ const OrderSummary = props => {
       </h4>
     </div>
   ) : (
-    <span />
+    <div>
+      How did you even get to this page, you must be a hacker, don't hack us.
+    </div>
   )
 }
 
