@@ -14,7 +14,11 @@ export const UserHome = props => {
         <h3>Welcome, {email}</h3>
       </div>
       <div className="right-column">
-        <button type="button" className="reset-password-button">
+        <button
+          type="button"
+          oncClick={resetPassword}
+          className="reset-password-button"
+        >
           Reset Password
         </button>
       </div>
