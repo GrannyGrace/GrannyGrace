@@ -53,4 +53,13 @@ router.post('/', async (req, res, next) => {
   }
 })
 
+router.get('/', async (req, res, next) => {
+  try {
+    const orders = await Order.findAll()
+    res.json(orders)
+  } catch (err) {
+    next(err)
+  }
+})
+
 module.exports = router
