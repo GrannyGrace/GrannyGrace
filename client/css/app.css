@@ -176,11 +176,13 @@
   background-color: #dc2242;
   border-color: #dc2242;
   line-height: 1.2;
+  border: none;
 }
 
 .btn-primary:hover,
 .btn-primary:active {
   background-color: #6f9449 !important;
+  border: none;
 }
 
 .product-category {

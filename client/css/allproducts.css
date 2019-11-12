@@ -10,10 +10,11 @@
   top: 0;
 }
 
-.card-columns .card {
+.card-columns,
+.card {
   display: inline-block;
   width: 100%;
-  height: 500px !important;
+  height: 435px !important;
 }
 
 .product-category {
@@ -22,6 +23,10 @@
 
 .product-category:hover {
   color: #dc2242;
+}
+
+.card-body {
+  height: 131px;
 }
 
 @media screen and (max-width: 575px) {
