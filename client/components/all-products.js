@@ -46,7 +46,7 @@ class AllProducts extends React.Component {
 
   addToCart(productId) {
     if (this.props.user.id) {
-      this.props.fetchUpdateCart(this.props.user.id, productId)
+      this.props.fetchUpdateCart(this.props.user.id, productId, 1)
     } else {
       this.props.fetchGuestCart(productId)
     }
@@ -233,8 +233,8 @@ const mapDispatchToProps = dispatch => {
   return {
     getProductsFromServer: () => dispatch(fetchProducts()),
 
-    fetchUpdateCart: (userId, productId) =>
-      dispatch(fetchUpdateCart(userId, productId)),
+    fetchUpdateCart: (userId, productId, qty) =>
+      dispatch(fetchUpdateCart(userId, productId, qty)),
 
     fetchGuestCart: productId => dispatch(fetchGuestCart(productId)),
 

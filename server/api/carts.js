@@ -25,7 +25,6 @@ router.put('/guest/:productId', async (req, res, next) => {
       const product = await Product.findByPk(+req.params.productId)
       await resCart.addProduct(product)
       const updatedCart = await Cart.findByPk(+resCart.id, {include: [Product]})
-      console.log('from api carts else, guest', updatedCart.products)
       res.send([updatedCart.products])
     }
   } catch (error) {
@@ -54,15 +53,37 @@ router.put('/:userId/:productId', async (req, res, next) => {
           return elem.id === +req.params.productId
         })
 
-      if (!foundProduct) {
+      if (foundProduct) {
+        const [cartQuantity] = await CartProduct.findAll({
+          where: {
+            productId: +req.params.productId,
+            cartId: +resCart.id
+          },
+          attributes: ['quantity']
+        })
+        const newQty = cartQuantity.quantity + qty
+
+        await CartProduct.update(
+          {quantity: newQty},
+          {
+            where: {
+              productId: req.params.productId,
+              cartId: resCart.id
+            },
+            returning: true
+          }
+        )
+        res.send(resCart.products)
+      } else {
         const product = await Product.findByPk(+req.params.productId)
         await resCart.addProduct(product)
+
         await CartProduct.update(
           {quantity: qty},
           {
             where: {
-              productId: +req.params.productId,
-              cartId: +resCart.id
+              productId: req.params.productId,
+              cartId: resCart.id
             },
             returning: true
           }
@@ -72,34 +93,9 @@ router.put('/:userId/:productId', async (req, res, next) => {
         })
         res.send(updatedCart.products)
       }
-
-      if (foundProduct) {
-        const [cartQuantity] = await CartProduct.findAll({
-          where: {
-            productId: +req.params.productId,
-            cartId: +resCart.id
-          },
-          attributes: ['quantity']
-        })
-
-        console.log(cartQuantity.quantity)
-        const newQty = cartQuantity.quantity + qty
-        console.log('new qty', newQty)
-
-        await CartProduct.update(
-          {quantity: newQty},
-          {
-            where: {
-              productId: +req.params.productId,
-              cartId: +resCart.id
-            },
-            returning: true
-          }
-        )
-        res.send(resCart.products)
-      }
     }
   } catch (error) {
+    console.log('errrrrrrrrrr', error)
     next(error)
   }
 })

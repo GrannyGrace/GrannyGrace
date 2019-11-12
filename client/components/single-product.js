@@ -25,8 +25,8 @@ const SingleProduct = props => {
   const onSubmit = data => {
     console.log(data)
     if (props.user.id) {
-      console.log('item should now be in cart')
-      props.fetchUpdateCart(props.user.id, product.id, data)
+      console.log('item should now be in cart', data)
+      props.fetchUpdateCart(props.user.id, product.id, data.qty)
     } else {
       console.log('single-product component')
       console.log('guest qty', data)
