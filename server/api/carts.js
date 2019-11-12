@@ -122,6 +122,7 @@ router.put('/:userId/:productId', async (req, res, next) => {
 
       console.log(productInventory)
 
+      //checking resCart to see if product to be added is already in cart
       const foundProduct = resCart.products
         .map(prod => {
           return {id: prod.id, name: prod.name}
@@ -184,16 +185,32 @@ router.put('/:userId/:productId', async (req, res, next) => {
 
 router.delete('/:userId', async (req, res, next) => {
   try {
-    const cart = await Cart.findOne({
-      where: {userId: +req.params.userId}
-    })
-    const products = await cart.getProducts()
-    await cart.removeProducts()
-    products.forEach(async prod => {
-      await prod.removeCart(cart)
-    })
-    await Cart.findByPk(cart.id, {include: [Product]})
-    res.json([])
+    //this route require that the thunk be manually passing in the string "guest" for guest users in place of the normal req.params.id, the req.sessionID is used after that is confirmed
+    if (req.params.userId === 'guest') {
+      const cart = await Cart.findOne({
+        where: {
+          sid: req.sessionID
+        }
+      })
+      const products = await cart.getProducts()
+      await cart.removeProducts()
+      products.forEach(async prod => {
+        await prod.removeCart(cart)
+      })
+      await Cart.findByPk(cart.id, {include: [Product]})
+      res.json([])
+    } else {
+      const cart = await Cart.findOne({
+        where: {userId: +req.params.userId}
+      })
+      const products = await cart.getProducts()
+      await cart.removeProducts()
+      products.forEach(async prod => {
+        await prod.removeCart(cart)
+      })
+      await Cart.findByPk(cart.id, {include: [Product]})
+      res.json([])
+    }
   } catch (error) {
     next(error)
   }
@@ -201,15 +218,27 @@ router.delete('/:userId', async (req, res, next) => {
 
 router.delete('/:userId/:productId', async (req, res, next) => {
   try {
-    const cart = await Cart.findOne({
-      where: {
-        userId: +req.params.userId
-      }
-    })
-    const product = await Product.findByPk(+req.params.productId)
-    await cart.removeProduct(product)
-    const updated = await Cart.findByPk(cart.id, {include: [Product]})
-    res.json(updated.products)
+    if (req.params.userId === 'guest') {
+      const cart = await Cart.findOne({
+        where: {
+          sid: req.sessionID
+        }
+      })
+      const product = await Product.findByPk(+req.params.productId)
+      await cart.removeProduct(product)
+      const updated = await Cart.findByPk(cart.id, {include: [Product]})
+      res.json(updated.products)
+    } else {
+      const cart = await Cart.findOne({
+        where: {
+          userId: +req.params.userId
+        }
+      })
+      const product = await Product.findByPk(+req.params.productId)
+      await cart.removeProduct(product)
+      const updated = await Cart.findByPk(cart.id, {include: [Product]})
+      res.json(updated.products)
+    }
   } catch (error) {
     next(error)
   }

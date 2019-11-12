@@ -32,7 +32,11 @@ const Cart = props => {
   }
 
   const deleteFromCart = productId => {
-    props.removeFromCart(props.user.id, productId)
+    if (props.user.id) {
+      props.removeFromCart(props.user.id, productId)
+    } else {
+      props.removeFromCart('guest', productId)
+    }
   }
 
   return (
