@@ -12,7 +12,7 @@ class Orders extends React.Component {
 
   render() {
     const {orders} = this.props
-    return (
+    return orders.length > 0 ? (
       <div className="card">
         <h1>Order Summary</h1>
         <ul className="list-group list-group-flush">
@@ -37,6 +37,11 @@ class Orders extends React.Component {
           })}
         </ul>
         <h4 className="list-group-item mb-1 card-title" />
+      </div>
+    ) : (
+      <div>
+        You need to have orders to have orders, make some orders, so that you'll
+        have some orders.
       </div>
     )
   }

@@ -79,7 +79,7 @@ const Cart = props => {
               // </li>
             )
           })}
-          <h4 className="list-group-item mb-1 card-title">
+          <h4 key="subtotal" className="list-group-item mb-1 card-title">
             Subtotal: ${totalPrice}
           </h4>
         </ul>

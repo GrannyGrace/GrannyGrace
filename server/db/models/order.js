@@ -22,7 +22,8 @@ const Order = db.define('order', {
   sid: {
     type: Sequelize.STRING,
     unique: true
-  }
+  },
+  email: Sequelize.STRING
 })
 
 module.exports = Order

@@ -1,8 +1,5 @@
 const router = require('express').Router()
-const User = require('../db/models/user')
-const Product = require('../db/models/product')
-const Review = require('../db/models/review')
-const Order = require('../db/models/order')
+const {User, Product, Cart, Order, Review} = require('../db/models')
 module.exports = router
 
 router.post('/login', async (req, res, next) => {
@@ -13,6 +10,13 @@ router.post('/login', async (req, res, next) => {
       include: [{model: Review}, {model: Order}]
       // include: [Product]
     })
+    const [newCart] = await Cart.findOrCreate({
+      where: {sid: req.sessionID},
+      include: [Product]
+    })
+    const oldCart = await user.getCart()
+    await oldCart.addProducts(newCart.products)
+
     if (!user) {
       console.log('No such user found:', req.body.email)
       res.status(401).send('Wrong username and/or password')
@@ -49,6 +53,20 @@ router.post('/signup', async (req, res, next) => {
   try {
     const user = await User.create(req.body)
     await user.update({sessionId: req.sessionID})
+    const [cart] = await Cart.findOrCreate({where: {sid: req.sessionID}})
+
+    await user.setCart(cart)
+
+    // const orders = await Order.findAll({
+    //   where: {
+    //     email: req.body.email
+    //   }
+    // })
+    // if (orders.length){
+    //   user = await user.addOrders(orders)
+
+    // }
+    ///associate orders to new user
     req.login(user, err => (err ? next(err) : res.json(user)))
   } catch (err) {
     if (err.name === 'SequelizeUniqueConstraintError') {

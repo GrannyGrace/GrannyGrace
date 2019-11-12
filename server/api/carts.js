@@ -183,34 +183,27 @@ router.put('/:userId/:productId', async (req, res, next) => {
   }
 })
 
-router.delete('/:userId', async (req, res, next) => {
+router.delete('/', async (req, res, next) => {
   try {
-    //this route require that the thunk be manually passing in the string "guest" for guest users in place of the normal req.params.id, the req.sessionID is used after that is confirmed
-    if (req.params.userId === 'guest') {
-      const cart = await Cart.findOne({
+    let cart
+    console.log('TCL: req.user', req.user)
+    if (req.user) {
+      cart = await Cart.findOne({
+        where: {userId: +req.params.userId}
+      })
+    } else {
+      cart = await Cart.findOne({
         where: {
           sid: req.sessionID
         }
       })
-      const products = await cart.getProducts()
-      await cart.removeProducts()
-      products.forEach(async prod => {
-        await prod.removeCart(cart)
-      })
-      await Cart.findByPk(cart.id, {include: [Product]})
-      res.json([])
-    } else {
-      const cart = await Cart.findOne({
-        where: {userId: +req.params.userId}
-      })
-      const products = await cart.getProducts()
-      await cart.removeProducts()
-      products.forEach(async prod => {
-        await prod.removeCart(cart)
-      })
-      await Cart.findByPk(cart.id, {include: [Product]})
-      res.json([])
     }
+    const products = await cart.getProducts()
+    await cart.removeProducts()
+    products.forEach(async prod => {
+      await prod.removeCart(cart)
+    })
+    res.json([])
   } catch (error) {
     next(error)
   }

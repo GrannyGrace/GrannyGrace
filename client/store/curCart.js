@@ -45,16 +45,11 @@ export const fetchGuestCart = (productId = 0, qty) => {
   }
 }
 
-export const clearCart = id => {
+export const clearCart = () => {
   return async dispatch => {
     try {
-      if (id === 'guest') {
-        const {data} = await axios.delete(`/api/carts/${id}`)
-        dispatch(setCart(data))
-      } else {
-        const {data} = await axios.delete(`/api/carts/${id}`)
-        dispatch(setCart(data))
-      }
+      const {data} = await axios.delete(`/api/carts`)
+      dispatch(setCart(data))
     } catch (error) {
       console.error(error)
       console.log('messed up in clearCart thunk')
