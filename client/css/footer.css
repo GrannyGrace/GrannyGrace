@@ -35,3 +35,13 @@
 .copyright-info {
   color: #ffffff;
 }
+
+@media screen and (max-width: 767px) {
+  .needs-margin-bottom {
+    margin-bottom: 40px;
+  }
+  .copyright-info {
+    color: #ffffff;
+    font-size: 1.1rem;
+  }
+}

@@ -44,7 +44,7 @@ class Routes extends Component {
             <Route exact path="/orders" component={Orders} />
             <Route exact path="/products/:id" component={SingleProduct} />
             <Route exact path="/myaccount" component={MyAccount} />
-            <Route exact path="/adminportal" component={AdminPortal} />
+            <Route exact path="/admin-portal" component={AdminPortal} />
             <Route exact path="/returns" component={ReturnPolicy} />
           </Switch>
         )}

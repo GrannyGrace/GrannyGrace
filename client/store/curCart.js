@@ -14,7 +14,7 @@ export const fetchUpdateCart = (userId, productId = 0, qty) => {
   return async dispatch => {
     try {
       console.log('from store', qty)
-      const {data} = await axios.put(`/api/carts/${userId}/${productId}`, qty)
+      const {data} = await axios.put(`/api/carts/${userId}/${productId}`, {qty})
       if (!data) {
         console.log('cart data not found/created')
       }
