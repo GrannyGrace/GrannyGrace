@@ -35,8 +35,8 @@ const checkFields = (req, res, next) => {
 
 router.post('/', checkFields, async (req, res, next) => {
   try {
-    const charge = await chargeCreator(req.body.token.id, req.body.amount)
-    console.log('my charge', charge)
+    await chargeCreator(req.body.token.id, req.body.amount)
+    // console.log('my charge', charge)
     res.send('Successful Charge')
   } catch (error) {
     next(error)

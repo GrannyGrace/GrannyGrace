@@ -40,14 +40,19 @@ export function fetchSearchedProducts(term) {
   }
 }
 
-// export const inventoryUpdate = (cartIn) => {
-//   return async dispatch => {
-//     try {
-//       console.log(cartIn)
-//       await axios.put()
-//     }catch(error){console.log('error in inventory update thunk', error)}
-//   }
-// }
+export const inventoryUpdate = cartIn => {
+  return async dispatch => {
+    try {
+      cartIn.map(async elem => {
+        await axios.put(
+          `/api/products/invUp/${elem.id}/${+elem.CartProducts.quantity}`
+        )
+      })
+    } catch (error) {
+      console.log('error in inventory update thunk', error)
+    }
+  }
+}
 
 //reducer
 export default function productsReducer(products = [], action) {

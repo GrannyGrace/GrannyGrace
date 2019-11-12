@@ -18,7 +18,7 @@ const OrderSummary = props => {
       ? props.orders[props.orders.length - 1]
       : props.orders[+props.match.params.ind]
 
-  console.log('prop orders', latest)
+  // console.log('prop orders', latest)
   return props.orders.length > 0 && latest ? (
     <div className="card">
       <h1>Order Summary</h1>

@@ -199,7 +199,7 @@ router.put('/:userId/:productId', async (req, res, next) => {
 router.delete('/', async (req, res, next) => {
   try {
     let cart
-    console.log('TCL: req.user', req.user)
+    // console.log('TCL: req.user', req.user)
     if (req.user) {
       cart = await Cart.findOne({
         where: {userId: +req.user.id}
