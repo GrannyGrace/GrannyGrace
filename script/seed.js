@@ -68,7 +68,7 @@ async function seed() {
       status: randomOrderStatus[Math.floor(Math.random() * 4)],
       price: Math.floor(Math.random() * 1000),
       userId: Math.floor(Math.random() * 20 + 1),
-      lockedProducts: allProducts.slice(i, i + 7)
+      lockedProducts: allProducts.slice(i, i + 2)
     })
 
     orders.push(order)

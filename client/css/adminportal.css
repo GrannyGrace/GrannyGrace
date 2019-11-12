@@ -19,10 +19,10 @@
   width: 40%;
 }
 
-.active-order-div {
-  padding-left: 20px;
+.eachOrder {
+  padding: 20px;
   border: 1px solid;
-  /* margin-top: 30px; */
+  margin-top: 30px;
   /* width: 80%; */
 }
 
@@ -31,8 +31,12 @@
   /* font-weight: bold; */
 }
 .eachItem {
-  display: flex;
-  flex-wrap: wrap;
+  padding-left: 20px;
+  padding-right: 20px;
+  /* width: 70%; */
+  border: 1px gray dotted;
+  margin-top: 30px;
+  /* width: 80%; */
 }
 .needs-bold {
   font-weight: bold;

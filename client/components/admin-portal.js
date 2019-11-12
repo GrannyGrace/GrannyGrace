@@ -40,6 +40,7 @@ const AdminPortal = props => {
           <p>Order Filter: </p>
           <select
             id="orderFilter"
+            style={{marginBottom: '10px'}}
             onChange={event => handleFilterOrders(event)}
             value={orderFilter}
           >
@@ -52,29 +53,12 @@ const AdminPortal = props => {
 
           {props.allOrders.map(eachOrder => {
             return (
-              <div className="active-order-div" key={eachOrder.id}>
+              <div className="eachOrder" key={eachOrder.id}>
                 <p>Order id: {eachOrder.id}</p>
                 <p>Order status: {eachOrder.status}</p>
-                <p>Items: </p>
-                {console.log(eachOrder.lockedProducts)}
-                {eachOrder.lockedProducts.map(product => {
-                  return (
-                    <div className="card active-order-div" key={product.id}>
-                      <img src={product.imageUrl} />
-                      <p className="textInCard">
-                        <span className="needs-bold">Item Name: </span>
-                        {product.name}
-                      </p>
-                      {/* <p >{product.name}</p> */}
-                      <p className="textInCard">
-                        <span className="needs-bold">Price Paid: </span>$
-                        {product.price}
-                      </p>
-                    </div>
-                  )
-                })}
                 <select
                   id="eachOrderStatus"
+                  // className="eachItem"
                   value={eachOrder.status}
                   onChange={event => {
                     props.fetchUpdateOrder({
@@ -90,7 +74,28 @@ const AdminPortal = props => {
                   <option value="delivered">Delivered</option>
                   <option value="canceled">Canceled</option>
                 </select>
-                <p>Order total: ${eachOrder.price}</p>
+                <p style={{marginTop: '10px'}}>Items: </p>
+                {console.log(eachOrder.lockedProducts)}
+                {eachOrder.lockedProducts.map(product => {
+                  return (
+                    <div className="eachItem" key={product.id}>
+                      <img src={product.imageUrl} />
+                      <p className="textInCard">
+                        <span className="needs-bold">Item Name: </span>
+                        {product.name}
+                      </p>
+                      {/* <p >{product.name}</p> */}
+                      <p className="textInCard">
+                        <span className="needs-bold">Price Paid: </span>$
+                        {product.price}
+                      </p>
+                    </div>
+                  )
+                })}
+
+                <p style={{marginTop: '10px'}}>
+                  Order total: ${eachOrder.price}
+                </p>
               </div>
             )
           })}
