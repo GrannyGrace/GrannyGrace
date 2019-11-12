@@ -2,19 +2,22 @@ import axios from 'axios'
 
 //Define Action
 export const SET_ALL_ORDERS = 'SET_ALL_ORDERS'
-const setOrders = orders => ({
+export const ADD_TO_ORDER = 'ADD_TO_ORDER'
+
+//action creators
+export const setOrders = orders => ({
   type: SET_ALL_ORDERS,
   orders
 })
 
-const ADD_TO_ORDER = 'ADD_TO_ORDER'
-const addToOrder = newOrder => {
+export const addToOrder = newOrder => {
   return {
     type: ADD_TO_ORDER,
     newOrder
   }
 }
 
+//thunks
 export const fetchOrders = userId => {
   return async dispatch => {
     try {
@@ -37,6 +40,7 @@ export const addOrder = (userId, total) => {
   }
 }
 
+//reducer
 export const OrdersReducer = (state = [], action) => {
   switch (action.type) {
     case SET_ALL_ORDERS:

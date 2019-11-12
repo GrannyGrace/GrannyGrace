@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
+import Card from 'react-bootstrap/Card'
 import {
   setCart,
   fetchUpdateCart,
@@ -26,7 +27,7 @@ const Cart = props => {
   if (!props.curCart || !props.curCart[0]) {
     return (
       <React.Fragment>
-        <span>cart is empty</span>
+        <Card.Body>cart is empty</Card.Body>
       </React.Fragment>
     )
   }

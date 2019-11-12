@@ -1,17 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
+import Card from 'react-bootstrap/Card'
 
 /**
  * COMPONENT
  */
 export const UserHome = props => {
-  const {email} = props
+  const {user} = props
 
   return (
-    <div>
-      <h3>Welcome, {email}</h3>
-    </div>
+    <React.Fragment>
+      <Card.Body>Welcome, {user.email}</Card.Body>
+    </React.Fragment>
   )
 }
 
@@ -20,7 +21,7 @@ export const UserHome = props => {
  */
 const mapState = state => {
   return {
-    email: state.user.email
+    user: state.user
   }
 }
 
