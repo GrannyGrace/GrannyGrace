@@ -44,16 +44,21 @@ class InjectedForm extends React.Component {
       name: this.state.name
     })
     let {amount, address} = this.state
-    const {data} = await axios.post('/api/checkout', {token, amount, address})
-    console.log('TCL: data as message', data)
-
-    this.setState({message: data})
-    if (!this.state.message || !this.state.message.includes('not')) {
-      this.props.addOrder(this.props.user.id, amount)
-      this.props.clearCart(this.props.user.id)
-      console.log(token)
-      this.setState({amount: 0, message: data})
+    try {
+      const {data} = await axios.post('/api/checkout', {token, amount, address})
+      this.setState({message: data})
+      await this.props.addOrder(this.props.user.id, amount)
+      await this.props.clearCart(this.props.user.id)
+      this.props.history.push('/order-summary/current')
+    } catch (error) {
+      this.setState({message: error.response.data})
     }
+
+    // if (!this.state.message || !this.state.message.includes('not')) {
+
+    //   console.log(token)
+
+    // }
   }
 
   handleChange(evt) {
@@ -62,35 +67,35 @@ class InjectedForm extends React.Component {
     })
   }
   render() {
+    console.log('props in injected', this.props)
     return (
       <div>
-        {/* add to the conditional below to include guestUser */}
-        {this.props.user.id && (
-          <div className="container">
-            <form
-              className="form-group p-3 shadow-1g border border-primary mt-3"
-              onSubmit={this.handleSubmit}
-            >
-              <label>Name On Card</label>
-              <input
-                className="input-group border border-dark my-1 p-1"
-                name="name"
-                type="text"
-                onChange={this.handleChange}
-                value={this.state.name}
-                placeholder="Joe Shmo"
-              />
-              <label>Shipping Address</label>
-              <input
-                className="input-group border border-dark my-1 p-1"
-                name="address"
-                type="text"
-                onChange={this.handleChange}
-                value={this.state.address}
-                placeholder="123 Someplace Ave."
-              />
-              <div>Amount: ${this.state.amount}</div>
-              {/* <input
+        (
+        <div className="container">
+          <form
+            className="form-group p-3 shadow-1g border border-primary mt-3"
+            onSubmit={this.handleSubmit}
+          >
+            <label>Name On Card</label>
+            <input
+              className="input-group border border-dark my-1 p-1"
+              name="name"
+              type="text"
+              onChange={this.handleChange}
+              value={this.state.name}
+              placeholder="Joe Shmo"
+            />
+            <label>Shipping Address</label>
+            <input
+              className="input-group border border-dark my-1 p-1"
+              name="address"
+              type="text"
+              onChange={this.handleChange}
+              value={this.state.address}
+              placeholder="123 Someplace Ave."
+            />
+            <div>Amount: ${this.state.amount}</div>
+            {/* <input
             className="input-group border border-dark my-1 p-1"
             name="amount"
             type="text"
@@ -99,27 +104,26 @@ class InjectedForm extends React.Component {
             placeholder="1000.00"
           /> */}
 
-              <label style={{display: 'block'}}>Card/Exp/CV</label>
-              <CardElement
-                name="card"
-                className="card-element p-2 border border-dark"
-              />
+            <label style={{display: 'block'}}>Card/Exp/CV</label>
+            <CardElement
+              name="card"
+              className="card-element p-2 border border-dark"
+            />
 
-              <button
-                className="btn btn-primary border border-dark shadow mt-3"
-                type="submit"
-              >
-                Confirm order
-              </button>
-              {this.state.message && this.state.message.includes('not') ? (
-                <span style={{color: 'red'}}>{this.state.message}</span>
-              ) : (
-                <span style={{color: 'green'}}>{this.state.message}</span>
-              )}
-            </form>
-          </div>
+            <button
+              className="btn btn-primary border border-dark shadow mt-3"
+              type="submit"
+            >
+              Confirm order
+            </button>
+            {this.state.message && this.state.message.includes('not') ? (
+              <span style={{color: 'red'}}>{this.state.message}</span>
+            ) : (
+              <span style={{color: 'green'}}>{this.state.message}</span>
+            )}
+          </form>
+        </div>
         )}
-        {this.props.orders && <Redirect to="/order-summary" />}
       </div>
     )
   }
