@@ -40,10 +40,11 @@ class AllProducts extends React.Component {
   }
 
   addToCart(productId) {
+    const qty = {qty: '1'}
     if (this.props.user.id) {
-      this.props.fetchUpdateCart(this.props.user.id, productId, 1)
+      this.props.fetchUpdateCart(this.props.user.id, productId, qty)
     } else {
-      this.props.fetchGuestCart(productId)
+      this.props.fetchGuestCart(productId, qty)
     }
   }
 
@@ -217,7 +218,8 @@ const mapDispatchToProps = dispatch => {
     fetchUpdateCart: (userId, productId, qty) =>
       dispatch(fetchUpdateCart(userId, productId, qty)),
 
-    fetchGuestCart: productId => dispatch(fetchGuestCart(productId)),
+    fetchGuestCart: (productId, qty) =>
+      dispatch(fetchGuestCart(productId, qty)),
 
     sessionChecker: () => dispatch(sessionChecker()),
     auth: (email, password, method, isGuest) =>

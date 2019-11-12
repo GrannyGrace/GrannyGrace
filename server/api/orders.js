@@ -15,20 +15,37 @@ router.get('/users/:id', async (req, res, next) => {
   }
 })
 
-router.post('/:userId', async (req, res, next) => {
+router.post('/', async (req, res, next) => {
   try {
-    const cart = await Cart.findOne({
-      where: {userId: +req.params.userId}
-    })
-    console.log(Order.prototype)
-    const user = await cart.getUser()
+    let cart
+    let user
+    if (req.user) {
+      cart = await Cart.findOne({
+        where: {userId: +req.user.id}
+      })
+      user = await cart.getUser()
+    } else {
+      cart = await Cart.findOne({
+        where: {
+          sid: req.sessionID
+        }
+      })
+    }
+
     const products = await cart.getProducts()
     const order = await Order.create({
       price: req.body.total,
       lockedProducts: products
     })
-    order.setUser(user)
-    const updated = await Order.findByPk(order.id, {include: [User]})
+    let updated
+    if (req.user) {
+      await order.setUser(user)
+      await order.update({email: req.user.email})
+      updated = await Order.findByPk(order.id, {include: [User]})
+    } else {
+      updated = await order.update({email: req.body.email, sid: req.sessionID})
+    }
+
     console.log('lockedproducts', order.lockedProducts)
     res.json(updated)
   } catch (error) {
