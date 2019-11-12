@@ -9,7 +9,10 @@ import {addOrder} from '../store/orders'
 // import AddressSection from './address-section'
 import 'bootstrap/dist/css/bootstrap.min.css'
 const calcTotal = cart => {
-  return cart.reduce((accum, cur) => accum + cur.price, 0)
+  console.log(cart)
+  return cart.reduce((accum, cur) => {
+    return accum + cur.price * cur.CartProducts.quantity
+  }, 0)
 }
 class InjectedForm extends React.Component {
   constructor() {
