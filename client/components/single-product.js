@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect} from 'react'
 import useForm from 'react-hook-form'
 import {connect} from 'react-redux'
 import {fetchSingleProduct} from '../store/curProduct'
@@ -23,9 +23,8 @@ const SingleProduct = props => {
   const {register, handleSubmit, errors} = useForm()
 
   const onSubmit = data => {
-    console.log(data)
+    console.log('singel product', data)
     if (props.user.id) {
-      console.log('item should now be in cart')
       props.fetchUpdateCart(props.user.id, product.id, data)
     } else {
       console.log('single-product component')

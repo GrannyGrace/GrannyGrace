@@ -10,6 +10,7 @@ export const setCart = cart => {
 
 //thunks
 export const fetchUpdateCart = (userId, productId = 0, qty) => {
+  console.log(qty)
   return async dispatch => {
     try {
       console.log('from store', qty)
