@@ -57,11 +57,16 @@ const Cart = props => {
                     <small />
                   </div>
                   <p className="mb-1 card-text">{prod.description}</p>
+                  <small className="card-text">Unit Price: ${prod.price}</small>
+                  <br />
                   <small className="card-text">
-                    Unit Price: ${prod.price},
-                    {'  '} Qty: {prod.CartProducts.quantity}, {'  '}
+                    Qty: {prod.CartProducts.quantity}
+                  </small>
+                  <br />
+                  <small className="card-text">
                     Item Total: ${+prod.price * prod.CartProducts.quantity}
                   </small>
+                  <br />
                 </Link>
                 <button
                   style={{display: 'inline'}}
