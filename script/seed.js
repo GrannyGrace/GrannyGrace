@@ -56,19 +56,16 @@ async function seed() {
   }
 
   //SEED ORDERS
-  const orders = await Promise.all([
-    Order.create({
-      status: 'pending',
-      price: 100,
-      userId: 1
-    }),
-    Order.create({
-      status: 'shipped',
-      price: 1000,
-      userId: 1
+  const orders = []
+  let randomOrderStatus = ['pending', 'shipped', 'delivered', 'canceled']
+  for (let i = 0; i < 200; i++) {
+    let order = await Order.create({
+      status: randomOrderStatus[Math.floor(Math.random() * 4)],
+      price: Math.floor(Math.random() * 1000),
+      userId: Math.floor(Math.random() * 20 + 1)
     })
-  ])
-
+    orders.push(order)
+  }
   //SEED CART
   // const cart = await Promise.all([
   //   Cart.create({
