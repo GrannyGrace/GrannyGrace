@@ -52,9 +52,27 @@ const AdminPortal = props => {
 
           {props.allOrders.map(eachOrder => {
             return (
-              <div className="active-user-div" key={eachOrder.id}>
+              <div className="active-order-div" key={eachOrder.id}>
                 <p>Order id: {eachOrder.id}</p>
                 <p>Order status: {eachOrder.status}</p>
+                <p>Items: </p>
+                {console.log(eachOrder.lockedProducts)}
+                {eachOrder.lockedProducts.map(product => {
+                  return (
+                    <div className="card active-order-div" key={product.id}>
+                      <img src={product.imageUrl} />
+                      <p className="textInCard">
+                        <span className="needs-bold">Item Name: </span>
+                        {product.name}
+                      </p>
+                      {/* <p >{product.name}</p> */}
+                      <p className="textInCard">
+                        <span className="needs-bold">Price Paid: </span>$
+                        {product.price}
+                      </p>
+                    </div>
+                  )
+                })}
                 <select
                   id="eachOrderStatus"
                   value={eachOrder.status}

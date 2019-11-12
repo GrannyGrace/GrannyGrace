@@ -19,6 +19,28 @@
   width: 40%;
 }
 
+.active-order-div {
+  padding-left: 20px;
+  border: 1px solid;
+  /* margin-top: 30px; */
+  /* width: 80%; */
+}
+
+.textInCard {
+  padding: 0;
+  /* font-weight: bold; */
+}
+.eachItem {
+  display: flex;
+  flex-wrap: wrap;
+}
+.needs-bold {
+  font-weight: bold;
+}
+
+img {
+  width: 50px;
+}
 @media screen and (max-width: 575px) {
   .active-user-div {
     margin: 10px 0 10px 0;
