@@ -160,25 +160,41 @@ router.put('/:userId/:productId', async (req, res, next) => {
           },
           attributes: ['quantity']
         })
-
-        console.log(cartQuantity.quantity)
         const newQty = cartQuantity.quantity + qty
-        console.log('new qty', newQty)
 
         await CartProduct.update(
           {quantity: newQty},
           {
             where: {
-              productId: +req.params.productId,
-              cartId: +resCart.id
+              productId: req.params.productId,
+              cartId: resCart.id
             },
             returning: true
           }
         )
         res.send(resCart.products)
+      } else {
+        const product = await Product.findByPk(+req.params.productId)
+        await resCart.addProduct(product)
+
+        await CartProduct.update(
+          {quantity: qty},
+          {
+            where: {
+              productId: req.params.productId,
+              cartId: resCart.id
+            },
+            returning: true
+          }
+        )
+        const updatedCart = await Cart.findByPk(+resCart.id, {
+          include: [Product]
+        })
+        res.send(updatedCart.products)
       }
     }
   } catch (error) {
+    console.log('errrrrrrrrrr', error)
     next(error)
   }
 })
