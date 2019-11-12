@@ -98,13 +98,13 @@ router.put('/:userId/:productId', async (req, res, next) => {
   try {
     const [resCart] = await Cart.findOrCreate({
       where: {
-        userId: +req.params.userId
+        userId: req.params.userId
       },
       include: [Product]
     })
 
     //cart retrieval
-    if (+req.params.productId === 0) {
+    if (!req.params.productId) {
       res.send(resCart.products)
     } else {
       //adding to cart
@@ -114,7 +114,7 @@ router.put('/:userId/:productId', async (req, res, next) => {
       //check inventory stock
       const productInventory = await Product.findOne({
         where: {
-          id: +req.params.productId
+          id: req.params.productId
         },
         attributes: ['quantity']
       })
@@ -138,8 +138,8 @@ router.put('/:userId/:productId', async (req, res, next) => {
           {quantity: qty},
           {
             where: {
-              productId: +req.params.productId,
-              cartId: +resCart.id
+              productId: req.params.productId,
+              cartId: resCart.id
             },
             returning: true
           }

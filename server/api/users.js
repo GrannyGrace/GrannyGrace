@@ -63,6 +63,25 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+router.put('/password/:id', (req, res) => {
+  const {currentPassword, newPassword} = req.body
+  User.findOne({where: {id: req.params.id}})
+    .then(user => {
+      if (user && user.correctPassword(currentPassword)) {
+        console.log('corrrect pwddd')
+        User.update(
+          {password: newPassword},
+          {where: {id: req.params.id}, returning: true}
+        )
+          .then(updatedUser => res.send(updatedUser[1][0]))
+          .catch(err => res.status(500).send(err))
+      } else {
+        res.send({error: 'Invalid Password'})
+      }
+    })
+    .catch(err => res.status(500).send(err))
+})
+
 router.put('/:id', (req, res) => {
   User.update(req.body, {where: {id: req.params.id}, returning: true})
     .then(user => res.send(user[1][0]))

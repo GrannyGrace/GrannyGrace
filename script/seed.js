@@ -11,9 +11,13 @@ async function seed() {
   await db.sync({force: true}) //forcefully drop existing tables(if any) and creates new ones. creates if they don't exist at all.
   console.log('db synced!')
 
-  const Amy = await Promise.all([
-    User.create({email: 'amy@email.com', password: '123', isAdmin: true})
-  ])
+  const Amy = await User.create({
+    email: 'amy@email.com',
+    password: '123',
+    isAdmin: true
+  })
+  const cart = await Cart.create()
+  await Amy.setCart(cart)
 
   const AmyCart = await Promise.all([Cart.create({userId: 1})])
 
@@ -24,6 +28,8 @@ async function seed() {
       email: faker.internet.email(),
       password: faker.internet.password()
     })
+    const newCart = await Cart.create()
+    await user.setCart(newCart)
     users.push(user)
   }
 
