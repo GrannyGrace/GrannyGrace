@@ -37,8 +37,14 @@ export const fetchAllOrders = () => async dispatch => {
 }
 export const fetchTypeOfOrders = filter => {
   return async dispatch => {
-    console.log('here in typeof fetch', filter)
-    // dispatch(getTypeOfOrders(filter))
+    if (filter === 'all') {
+      const {data} = await axios.get('/api/orders')
+      dispatch(getTypeOfOrders(data))
+    } else {
+      const {data} = await axios.get('/api/orders')
+      const filteredOrders = data.filter(order => order.status === filter)
+      dispatch(getTypeOfOrders(filteredOrders))
+    }
   }
 }
 

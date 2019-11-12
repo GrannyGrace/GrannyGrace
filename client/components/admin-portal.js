@@ -8,19 +8,21 @@ import '../css/adminportal.css'
 
 const AdminPortal = props => {
   const [orderFilter, setOrderFilter] = useState('all')
-  const [displayOrders, setDisplayOrders] = useState([])
+  // const [displayOrders, setDisplayOrders] = useState([])
 
   useEffect(() => {
     props.fetchAllUsers()
-    setDisplayOrders(props.fetchAllOrders())
-    console.log('displayOrders', displayOrders)
+    props.fetchAllOrders()
+    // console.log('displayOrders before', displayOrders)
+    // setDisplayOrders(props.allOrders)
+    // console.log('displayOrders after', displayOrders)
   }, [])
 
   const handleFilterOrders = event => {
     // console.log('TCL: status', event)
     // setOrderFilter(props.allOrders.filter(order => order.status === status))
     setOrderFilter(event.target.value)
-    props.fetchTypeOfOrders(orderFilter)
+    props.fetchTypeOfOrders(event.target.value)
   }
 
   return (
