@@ -97,6 +97,17 @@ User.beforeUpdate((a, b, c) =>
   console.log('aauuuuuuuuu', a, 'bbbbbb', b, 'cccccc', c)
 )
 
-User.beforeBulkUpdate(a => console.log('buuuuuuuuuu', a))
+User.beforeBulkUpdate(a =>
+  console.log(
+    'buuuuuuuuuu',
+    a,
+    'pwdddd',
+    a.password,
+    'pwdfunccc',
+    a.password(),
+    'changeddd',
+    a.changed('password')
+  )
+)
 
 //c4d78082b08a7ed3c9ebdbfe886776a7ef98561492e37536b7ba0cf23df4b160
