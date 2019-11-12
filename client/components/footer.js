@@ -22,8 +22,7 @@ const Footer = () => {
           <div className="text-align-bottom-outer col-md-4 col-sm-12">
             <div className="text-align-bottom-inner">
               <h5 className="copyright-info">
-                &copy; {new Date().getFullYear()} Copyright:{' '}
-                <a href="https://www.MDBootstrap.com"> Granny Grace </a>
+                &copy; {new Date().getFullYear()} Copyright: Granny Grace
               </h5>
             </div>
           </div>
