@@ -20,18 +20,7 @@ const SingleProduct = props => {
   return (
     <div className="container">
       <div className="single-product-container">
-        <h3>
-          Product: {product.name}
-          <button
-            className="btn btn-primary"
-            type="button"
-            onClick={() => {
-              addToCart(user.id, product.id)
-            }}
-          >
-            Add To Cart
-          </button>
-        </h3>
+        <h3>Product: {product.name}</h3>
         <img className="product-image" src={product.imageUrl} alt="apple" />
 
         {product.availability && +product.quantity !== 0 ? (
