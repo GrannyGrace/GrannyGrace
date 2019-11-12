@@ -11,15 +11,23 @@ import {
 const Footer = () => {
   return (
     <MDBFooter color="blue" className="font-small pt-4 mt-4">
-      <MDBContainer fluid className="text-center text-md-left">
-        <MDBRow>
-          <MDBCol md="6">
+      <MDBContainer>
+        <MDBRow className="footer-row">
+          <div className="col-md-4 col-sm-12 needs-margin-bottom">
             <h5 className="footer-title">GRANNY GRACE</h5>
             <p className="footer-content">
               405 W Superior St, Chicago, IL 60654
             </p>
-          </MDBCol>
-          <MDBCol md="6">
+          </div>
+          <div className="text-align-bottom-outer col-md-4 col-sm-12">
+            <div className="text-align-bottom-inner">
+              <h5 className="copyright-info">
+                &copy; {new Date().getFullYear()} Copyright:{' '}
+                <a href="https://www.MDBootstrap.com"> Granny Grace </a>
+              </h5>
+            </div>
+          </div>
+          <div className="social-links col-md-4 col-sm-12">
             <h5 className="links-title">GRANNY SOCIAL</h5>
             <ul>
               <li className="list-unstyled">
@@ -38,15 +46,9 @@ const Footer = () => {
                 </a>
               </li>
             </ul>
-          </MDBCol>
+          </div>
         </MDBRow>
       </MDBContainer>
-      <div className="footer-copyright text-center py-3">
-        <MDBContainer fluid>
-          &copy; {new Date().getFullYear()} Copyright:{' '}
-          <a href="https://www.MDBootstrap.com"> Granny Grace </a>
-        </MDBContainer>
-      </div>
     </MDBFooter>
   )
 }

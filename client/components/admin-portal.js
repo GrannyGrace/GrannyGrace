@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import {connect} from 'react-redux'
-import {fetchAllUsers} from '../store/allUsers'
 import {fetchAllOrders} from '../store/allOrders.js'
+import {fetchAllUsers, deleteUser, updateUser} from '../store/allUsers'
+import '../css/adminportal.css'
 // import {fetchAllOrders} from '../store/orders'
 //need to create fetchAllOrders
 
@@ -20,8 +21,8 @@ const AdminPortal = props => {
   }
 
   return (
-    <div>
-      <h4>Admin Portal</h4>
+    <div className="container needs-top-margin">
+      <h3>Admin Portal</h3>
       <p style={{fontWeight: 'bold'}}>Hi {props.user.username}</p>
       <select
         id="orderFilter"
@@ -50,10 +51,27 @@ const AdminPortal = props => {
       <h4>See All Users: </h4>
       {props.allUsers[0] &&
         props.allUsers.map(user => {
+          console.log('each useeeer', user)
           return (
-            <div key={user.email}>
+            <div className="active-user-div" key={user.email}>
               <p>Email: {user.email}</p>
               <p>Order: </p>
+              <select
+                className="change-admin-status"
+                value={user.isAdmin}
+                onChange={() =>
+                  props.updateUser({userId: user.id, isAdmin: !user.isAdmin})
+                }
+              >
+                <option value={true}>Admin</option>
+                <option value={false}>User</option>
+              </select>
+              <button
+                className="delete-user-button"
+                onClick={() => props.deleteUser(user.id)}
+              >
+                Delete User
+              </button>
             </div>
           )
         })}
@@ -71,7 +89,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchAllUsers: () => dispatch(fetchAllUsers()),
-    fetchAllOrders: () => dispatch(fetchAllOrders())
+    fetchAllOrders: () => dispatch(fetchAllOrders()),
+    deleteUser: id => dispatch(deleteUser(id)),
+    updateUser: data => dispatch(updateUser(data))
   }
 }
 

@@ -31,7 +31,7 @@ class SubmitReview extends React.Component {
       )
     } else {
       return (
-        <div className="less-margin-left">
+        <div className="container">
           <Form onSubmit={this.onSubmit}>
             <div className="col-md-4 col-sm-12 col-xs-12 =">
               <h5>Write a Review!</h5>

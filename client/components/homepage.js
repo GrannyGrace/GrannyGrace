@@ -40,22 +40,27 @@ class AllProducts extends React.Component {
   }
 
   addToCart(productId) {
-    const qty = 1
     if (this.props.user.id) {
-      this.props.fetchUpdateCart(this.props.user.id, productId)
+      this.props.fetchUpdateCart(this.props.user.id, productId, 1)
     } else {
       this.props.fetchGuestCart(productId)
     }
   }
 
   filterProducts = category => {
+    console.log('this.props.products', this.props.products)
     this.setState({
-      products: this.props.products.filter(p => p.category === category)
+      products: this.props.products.filter(p => p.category.includes(category))
     })
   }
 
   render() {
     const {sortValue, view, products} = this.state
+    let productCats = []
+    this.props.products.forEach(
+      p => (productCats = productCats.concat(p.category))
+    )
+    productCats = _.uniq(productCats).sort((a, b) => (a < b ? -1 : 1))
     return (
       <>
         {/* APPLES BANNER IMAGE */}
@@ -100,17 +105,15 @@ class AllProducts extends React.Component {
                   </span>
                   <div className="product-filters-inner-container">
                     <span className="category-title">Category</span>
-                    {_.uniqBy(this.props.products, 'category')
-                      .sort((a, b) => (a.category < b.category ? -1 : 1))
-                      .map((p, i) => (
-                        <div
-                          className="product-category"
-                          onClick={() => this.filterProducts(p.category)}
-                          key={i}
-                        >
-                          {p.category}
-                        </div>
-                      ))}
+                    {productCats.map((p, i) => (
+                      <div
+                        className="product-category"
+                        onClick={() => this.filterProducts(p)}
+                        key={i}
+                      >
+                        {p}
+                      </div>
+                    ))}
                   </div>
                   <SearchBar />
                 </div>
@@ -123,10 +126,10 @@ class AllProducts extends React.Component {
                     </div>
                     <div className="container-fluid">
                       {view === 'grid' ? (
-                        <div className="card-columns">
+                        <div className="row col-sm-12">
                           {products.slice(0, 9).map(elem => {
                             return (
-                              <div key={elem.id} className="card">
+                              <div key={elem.id} className="card col-sm-4">
                                 <Link key={elem.id} to={`/products/${elem.id}`}>
                                   <img
                                     className="card-img-top"
@@ -211,8 +214,8 @@ const mapDispatchToProps = dispatch => {
   return {
     getProductsFromServer: () => dispatch(fetchProducts()),
 
-    fetchUpdateCart: (userId, productId) =>
-      dispatch(fetchUpdateCart(userId, productId)),
+    fetchUpdateCart: (userId, productId, qty) =>
+      dispatch(fetchUpdateCart(userId, productId, qty)),
 
     fetchGuestCart: productId => dispatch(fetchGuestCart(productId)),
 

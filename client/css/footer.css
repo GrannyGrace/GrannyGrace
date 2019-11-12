@@ -8,3 +8,40 @@
 .page-footer {
   background-color: #dc2242;
 }
+
+.text-md-left {
+  text-align: center;
+}
+
+.social-links {
+  text-align: right;
+}
+
+.text-align-bottom-outer {
+  position: relative;
+  text-align: center;
+}
+
+.text-align-bottom-inner {
+  position: absolute;
+  bottom: 11px;
+  width: 100%;
+}
+
+.footer-row {
+  padding-bottom: 10px;
+}
+
+.copyright-info {
+  color: #ffffff;
+}
+
+@media screen and (max-width: 767px) {
+  .needs-margin-bottom {
+    margin-bottom: 40px;
+  }
+  .copyright-info {
+    color: #ffffff;
+    font-size: 1.1rem;
+  }
+}

@@ -6,7 +6,7 @@ const {User, Order, Product, Review, Cart} = require('../server/db/models')
 const faker = require('faker')
 
 async function seed() {
-  await db.sync({force: true})
+  await db.sync({force: true}) //forcefully drop existing tables(if any) and creates new ones. creates if they don't exist at all.
   console.log('db synced!')
 
   const Amy = await Promise.all([
