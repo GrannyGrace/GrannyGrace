@@ -15,6 +15,18 @@ router.get('/users', async (req, res, next) => {
   }
 })
 
+router.put('/:id', async (req, res, next) => {
+  try {
+    const updated = await Order.update(
+      {status: req.body.newStatus},
+      {where: {id: req.body.orderId}}
+    )
+    res.send(updated)
+  } catch (err) {
+    console.log(err)
+  }
+})
+
 router.post('/', async (req, res, next) => {
   try {
     let cart
@@ -51,6 +63,15 @@ router.post('/', async (req, res, next) => {
     res.json(updated)
   } catch (error) {
     next(error)
+  }
+})
+
+router.get('/', async (req, res, next) => {
+  try {
+    const orders = await Order.findAll()
+    res.json(orders)
+  } catch (err) {
+    next(err)
   }
 })
 

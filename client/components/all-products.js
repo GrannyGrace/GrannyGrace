@@ -81,9 +81,9 @@ class AllProducts extends React.Component {
   render() {
     const {sortValue, view, products} = this.state
     let productCats = []
-    this.props.products.forEach(
-      p => (productCats = productCats.concat(p.category))
-    )
+    this.props.products.forEach(p => {
+      productCats = productCats.concat(p.category)
+    })
     productCats = _.uniq(productCats).sort((a, b) => (a < b ? -1 : 1))
     return (
       <div className="container outer-products-container">
@@ -203,9 +203,10 @@ class AllProducts extends React.Component {
                                   className="card-title"
                                   style={{color: 'black'}}
                                 >
-                                  {elem.name} for {elem.price}
+                                  {elem.name}
                                 </h4>
-                                <p className="card-text">{elem.decription}</p>
+                                <p className="card-text">${elem.price}</p>
+                                <p className="card-text">{elem.description}</p>
                               </div>
                             </Link>
                           </div>

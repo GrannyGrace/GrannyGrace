@@ -58,7 +58,8 @@ const Cart = props => {
                   </div>
                   <p className="mb-1 card-text">{prod.description}</p>
                   <small className="card-text">
-                    Unit Price: ${prod.price} Qty: {prod.CartProducts.quantity}{' '}
+                    Unit Price: ${prod.price},
+                    {'  '} Qty: {prod.CartProducts.quantity}, {'  '}
                     Item Total: ${+prod.price * prod.CartProducts.quantity}
                   </small>
                 </Link>

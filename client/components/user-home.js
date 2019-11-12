@@ -6,25 +6,6 @@ import '../css/userhome.css'
 /**
  * COMPONENT
  */
-// export const UserHome = props => {
-//   const {email} = props
-//   return (
-//     <div className="container needs-margin-top">
-//       <div className="left-column">
-//         <h3>Welcome, {email}</h3>
-//       </div>
-//       <div className="right-column">
-//         <button
-//           type="button"
-//           // oncClick={console.log('clicked')}
-//           className="reset-password-button"
-//         >
-//           Reset Password
-//         </button>
-//       </div>
-//     </div>
-//   )
-// }
 
 export const UserHome = props => {
   const email = props.user.email
@@ -37,7 +18,7 @@ export const UserHome = props => {
       <div className="right-column">
         <button
           type="button"
-          //oncClick={resetPassword}
+          // oncClick={resetPassword}
           className="reset-password-button"
         >
           Reset Password
