@@ -35,9 +35,11 @@ export const fetchAllOrders = () => async dispatch => {
     console.log(err)
   }
 }
-export const fetchTypeOfOrders = some => dispatch => {
-  console.log('here in typeof fetch', some)
-  // dispatch(getTypeOfOrders(some))
+export const fetchTypeOfOrders = filter => {
+  return async dispatch => {
+    console.log('here in typeof fetch', filter)
+    // dispatch(getTypeOfOrders(filter))
+  }
 }
 
 /**

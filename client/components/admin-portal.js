@@ -7,18 +7,20 @@ import '../css/adminportal.css'
 //need to create fetchAllOrders
 
 const AdminPortal = props => {
+  const [orderFilter, setOrderFilter] = useState('all')
+  const [displayOrders, setDisplayOrders] = useState([])
+
   useEffect(() => {
     props.fetchAllUsers()
-    props.fetchAllOrders()
+    setDisplayOrders(props.fetchAllOrders())
+    console.log('displayOrders', displayOrders)
   }, [])
-
-  const [orderFilter, setOrderFilter] = useState('all')
 
   const handleFilterOrders = event => {
     // console.log('TCL: status', event)
     // setOrderFilter(props.allOrders.filter(order => order.status === status))
     setOrderFilter(event.target.value)
-    fetchTypeOfOrders(orderFilter)
+    props.fetchTypeOfOrders(orderFilter)
   }
 
   return (
@@ -102,6 +104,7 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchAllUsers: () => dispatch(fetchAllUsers()),
     fetchAllOrders: () => dispatch(fetchAllOrders()),
+    fetchTypeOfOrders: filter => dispatch(fetchTypeOfOrders(filter)),
     deleteUser: id => dispatch(deleteUser(id)),
     updateUser: data => dispatch(updateUser(data))
   }
