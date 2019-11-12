@@ -1,8 +1,9 @@
 import React from 'react'
+import '../css/returnpolicy.css'
 
 const ReturnPolicy = props => {
   return (
-    <div className="container">
+    <div className="container needs-margin-top">
       <div className="text-center">
         <h3>Returns</h3>
         <p>

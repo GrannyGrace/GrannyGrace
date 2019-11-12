@@ -21,10 +21,6 @@ a {
   max-width: 95% !important;
 }
 
-.bottom-navbar-items {
-  margin-left: 46px;
-}
-
 .display-at-mobile {
   display: none;
 }
@@ -47,9 +43,6 @@ a {
     background-color: #6f9449;
     color: #ffffff;
     height: 100% !important;
-  }
-  nav a:first-child {
-    /*margin-left: 5px;*/
   }
   nav a {
     width: 100%;

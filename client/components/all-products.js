@@ -45,10 +45,11 @@ class AllProducts extends React.Component {
   }
 
   addToCart(productId) {
+    const qty = {qty: '1'}
     if (this.props.user.id) {
-      this.props.fetchUpdateCart(this.props.user.id, productId, 1)
+      this.props.fetchUpdateCart(this.props.user.id, productId, qty)
     } else {
-      this.props.fetchGuestCart(productId)
+      this.props.fetchGuestCart(productId, qty)
     }
   }
 
@@ -170,7 +171,7 @@ class AllProducts extends React.Component {
 
                               {this.props.user.isAdmin ? (
                                 <p className="card-subtitle mb-2 text-muted">
-                                  Quantity: {elem.quantity}
+                                  Inventory: {elem.quantity}
                                 </p>
                               ) : null}
                               <button
@@ -236,7 +237,8 @@ const mapDispatchToProps = dispatch => {
     fetchUpdateCart: (userId, productId, qty) =>
       dispatch(fetchUpdateCart(userId, productId, qty)),
 
-    fetchGuestCart: productId => dispatch(fetchGuestCart(productId)),
+    fetchGuestCart: (productId, qty) =>
+      dispatch(fetchGuestCart(productId, qty)),
 
     sessionChecker: () => dispatch(sessionChecker()),
 

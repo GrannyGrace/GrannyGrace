@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
+import Card from 'react-bootstrap/Card'
 import {
   setCart,
   fetchUpdateCart,
@@ -24,19 +25,27 @@ const Cart = props => {
   )
   let totalPrice = 0
   if (!props.curCart || !props.curCart[0]) {
-    return <span>cart is empty</span>
+    return (
+      <React.Fragment>
+        <Card.Body>cart is empty</Card.Body>
+      </React.Fragment>
+    )
   }
 
   const deleteFromCart = productId => {
-    props.removeFromCart(props.user.id, productId)
+    if (props.user.id) {
+      props.removeFromCart(props.user.id, productId)
+    } else {
+      props.removeFromCart('guest', productId)
+    }
   }
 
   return (
     <React.Fragment>
       <div className="card">
-        <ul className="list-group list-group-flush">
+        <div className="list-group list-group-flush">
           {props.curCart.map(prod => {
-            totalPrice += prod.price
+            totalPrice += prod.price * prod.CartProducts.quantity
             return (
               <div
                 className="list-group-item list-group-item-action flex-column align-items-start"
@@ -48,11 +57,14 @@ const Cart = props => {
                     <small />
                   </div>
                   <p className="mb-1 card-text">{prod.description}</p>
-                  <small className="card-text">Price: ${prod.price}</small>
+                  <small className="card-text">
+                    Unit Price: ${prod.price} Qty: {prod.CartProducts.quantity}{' '}
+                    Item Total: ${+prod.price * prod.CartProducts.quantity}
+                  </small>
                 </Link>
                 <button
                   style={{display: 'inline'}}
-                  onClick={evt => {
+                  onClick={() => {
                     deleteFromCart(prod.id)
                   }}
                   type="button"
@@ -67,10 +79,10 @@ const Cart = props => {
               // </li>
             )
           })}
-          <h4 className="list-group-item mb-1 card-title">
+          <h4 key="subtotal" className="list-group-item mb-1 card-title">
             Subtotal: ${totalPrice}
           </h4>
-        </ul>
+        </div>
       </div>
       <Link to="/checkout">
         <button type="button" className="btn btn-lg btn-primary">

@@ -31,7 +31,7 @@ const Footer = () => {
             <h5 className="links-title">GRANNY SOCIAL</h5>
             <ul>
               <li className="list-unstyled">
-                <a href="#!">
+                <a href="https://twitter.com/ApplesGraces">
                   Twitter <FontAwesomeIcon icon={faTwitter} />
                 </a>
               </li>
