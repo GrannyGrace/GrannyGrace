@@ -51,7 +51,7 @@ class AllProducts extends React.Component {
   filterProducts = category => {
     console.log('this.props.products', this.props.products)
     this.setState({
-      products: this.props.products.filter(p => p.category === category)
+      products: this.props.products.filter(p => p.category.includes(category))
     })
   }
 
