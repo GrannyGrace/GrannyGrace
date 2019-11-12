@@ -62,10 +62,8 @@ router.put('/guest/:productId', async (req, res, next) => {
           include: [Product]
         })
         res.send(updatedCart.products)
-      }
-
-      //adding quantity to cart of existing product
-      if (foundProduct) {
+      } else if (foundProduct) {
+        //adding quantity to cart of existing product
         const [cartQuantity] = await CartProduct.findAll({
           where: {
             productId: +req.params.productId,
@@ -111,6 +109,7 @@ router.put('/:userId/:productId', async (req, res, next) => {
     } else {
       //adding to cart
       const qty = +req.body.qty
+      console.log(qty)
 
       //check inventory stock
       const productInventory = await Product.findOne({
@@ -149,10 +148,8 @@ router.put('/:userId/:productId', async (req, res, next) => {
           include: [Product]
         })
         res.send(updatedCart.products)
-      }
-
-      //adding quantity to cart of existing product
-      if (foundProduct) {
+      } else if (foundProduct) {
+        //adding quantity to cart of existing product
         const [cartQuantity] = await CartProduct.findAll({
           where: {
             productId: +req.params.productId,

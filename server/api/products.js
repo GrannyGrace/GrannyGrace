@@ -62,6 +62,8 @@ router.put('/:id', async (req, res, next) => {
   }
 })
 
+router.put('/')
+
 router.get('/search/:term', async (req, res, next) => {
   try {
     // console.log('req.params.term', req.params.term)

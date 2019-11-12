@@ -40,6 +40,15 @@ export function fetchSearchedProducts(term) {
   }
 }
 
+// export const inventoryUpdate = (cartIn) => {
+//   return async dispatch => {
+//     try {
+//       console.log(cartIn)
+//       await axios.put()
+//     }catch(error){console.log('error in inventory update thunk', error)}
+//   }
+// }
+
 //reducer
 export default function productsReducer(products = [], action) {
   switch (action.type) {
