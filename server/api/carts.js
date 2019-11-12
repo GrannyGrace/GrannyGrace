@@ -23,8 +23,19 @@ router.put('/guest/:productId', async (req, res, next) => {
     if (+req.params.productId === 0) {
       res.send(resCart.products)
     } else {
-      //adding to cart
+      //adding to cart process
+
       const qty = +req.body.qty
+      //check if there is enough inventory to sell product
+      const productInventory = await Product.findOne({
+        where: {
+          id: +req.params.productId
+        },
+        attributes: ['quantity']
+      })
+
+      console.log(productInventory)
+
       const foundProduct = resCart.products
         .map(prod => {
           return {id: prod.id, name: prod.name}
@@ -100,6 +111,17 @@ router.put('/:userId/:productId', async (req, res, next) => {
     } else {
       //adding to cart
       const qty = +req.body.qty
+
+      //check inventory stock
+      const productInventory = await Product.findOne({
+        where: {
+          id: +req.params.productId
+        },
+        attributes: ['quantity']
+      })
+
+      console.log(productInventory)
+
       const foundProduct = resCart.products
         .map(prod => {
           return {id: prod.id, name: prod.name}

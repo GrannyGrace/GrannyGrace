@@ -170,7 +170,7 @@ class AllProducts extends React.Component {
 
                               {this.props.user.isAdmin ? (
                                 <p className="card-subtitle mb-2 text-muted">
-                                  Quantity: {elem.quantity}
+                                  Inventory: {elem.quantity}
                                 </p>
                               ) : null}
                               <button
