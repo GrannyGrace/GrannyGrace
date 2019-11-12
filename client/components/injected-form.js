@@ -17,9 +17,9 @@ class InjectedForm extends React.Component {
     this.state = {
       name: '',
       amount: 0,
+      email: '',
       address: '',
-      message: '',
-      email: ''
+      message: ''
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -68,10 +68,8 @@ class InjectedForm extends React.Component {
     })
   }
   render() {
-    console.log('props in injected', this.props)
     return (
       <div>
-        (
         <div className="container">
           <form
             className="form-group p-3 shadow-1g border border-primary mt-3"
@@ -86,6 +84,7 @@ class InjectedForm extends React.Component {
               value={this.state.name}
               placeholder="Joe Shmo"
             />
+
             <label>Shipping Address</label>
             <input
               className="input-group border border-dark my-1 p-1"
@@ -96,15 +95,6 @@ class InjectedForm extends React.Component {
               placeholder="123 Someplace Ave."
             />
             <div>Amount: ${this.state.amount}</div>
-            {/* <input
-            className="input-group border border-dark my-1 p-1"
-            name="amount"
-            type="text"
-            onChange={this.handleChange}
-            value={this.state.amount}
-            placeholder="1000.00"
-          /> */}
-
             <label style={{display: 'block'}}>Card/Exp/CV</label>
             <CardElement
               name="card"
@@ -124,7 +114,6 @@ class InjectedForm extends React.Component {
             )}
           </form>
         </div>
-        )}
       </div>
     )
   }

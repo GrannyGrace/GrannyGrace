@@ -22,6 +22,9 @@ const checkFields = (req, res, next) => {
   } else if (!req.body.token.card.name) {
     error.message = 'Checkout not successful, include name'
     next(error)
+  } else if (!req.user && !req.body.email) {
+    error.message = 'Checkout not successful, include email'
+    next(error)
   } else if (!+req.body.amount) {
     error.message = 'Checkout not successful, your cart has no apples'
     next(error)
