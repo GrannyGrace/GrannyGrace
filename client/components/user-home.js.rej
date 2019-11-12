@@ -1,6 +1,0 @@
-diff a/client/components/user-home.js b/client/components/user-home.js	(rejected hunks)
-@@ -17 +17,3 @@ export const UserHome = props => {
--        <button type="button" className="reset-password-button">Reset Password</button>
-+        <button type="button" className="reset-password-button">
-+          Reset Password
-+        </button>

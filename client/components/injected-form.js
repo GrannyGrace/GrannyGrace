@@ -4,6 +4,7 @@ import {Redirect, withRouter} from 'react-router-dom'
 import {CardElement, injectStripe} from 'react-stripe-elements'
 import axios from 'axios'
 import {fetchUpdateCart, setCart, clearCart} from '../store/curCart'
+import {inventoryUpdate} from '../store/products'
 import {addOrder} from '../store/orders'
 // import CardSection from './card-section'
 // import AddressSection from './address-section'
@@ -31,6 +32,7 @@ class InjectedForm extends React.Component {
     const price = calcTotal(this.props.curCart)
     this.setState({amount: price})
   }
+
   componentDidUpdate(prevProps) {
     if (
       prevProps.curCart !== this.props.curCart &&
@@ -41,10 +43,11 @@ class InjectedForm extends React.Component {
     }
     console.log('state message', this.state.message)
   }
+
   async handleSubmit(ev) {
     ev.preventDefault()
     let {amount, address, email} = this.state
-    let {addOrder, clearCart, stripe, history} = this.props
+    let {addOrder, clearCart, inventoryUpdate, stripe, history} = this.props
     //const user = this.props.user
     let {token} = await stripe.createToken({
       name: this.state.name
@@ -57,7 +60,9 @@ class InjectedForm extends React.Component {
         email
       })
       this.setState({message: data})
+      await inventoryUpdate(this.props.curCart)
       await addOrder(amount, email)
+      console.log('hi')
       await clearCart()
       history.push('/order-summary/current')
     } catch (error) {
@@ -140,7 +145,8 @@ export default withRouter(
       fetchUpdateCart,
       setCart,
       clearCart,
-      addOrder
+      addOrder,
+      inventoryUpdate
     })(InjectedForm)
   )
 )
