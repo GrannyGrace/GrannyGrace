@@ -1,16 +1,48 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
+import '../css/userhome.css'
 
 /**
  * COMPONENT
  */
-export const UserHome = props => {
-  const {email} = props
+// export const UserHome = props => {
+//   const {email} = props
+//   return (
+//     <div className="container needs-margin-top">
+//       <div className="left-column">
+//         <h3>Welcome, {email}</h3>
+//       </div>
+//       <div className="right-column">
+//         <button
+//           type="button"
+//           // oncClick={console.log('clicked')}
+//           className="reset-password-button"
+//         >
+//           Reset Password
+//         </button>
+//       </div>
+//     </div>
+//   )
+// }
 
+export const UserHome = props => {
+  const email = props.user.email
+  console.log(props)
   return (
-    <div>
-      <h3>Welcome, {email}</h3>
+    <div className="container needs-margin-top">
+      <div className="left-column">
+        <h3>Welcome, {email}</h3>
+      </div>
+      <div className="right-column">
+        <button
+          type="button"
+          oncClick={resetPassword}
+          className="reset-password-button"
+        >
+          Reset Password
+        </button>
+      </div>
     </div>
   )
 }
@@ -20,7 +52,7 @@ export const UserHome = props => {
  */
 const mapState = state => {
   return {
-    email: state.user.email
+    user: state.user
   }
 }
 

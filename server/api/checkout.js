@@ -15,18 +15,22 @@ const chargeCreator = (tokenId, amount) => {
 }
 
 const checkFields = (req, res, next) => {
+  const error = new Error('Checkout not successful, include shipping address')
+  error.status = 401
   if (!req.body.address) {
-    res.send('Checkout not successful, include shipping address')
+    next(error)
+  } else if (!req.body.token.card.name) {
+    error.message = 'Checkout not successful, include name'
+    next(error)
+  } else if (!req.user && !req.body.email) {
+    error.message = 'Checkout not successful, include email'
+    next(error)
+  } else if (!+req.body.amount) {
+    error.message = 'Checkout not successful, your cart has no apples'
+    next(error)
+  } else {
+    next()
   }
-  if (!req.body.token.card.name) {
-    res.send('Checkout not successful, include name')
-    return
-  }
-  if (!+req.body.amount) {
-    res.send('Checkout not successful, your cart has no apples')
-    return
-  }
-  next()
 }
 
 router.post('/', checkFields, async (req, res, next) => {
@@ -35,7 +39,6 @@ router.post('/', checkFields, async (req, res, next) => {
     console.log('my charge', charge)
     res.send('Successful Charge')
   } catch (error) {
-    res.send('Checkout not succesful')
     next(error)
   }
 })

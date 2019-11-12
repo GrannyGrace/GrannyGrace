@@ -10,10 +10,11 @@ export const setCart = cart => {
 
 //thunks
 export const fetchUpdateCart = (userId, productId = 0, qty) => {
+  console.log(qty)
   return async dispatch => {
     try {
       console.log('from store', qty)
-      const {data} = await axios.put(`/api/carts/${userId}/${productId}`, qty)
+      const {data} = await axios.put(`/api/carts/${userId}/${productId}`, {qty})
       if (!data) {
         console.log('cart data not found/created')
       }
@@ -44,10 +45,10 @@ export const fetchGuestCart = (productId = 0, qty) => {
   }
 }
 
-export const clearCart = id => {
+export const clearCart = () => {
   return async dispatch => {
     try {
-      const {data} = await axios.delete(`/api/carts/${id}`)
+      const {data} = await axios.delete(`/api/carts`)
       dispatch(setCart(data))
     } catch (error) {
       console.error(error)
@@ -58,9 +59,15 @@ export const clearCart = id => {
 export const removeFromCart = (userId, productId) => {
   return async dispatch => {
     try {
-      const {data} = await axios.delete(`/api/carts/${userId}/${productId}`)
-      console.log('data in clearCart', data)
-      dispatch(setCart(data))
+      if (userId === 'guest') {
+        const {data} = await axios.delete(`/api/carts/${userId}/${productId}`)
+        console.log('data in clearCart', data)
+        dispatch(setCart(data))
+      } else {
+        const {data} = await axios.delete(`/api/carts/${userId}/${productId}`)
+        console.log('data in clearCart', data)
+        dispatch(setCart(data))
+      }
     } catch (error) {
       console.error(error)
       console.log('messed up in removeFromCart thunk')
