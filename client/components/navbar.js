@@ -20,7 +20,7 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin, getProductsFromServer}) => (
           <a href="#" onClick={handleClick}>
             Logout
           </a>
-          <Link to="/adminportal">Admin Portal</Link>
+          {isAdmin ? <Link to="/adminportal">Admin Portal</Link> : null}
         </div>
       ) : (
         <nav className="navbar navbar-light light-blue lighten-4">
