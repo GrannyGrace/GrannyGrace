@@ -43,7 +43,6 @@ class AllProducts extends React.Component {
       })
     }
   }
-
   addToCart(productId) {
     const qty = {qty: '1'}
     if (this.props.user.id) {

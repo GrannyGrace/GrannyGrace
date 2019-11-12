@@ -17,7 +17,6 @@ const AdminPortal = props => {
     // setDisplayOrders(props.allOrders)
     // console.log('displayOrders after', displayOrders)
   }, [])
-
   const handleFilterOrders = event => {
     // console.log('TCL: status', event)
     // setOrderFilter(props.allOrders.filter(order => order.status === status))
