@@ -18,7 +18,8 @@ const Order = db.define('order', {
   },
   lockedProducts: {
     type: Sequelize.ARRAY(Sequelize.JSONB)
-  }
+  },
+  email: Sequelize.STRING
 })
 
 module.exports = Order

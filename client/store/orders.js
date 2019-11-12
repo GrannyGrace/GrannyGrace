@@ -26,10 +26,10 @@ export const fetchOrders = userId => {
   }
 }
 
-export const addOrder = (userId, total) => {
+export const addOrder = (total, email) => {
   return async dispatch => {
     try {
-      const {data} = await axios.post(`/api/orders/${userId}`, {total})
+      const {data} = await axios.post(`/api/orders`, {total, email})
       dispatch(addToOrder(data))
     } catch (error) {
       console.error('messed up in addOrder thunk')

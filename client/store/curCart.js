@@ -44,10 +44,10 @@ export const fetchGuestCart = (productId = 0, qty) => {
   }
 }
 
-export const clearCart = id => {
+export const clearCart = () => {
   return async dispatch => {
     try {
-      const {data} = await axios.delete(`/api/carts/${id}`)
+      const {data} = await axios.delete(`/api/carts`)
       dispatch(setCart(data))
     } catch (error) {
       console.error(error)

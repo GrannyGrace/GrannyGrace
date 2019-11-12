@@ -104,17 +104,26 @@ router.put('/:userId/:productId', async (req, res, next) => {
   }
 })
 
-router.delete('/:userId', userCheck, async (req, res, next) => {
+router.delete('/', userCheck, async (req, res, next) => {
   try {
-    const cart = await Cart.findOne({
-      where: {userId: +req.params.userId}
-    })
+    let cart
+    console.log('TCL: req.user', req.user)
+    if (req.user) {
+      cart = await Cart.findOne({
+        where: {userId: +req.params.userId}
+      })
+    } else {
+      cart = await Cart.findOne({
+        where: {
+          sid: req.sessionID
+        }
+      })
+    }
     const products = await cart.getProducts()
     await cart.removeProducts()
     products.forEach(async prod => {
       await prod.removeCart(cart)
     })
-    const updated = Cart.findByPk(cart.id, {include: [Product]})
     res.json([])
   } catch (error) {
     next(error)
