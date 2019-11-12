@@ -28,7 +28,7 @@ class Routes extends Component {
       <Switch>
         {/* Routes placed here are available to all visitors */}
         <Route exact path="/checkout" component={Checkout} />
-        <Route exact path="/order-summary" component={OrderSummary} />
+        <Route path="/order-summary/:ind" component={OrderSummary} />
         <Route exact path="/products" component={AllProducts} />
         <Route exact path="/products/:id" component={SingleProduct} />
         <Route exact path="/home/cart/:userId" component={Cart} />
