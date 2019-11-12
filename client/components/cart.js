@@ -24,7 +24,11 @@ const Cart = props => {
   )
   let totalPrice = 0
   if (!props.curCart || !props.curCart[0]) {
-    return <span>cart is empty</span>
+    return (
+      <React.Fragment>
+        <span>cart is empty</span>
+      </React.Fragment>
+    )
   }
 
   const deleteFromCart = productId => {
@@ -36,7 +40,7 @@ const Cart = props => {
       <div className="card">
         <ul className="list-group list-group-flush">
           {props.curCart.map(prod => {
-            totalPrice += prod.price
+            totalPrice += prod.price * prod.CartProducts.quantity
             return (
               <div
                 className="list-group-item list-group-item-action flex-column align-items-start"
@@ -48,11 +52,14 @@ const Cart = props => {
                     <small />
                   </div>
                   <p className="mb-1 card-text">{prod.description}</p>
-                  <small className="card-text">Price: ${prod.price}</small>
+                  <small className="card-text">
+                    Unit Price: ${prod.price} Qty: {prod.CartProducts.quantity}{' '}
+                    Item Total: ${+prod.price * prod.CartProducts.quantity}
+                  </small>
                 </Link>
                 <button
                   style={{display: 'inline'}}
-                  onClick={evt => {
+                  onClick={() => {
                     deleteFromCart(prod.id)
                   }}
                   type="button"
