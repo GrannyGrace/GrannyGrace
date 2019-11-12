@@ -1,6 +1,10 @@
 import React, {useEffect, useState} from 'react'
 import {connect} from 'react-redux'
-import {fetchAllOrders, fetchTypeOfOrders} from '../store/allOrders.js'
+import {
+  fetchAllOrders,
+  fetchTypeOfOrders,
+  fetchUpdateOrder
+} from '../store/allOrders.js'
 import {fetchAllUsers, deleteUser, updateUser} from '../store/allUsers'
 import '../css/adminportal.css'
 // import {fetchAllOrders} from '../store/orders'
@@ -60,9 +64,44 @@ const AdminPortal = props => {
 
           {props.allOrders.map(eachOrder => {
             return (
-              <div className="active-user-div" key={eachOrder.id}>
+              <div className="active-order-div" key={eachOrder.id}>
                 <p>Order id: {eachOrder.id}</p>
                 <p>Order status: {eachOrder.status}</p>
+                <p>Items: </p>
+                {console.log(eachOrder.lockedProducts)}
+                {eachOrder.lockedProducts.map(product => {
+                  return (
+                    <div className="card active-order-div" key={product.id}>
+                      <img src={product.imageUrl} />
+                      <p className="textInCard">
+                        <span className="needs-bold">Item Name: </span>
+                        {product.name}
+                      </p>
+                      {/* <p >{product.name}</p> */}
+                      <p className="textInCard">
+                        <span className="needs-bold">Price Paid: </span>$
+                        {product.price}
+                      </p>
+                    </div>
+                  )
+                })}
+                <select
+                  id="eachOrderStatus"
+                  value={eachOrder.status}
+                  onChange={event => {
+                    props.fetchUpdateOrder({
+                      orderId: eachOrder.id,
+                      newStatus: event.target.value
+                    })
+                    props.fetchAllOrders()
+                  }}
+                >
+                  <option value="all">All</option>
+                  <option value="pending">Pending</option>
+                  <option value="shipped">Shipped</option>
+                  <option value="delivered">Delivered</option>
+                  <option value="canceled">Canceled</option>
+                </select>
                 <p>Order total: ${eachOrder.price}</p>
               </div>
             )
@@ -118,6 +157,7 @@ const mapDispatchToProps = dispatch => {
     fetchAllUsers: () => dispatch(fetchAllUsers()),
     fetchAllOrders: () => dispatch(fetchAllOrders()),
     fetchTypeOfOrders: filter => dispatch(fetchTypeOfOrders(filter)),
+    fetchUpdateOrder: info => dispatch(fetchUpdateOrder(info)),
     deleteUser: id => dispatch(deleteUser(id)),
     updateUser: data => dispatch(updateUser(data))
   }

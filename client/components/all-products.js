@@ -202,9 +202,10 @@ class AllProducts extends React.Component {
                                   className="card-title"
                                   style={{color: 'black'}}
                                 >
-                                  {elem.name} for {elem.price}
+                                  {elem.name}
                                 </h4>
-                                <p className="card-text">{elem.decription}</p>
+                                <p className="card-text">${elem.price}</p>
+                                <p className="card-text">{elem.description}</p>
                               </div>
                             </Link>
                           </div>
