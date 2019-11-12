@@ -18,7 +18,7 @@ export const UserHome = props => {
       <div className="right-column">
         <button
           type="button"
-          // oncClick={resetPassword}
+          //  oncClick={resetPassword}
           className="reset-password-button"
         >
           Reset Password

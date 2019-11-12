@@ -85,6 +85,10 @@
   color: #dc2242;
 }
 
+.card-body {
+  height: 131px !important;
+}
+
 @media screen and (max-width: 1100px) {
   .top-title-row {
     display: block;
