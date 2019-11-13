@@ -34,8 +34,6 @@ router.put('/guest/:productId', async (req, res, next) => {
         attributes: ['quantity']
       })
 
-      console.log(productInventory)
-
       const foundProduct = resCart.products
         .map(prod => {
           return {id: prod.id, name: prod.name}
@@ -62,10 +60,8 @@ router.put('/guest/:productId', async (req, res, next) => {
           include: [Product]
         })
         res.send(updatedCart.products)
-      }
-
-      //adding quantity to cart of existing product
-      if (foundProduct) {
+      } else {
+        //adding quantity to cart of existing product
         const [cartQuantity] = await CartProduct.findAll({
           where: {
             productId: +req.params.productId,
@@ -74,9 +70,7 @@ router.put('/guest/:productId', async (req, res, next) => {
           attributes: ['quantity']
         })
 
-        console.log(cartQuantity.quantity)
         const newQty = cartQuantity.quantity + qty
-        console.log('new qty', newQty)
 
         await CartProduct.update(
           {quantity: newQty},
@@ -96,11 +90,11 @@ router.put('/guest/:productId', async (req, res, next) => {
   }
 })
 
-router.put('/:userId/:productId', async (req, res, next) => {
+router.put('/user/:productId', async (req, res, next) => {
   try {
     const [resCart] = await Cart.findOrCreate({
       where: {
-        userId: req.params.userId
+        userId: +req.user.id
       },
       include: [Product]
     })
@@ -110,7 +104,8 @@ router.put('/:userId/:productId', async (req, res, next) => {
       res.send(resCart.products)
     } else {
       //adding to cart
-      const qty = req.body.qty
+      const qty = +req.body.qty
+      console.log(qty)
 
       //check inventory stock
       const productInventory = await Product.findOne({
@@ -119,8 +114,6 @@ router.put('/:userId/:productId', async (req, res, next) => {
         },
         attributes: ['quantity']
       })
-
-      console.log(productInventory)
 
       //checking resCart to see if product to be added is already in cart
       const foundProduct = resCart.products
@@ -131,8 +124,26 @@ router.put('/:userId/:productId', async (req, res, next) => {
           return elem.id === +req.params.productId
         })
 
-      //adding quantity to cart of existing product
-      if (foundProduct) {
+      //adding product not in cart to cart
+      if (!foundProduct) {
+        const product = await Product.findByPk(+req.params.productId)
+        await resCart.addProduct(product)
+        await CartProduct.update(
+          {quantity: qty},
+          {
+            where: {
+              productId: req.params.productId,
+              cartId: resCart.id
+            },
+            returning: true
+          }
+        )
+        const updatedCart = await Cart.findByPk(+resCart.id, {
+          include: [Product]
+        })
+        res.send(updatedCart.products)
+      } else if (foundProduct) {
+        //adding quantity to cart of existing product
         const [cartQuantity] = await CartProduct.findAll({
           where: {
             productId: +req.params.productId,
@@ -181,7 +192,6 @@ router.put('/:userId/:productId', async (req, res, next) => {
 router.delete('/', async (req, res, next) => {
   try {
     let cart
-    console.log('TCL: req.user', req.user)
     if (req.user) {
       cart = await Cart.findOne({
         where: {userId: +req.user.id}

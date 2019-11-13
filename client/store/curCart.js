@@ -8,13 +8,20 @@ export const setCart = cart => {
   return {type: SET_CART, cart}
 }
 
+//when you click on add to cart, if you're logged in, it calls this
+//fetchUpdateCart function
+//must pass in a number as qty rather than an object for this to work
+//the backend expects a number
+// calls this endpoint '/user/:productId' in the backend, and the number
+// gets passed in
+
 //thunks
-export const fetchUpdateCart = (userId, productId = 0, qty) => {
+export const fetchUpdateCart = (productId = 0, qty = 1) => {
   console.log(qty)
   return async dispatch => {
     try {
       console.log('from store', qty)
-      const {data} = await axios.put(`/api/carts/${userId}/${productId}`, qty)
+      const {data} = await axios.put(`/api/carts/user/${productId}`, qty)
       if (!data) {
         console.log('cart data not found/created')
       }
@@ -27,7 +34,10 @@ export const fetchUpdateCart = (userId, productId = 0, qty) => {
   }
 }
 
-export const fetchGuestCart = (productId = 0, qty) => {
+//when you click on add to cart, if you're not logged in, it calls this
+//fetchGuestCart function
+
+export const fetchGuestCart = (productId = 0, qty = {qty: '1'}) => {
   console.log('fetchGuestCart run', qty)
   return async dispatch => {
     try {

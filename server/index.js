@@ -95,7 +95,7 @@ const createApp = () => {
     }
   })
 */
-  /*
+
   // error handling endware
   app.use((err, req, res, next) => {
     // console.error(err)
@@ -103,7 +103,6 @@ const createApp = () => {
     console.error(err.message)
     res.status(err.status || 500).send(err.message || 'Internal server error.')
   })
-*/
   // sends index.html
 
   app.get('*', (req, res) => {

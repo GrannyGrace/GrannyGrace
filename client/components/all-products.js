@@ -46,7 +46,7 @@ class AllProducts extends React.Component {
   addToCart(productId) {
     const qty = {qty: '1'}
     if (this.props.user.id) {
-      this.props.fetchUpdateCart(this.props.user.id, productId, qty)
+      this.props.fetchUpdateCart(productId, qty)
     } else {
       this.props.fetchGuestCart(productId, qty)
     }
@@ -80,9 +80,17 @@ class AllProducts extends React.Component {
   render() {
     const {sortValue, view, products} = this.state
     let productCats = []
-    this.props.products.forEach(
-      p => (productCats = productCats.concat(p.category))
-    )
+    this.props.products.forEach(p => {
+      productCats = productCats.concat(p.category)
+    })
+
+    //inside the render, grab all products and loop through
+    //creates a productCats array with all categories
+    //use loDash uniq to filter out duplicates from array of strings
+    //use .sort to sort alphabetically, then loop through and for
+    //each element, call .filterProducts(), which checks the list of products, to see
+    //if there is a product that has this category that was just passed in
+
     productCats = _.uniq(productCats).sort((a, b) => (a < b ? -1 : 1))
     return (
       <div className="container outer-products-container">
@@ -94,13 +102,13 @@ class AllProducts extends React.Component {
               </span>
               <div className="product-filters-inner-container">
                 <span className="category-title">Category</span>
-                {productCats.map((p, i) => (
+                {productCats.map((category, i) => (
                   <div
                     className="product-category"
-                    onClick={() => this.filterProducts(p)}
+                    onClick={() => this.filterProducts(category)}
                     key={i}
                   >
-                    {p}
+                    {category}
                   </div>
                 ))}
               </div>
@@ -234,8 +242,8 @@ const mapDispatchToProps = dispatch => {
   return {
     getProductsFromServer: () => dispatch(fetchProducts()),
 
-    fetchUpdateCart: (userId, productId, qty) =>
-      dispatch(fetchUpdateCart(userId, productId, qty)),
+    fetchUpdateCart: (productId, qty) =>
+      dispatch(fetchUpdateCart(productId, qty)),
 
     fetchGuestCart: (productId, qty) =>
       dispatch(fetchGuestCart(productId, qty)),

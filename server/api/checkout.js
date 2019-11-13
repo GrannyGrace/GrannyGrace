@@ -1,18 +1,8 @@
 const stripeLoader = require('stripe')
+const React = require('react')
+const nodemailer = require('nodemailer')
 const router = require('express').Router()
 module.exports = router
-// Token is created using Checkout or Elements!
-// Get the payment token ID submitted by the form:
-// Using Express
-const stripe = new stripeLoader(process.env.STRIPE)
-const chargeCreator = (tokenId, amount) => {
-  return stripe.charges.create({
-    amount: +amount * 100,
-    currency: 'usd',
-    source: tokenId,
-    description: 'Statement Description'
-  })
-}
 
 const checkFields = (req, res, next) => {
   const error = new Error('Checkout not successful, include shipping address')
@@ -32,11 +22,81 @@ const checkFields = (req, res, next) => {
     next()
   }
 }
+// Token is created using Checkout or Elements!
+// Get the payment token ID submitted by the form:
+// Using Express
+const stripe = new stripeLoader(process.env.STRIPE)
+
+const chargeCreator = (tokenId, amount) => {
+  return stripe.charges.create({
+    amount: +amount * 100,
+    currency: 'usd',
+    source: tokenId,
+    description: 'Statement Description'
+  })
+}
+//let testAccount
+let transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'GrannyGracesApples@gmail.com',
+    pass: 'UHR32iXSGYn6ma8'
+  }
+})
+// const Comp = curCart => {
+//   return (
+//     <div>
+//       {curCart.map(prod => {
+//         <div key={prod.id}>
+//           <div>{prod.name}</div>
+//         </div>
+//       })}
+//     </div>
+//   )
+// }
+
+const mapper = (curCart, amount) => {
+  let result = '<h1>Order Successful!</h1><h3>Order Summary</h3>'
+  curCart.forEach(prod => {
+    result += `<ul>
+      <li>
+      <div>Name: ${prod.name}</div>
+      <div>Quantity: $${prod.CartProducts.quantity}</div>
+      <div>Price: $${prod.price * prod.CartProducts.quantity}</div>
+      </li>
+    </ul>`
+  })
+  result += `<h4>Total: $${amount}</h4>`
+  return result
+}
+const autoMail = async (email, curCart, amount) => {
+  // if (!testAccount) {
+  //   //testAccount = await nodemailer.createTestAccount()
+  //   transporter = nodemailer.createTransport({
+  //     host: 'smtp.ethereal.email',
+  //     port: 587,
+  //     secure: false,
+  //     auth: {
+  //       user: testAccount.user,
+  //       pass: testAccount.pass
+  //     }
+  //   })
+  // }
+  const render = mapper(curCart, amount)
+  let info = await transporter.sendMail({
+    from: '<GranyGracesApples@gmail.com>',
+    to: `${email}, GrannyGracesApples@gmail.com`, // list of receivers
+    subject: 'Order Confirmation ✔', // Subject line
+    text: 'Order Successful', // plain text body
+    html: `${render}` // html body
+  })
+  console.log('nodemailer info', info)
+}
 
 router.post('/', checkFields, async (req, res, next) => {
   try {
     const charge = await chargeCreator(req.body.token.id, req.body.amount)
-    console.log('my charge', charge)
+    await autoMail(req.body.email, req.body.curCart, req.body.amount)
     res.send('Successful Charge')
   } catch (error) {
     next(error)

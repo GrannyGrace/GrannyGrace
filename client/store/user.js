@@ -43,7 +43,6 @@ export const auth = (email, password, method, isGuest) => async dispatch => {
     dispatch(getUser(res.data || defaultUser))
     history.push('/home')
   } catch (authError) {
-    console.log('err logggggggg', authError.response.data)
     dispatch(userFailure(authError.response.data))
   }
 }
@@ -75,13 +74,17 @@ export const logout = () => async dispatch => {
   }
 }
 
-export const resetPassword = ({userId, ...data}) => async dispatch => {
+//If no error, update the info in the database via the endpoint;
+//If there's an error, then we reject the password change;
+
+export const resetPassword = ({userId, currentPassword, newPassword}) => () => {
   try {
-    return axios.put(`/api/users/password/${userId}`, data)
+    return axios.put(`/api/users/reset-password/${userId}`, {
+      currentPassword,
+      newPassword
+    })
   } catch (err) {
-    console.error('err updating user password user', JSON.stringify(err))
-    dispatch(userFailure(err.response.data))
-    return Promise.reject(err.response.data)
+    return Promise.reject()
   }
 }
 

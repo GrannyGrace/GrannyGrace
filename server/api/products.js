@@ -31,7 +31,7 @@ router.get('/:id', async (req, res, next) => {
 })
 
 router.put('/:id', async (req, res, next) => {
-  console.log('TCL: req.body.category', req.body.category)
+  // console.log('TCL: req.body.category', req.body.category)
   try {
     if (!req.user || !req.user.isAdmin) {
       res.send('User is not an admin').end()
@@ -57,6 +57,25 @@ router.put('/:id', async (req, res, next) => {
       updatedAt: req.body.updatedAt
     })
     res.send(updated)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.put('/invUp/:prodId/:qty', async (req, res, next) => {
+  try {
+    const invProd = await Product.findByPk(+req.params.prodId)
+    await Product.update(
+      {
+        quantity: invProd.quantity - +req.params.qty
+      },
+      {
+        where: {
+          id: +req.params.prodId
+        }
+      }
+    )
+    res.sendStatus(200)
   } catch (error) {
     next(error)
   }
