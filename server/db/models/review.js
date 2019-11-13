@@ -31,15 +31,3 @@ const Review = db.define('review', {
 })
 
 module.exports = Review
-
-/**
- * instanceMethods
- */
-
-/**
- * classMethods
- */
-
-/**
- * hooks
- */

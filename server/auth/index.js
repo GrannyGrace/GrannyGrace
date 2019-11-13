@@ -32,23 +32,6 @@ router.post('/login', async (req, res, next) => {
   }
 })
 
-// router.post('/restore', async (req, res, next) => {
-//   try {
-//     const [user] = await User.findOrCreate({
-//       where: {
-//         sessionId: req.sessionID
-//       }
-//     })
-//     console.log('TCL: user/found', user)
-//     if (!user) {
-//       console.log('in /auth/restore and user was not found/created')
-//     }
-//     res.json(user)
-//   } catch (error) {
-//     next(error)
-//   }
-// })
-
 router.post('/signup', async (req, res, next) => {
   try {
     const user = await User.create(req.body)
@@ -57,16 +40,6 @@ router.post('/signup', async (req, res, next) => {
 
     await user.setCart(cart)
 
-    // const orders = await Order.findAll({
-    //   where: {
-    //     email: req.body.email
-    //   }
-    // })
-    // if (orders.length){
-    //   user = await user.addOrders(orders)
-
-    // }
-    ///associate orders to new user
     req.login(user, err => (err ? next(err) : res.json(user)))
   } catch (err) {
     if (err.name === 'SequelizeUniqueConstraintError') {
@@ -85,8 +58,6 @@ router.post('/logout', (req, res) => {
 })
 
 router.get('/me', (req, res) => {
-  //Session.create({sessionId:req.sessionID})
-  //Session.setUserId(req.user.id)
   res.json(req.user)
 })
 
