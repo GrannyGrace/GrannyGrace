@@ -47,7 +47,10 @@ class InjectedForm extends React.Component {
   async handleSubmit(ev) {
     ev.preventDefault()
     let {amount, address, email} = this.state
-    let {addOrder, clearCart, inventoryUpdate, stripe, history} = this.props
+    let {user, addOrder, clearCart, curCart, stripe, history} = this.props
+    if (user && user.id) {
+      email = user.email
+    }
     //const user = this.props.user
     let {token} = await stripe.createToken({
       name: this.state.name
@@ -57,7 +60,8 @@ class InjectedForm extends React.Component {
         token,
         amount,
         address,
-        email
+        email,
+        curCart
       })
       this.setState({message: data})
       await inventoryUpdate(this.props.curCart)

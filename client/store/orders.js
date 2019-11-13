@@ -18,10 +18,10 @@ export const addToOrder = newOrder => {
 }
 
 //thunks
-export const fetchOrders = userId => {
+export const fetchOrders = () => {
   return async dispatch => {
     try {
-      const {data} = await axios.get(`/api/orders/users/${userId}`)
+      const {data} = await axios.get(`/api/orders/users`)
       dispatch(setOrders(data))
     } catch (err) {
       console.log('error fetching orders', err)
@@ -33,6 +33,8 @@ export const addOrder = (total, email) => {
   return async dispatch => {
     try {
       const {data} = await axios.post(`/api/orders`, {total, email})
+      console.log('TCL: orders with locked products', data)
+
       dispatch(addToOrder(data))
     } catch (error) {
       console.error('messed up in addOrder thunk')

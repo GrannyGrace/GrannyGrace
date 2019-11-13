@@ -34,8 +34,6 @@ router.put('/guest/:productId', async (req, res, next) => {
         attributes: ['quantity']
       })
 
-      console.log(productInventory)
-
       const foundProduct = resCart.products
         .map(prod => {
           return {id: prod.id, name: prod.name}
@@ -62,7 +60,7 @@ router.put('/guest/:productId', async (req, res, next) => {
           include: [Product]
         })
         res.send(updatedCart.products)
-      } else if (foundProduct) {
+      } else {
         //adding quantity to cart of existing product
         const [cartQuantity] = await CartProduct.findAll({
           where: {
@@ -72,9 +70,7 @@ router.put('/guest/:productId', async (req, res, next) => {
           attributes: ['quantity']
         })
 
-        console.log(cartQuantity.quantity)
         const newQty = cartQuantity.quantity + qty
-        console.log('new qty', newQty)
 
         await CartProduct.update(
           {quantity: newQty},
@@ -94,11 +90,11 @@ router.put('/guest/:productId', async (req, res, next) => {
   }
 })
 
-router.put('/:userId/:productId', async (req, res, next) => {
+router.put('/user/:productId', async (req, res, next) => {
   try {
     const [resCart] = await Cart.findOrCreate({
       where: {
-        userId: req.params.userId
+        userId: +req.user.id
       },
       include: [Product]
     })
@@ -118,8 +114,6 @@ router.put('/:userId/:productId', async (req, res, next) => {
         },
         attributes: ['quantity']
       })
-
-      console.log(productInventory)
 
       //checking resCart to see if product to be added is already in cart
       const foundProduct = resCart.products
@@ -199,7 +193,6 @@ router.put('/:userId/:productId', async (req, res, next) => {
 router.delete('/', async (req, res, next) => {
   try {
     let cart
-    // console.log('TCL: req.user', req.user)
     if (req.user) {
       cart = await Cart.findOne({
         where: {userId: +req.user.id}

@@ -8,7 +8,7 @@ import '../css/orders.css'
 class Orders extends React.Component {
   componentDidMount() {
     console.log('props id****', this.props.currentUser)
-    this.props.fetchOrders(this.props.currentUser.id)
+    this.props.fetchOrders()
   }
 
   render() {
@@ -61,7 +61,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchOrders: id => dispatch(fetchOrders(id))
+    fetchOrders: () => dispatch(fetchOrders())
   }
 }
 

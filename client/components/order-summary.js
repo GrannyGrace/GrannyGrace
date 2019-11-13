@@ -8,8 +8,8 @@ import '../css/ordersummary.css'
 const OrderSummary = props => {
   useEffect(
     () => {
-      if (props.user) {
-        props.fetchOrders(props.user.id)
+      if (props.user.id) {
+        props.fetchOrders()
       }
     },
     [props.user]
@@ -19,39 +19,44 @@ const OrderSummary = props => {
       ? props.orders[props.orders.length - 1]
       : props.orders[+props.match.params.ind]
 
-  // console.log('prop orders', latest)
-  return props.orders.length > 0 && latest ? (
+  console.log('prop orders', latest)
+  console.log('TCL: props.match.params.ind', props.orders.length - 1)
+  return props.orders.length && latest ? (
     <div className="card">
-      <div className="container needs-margin-top">
-        <h1>Order Summary</h1>
-        <ul className="list-group list-group-flush">
-          {latest.lockedProducts.map(prod => {
-            return (
-              <div
-                className="list-group-item list-group-item-action flex-column align-items-start"
-                key={prod.id}
-              >
-                <Link to={`/products/${prod.id}`} id="cart-item" href="#!">
-                  <div className="d-flex w-100 justify-content-between">
-                    <h5 className="mb-1 card-title">{prod.name}</h5>
-                    <small />
-                  </div>
-                  <p className="mb-1 card-text">{prod.description}</p>
-                  <small className="card-text">Price: ${prod.price}</small>
-                </Link>
-              </div>
-            )
-          })}
-        </ul>
-        <h4 className="list-group-item mb-1 card-title">
-          Total: ${latest.price}
-        </h4>
-      </div>
+      <h1>Order Summary</h1>
+      <ul className="list-group list-group-flush">
+        {latest.lockedProducts.map(prod => {
+          return (
+            <div
+              className="list-group-item list-group-item-action flex-column align-items-start"
+              key={prod.id}
+            >
+              <Link to={`/products/${prod.id}`} id="cart-item" href="#!">
+                <div className="d-flex w-100 justify-content-between">
+                  <h5 className="mb-1 card-title">{prod.name}</h5>
+                  <small />
+                </div>
+                <p className="mb-1 card-text">{prod.description}</p>
+                <small className="card-text">
+                  Quantity: {prod.CartProducts.quantity}
+                </small>
+                <br />
+                <small className="card-text">Unit Price: ${prod.price}</small>
+                <br />
+                <small className="card-text">
+                  Total Price: ${prod.price * prod.CartProducts.quantity}
+                </small>
+              </Link>
+            </div>
+          )
+        })}
+      </ul>
+      <h4 className="list-group-item mb-1 card-title">
+        Total: ${latest.price}
+      </h4>
     </div>
   ) : (
-    <div>
-      How did you even get to this page, you must be a hacker, don't hack us.
-    </div>
+    <div>...Loading</div>
   )
 }
 
