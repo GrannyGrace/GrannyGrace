@@ -16,7 +16,28 @@
   margin: 10px 0 10px 0;
   border: 1px solid;
   padding: 10px;
-  width: 40%;
+  width: 70%;
+}
+
+.left-order-filter-column {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.right-order-filter-column {
+  display: inline-block;
+}
+
+.welcome-admin-div {
+  display: grid;
+}
+
+.title-row {
+  grid-row: 1;
+}
+
+.welcome-row {
+  grid-row: 2;
 }
 
 .active-order-div {

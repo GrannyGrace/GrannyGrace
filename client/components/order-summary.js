@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {Link, withRouter} from 'react-router-dom'
 import {fetchOrders} from '../store/orders'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import '../css/ordersummary.css'
 
 const OrderSummary = props => {
   useEffect(

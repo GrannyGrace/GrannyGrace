@@ -100,16 +100,17 @@ router.put('/user/:productId', async (req, res, next) => {
     })
 
     //cart retrieval
-    if (+req.params.productId === 0) {
+    if (!req.params.productId) {
       res.send(resCart.products)
     } else {
       //adding to cart
       const qty = +req.body.qty
+      console.log(qty)
 
       //check inventory stock
       const productInventory = await Product.findOne({
         where: {
-          id: +req.params.productId
+          id: req.params.productId
         },
         attributes: ['quantity']
       })
@@ -131,8 +132,8 @@ router.put('/user/:productId', async (req, res, next) => {
           {quantity: qty},
           {
             where: {
-              productId: +req.params.productId,
-              cartId: +resCart.id
+              productId: req.params.productId,
+              cartId: resCart.id
             },
             returning: true
           }
@@ -192,7 +193,6 @@ router.put('/user/:productId', async (req, res, next) => {
 router.delete('/', async (req, res, next) => {
   try {
     let cart
-
     if (req.user) {
       cart = await Cart.findOne({
         where: {userId: +req.user.id}

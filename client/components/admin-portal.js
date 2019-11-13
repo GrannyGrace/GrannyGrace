@@ -21,7 +21,6 @@ const AdminPortal = props => {
     // setDisplayOrders(props.allOrders)
     // console.log('displayOrders after', displayOrders)
   }, [])
-
   const handleFilterOrders = event => {
     // console.log('TCL: status', event)
     // setOrderFilter(props.allOrders.filter(order => order.status === status))
@@ -32,23 +31,36 @@ const AdminPortal = props => {
   return (
     // <div className="container-all">
     <div className="container needs-top-margin">
+      <div className="row welcome-admin-div">
+        <div className="title-row">
+          <h3>Admin Portal</h3>
+        </div>
+        <div className="welcome-row">
+          <p style={{fontWeight: 'bold'}}>Hi {props.user.username}</p>
+        </div>
+      </div>
       <div className="row">
         <div className="col-md-6 col-sm-12 col-xs-12">
-          <h3>Admin Portal</h3>
-          <p style={{fontWeight: 'bold'}}>Hi {props.user.username}</p>
-
-          <p>Order Filter: </p>
-          <select
-            id="orderFilter"
-            onChange={event => handleFilterOrders(event)}
-            value={orderFilter}
-          >
-            <option value="all">All</option>
-            <option value="pending">Pending</option>
-            <option value="shipped">Shipped</option>
-            <option value="delivered">Delivered</option>
-            <option value="canceled">Canceled</option>
-          </select>
+          <h4>All Orders: </h4>
+          <div className="order-filter-div">
+            <div className="left-order-filter-column">
+              <p>Order Filter: </p>
+            </div>
+            <div className="right-order-filter-column">
+              <select
+                id="orderFilter"
+                className="change-admin-status"
+                onChange={event => handleFilterOrders(event)}
+                value={orderFilter}
+              >
+                <option value="all">All</option>
+                <option value="pending">Pending</option>
+                <option value="shipped">Shipped</option>
+                <option value="delivered">Delivered</option>
+                <option value="canceled">Canceled</option>
+              </select>
+            </div>
+          </div>
 
           {props.allOrders.map(eachOrder => {
             return (
@@ -95,10 +107,9 @@ const AdminPortal = props => {
             )
           })}
         </div>
-        {/* </div> */}
 
         <div className="col-md-6 col-sm-12 col-xs-12">
-          <h4>See All Users: </h4>
+          <h4>All Users: </h4>
           {props.allUsers[0] &&
             props.allUsers.map(user => {
               return (
