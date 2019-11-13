@@ -93,21 +93,14 @@ User.beforeBulkCreate(users => {
   users.forEach(setSaltAndPassword)
 })
 
-User.beforeUpdate((a, b, c) =>
-  console.log('aauuuuuuuuu', a, 'bbbbbb', b, 'cccccc', c)
-)
+User.beforeUpdate(user => {
+  console.log('single update', user)
+  setSaltAndPassword(user)
+})
 
-User.beforeBulkUpdate(a =>
-  console.log(
-    'buuuuuuuuuu',
-    a,
-    'pwdddd',
-    a.password,
-    'pwdfunccc',
-    a.password(),
-    'changeddd',
-    a.changed('password')
-  )
-)
-
-//c4d78082b08a7ed3c9ebdbfe886776a7ef98561492e37536b7ba0cf23df4b160
+User.beforeBulkUpdate(user => {
+  console.log('bulk update', user)
+  user.salt = User.generateSalt()
+  console.log('bulk update2', user)
+  user.password = User.encryptPassword(user.attributes.password, user.salt)
+})

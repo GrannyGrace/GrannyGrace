@@ -6,6 +6,7 @@ import history from '../history'
  */
 const GET_USER = 'GET_USER'
 const REMOVE_USER = 'REMOVE_USER'
+const USER_FAILURE = 'USER_FAILURE'
 
 /**
  * INITIAL STATE
@@ -17,6 +18,7 @@ const defaultUser = {}
  */
 export const getUser = user => ({type: GET_USER, user})
 const removeUser = () => ({type: REMOVE_USER})
+const userFailure = error => ({type: USER_FAILURE, error})
 
 /**
  * THUNK CREATORS
@@ -38,15 +40,11 @@ export const auth = (email, password, method, isGuest) => async dispatch => {
     } else {
       res = await axios.post(`/auth/${method}`, {email, password})
     }
-  } catch (authError) {
-    return dispatch(getUser({error: authError}))
-  }
-
-  try {
     dispatch(getUser(res.data || defaultUser))
     history.push('/home')
-  } catch (dispatchOrHistoryErr) {
-    console.error(dispatchOrHistoryErr)
+  } catch (authError) {
+    console.log('err logggggggg', authError.response.data)
+    dispatch(userFailure(authError.response.data))
   }
 }
 
@@ -77,6 +75,16 @@ export const logout = () => async dispatch => {
   }
 }
 
+export const resetPassword = ({userId, ...data}) => async dispatch => {
+  try {
+    return axios.put(`/api/users/password/${userId}`, data)
+  } catch (err) {
+    console.error('err updating user password user', JSON.stringify(err))
+    dispatch(userFailure(err.response.data))
+    return Promise.reject(err.response.data)
+  }
+}
+
 /**
  * REDUCER
  */
@@ -86,6 +94,8 @@ export default function(state = defaultUser, action) {
       return action.user
     case REMOVE_USER:
       return defaultUser
+    case USER_FAILURE:
+      return {...state, error: action.error}
     default:
       return state
   }
