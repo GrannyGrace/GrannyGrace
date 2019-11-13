@@ -74,7 +74,6 @@ User.encryptPassword = function(plainText, salt) {
  * hooks
  */
 const setSaltAndPassword = user => {
-  console.log('setSaltAndPassword===', user)
   if (user.changed('password')) {
     user.salt = User.generateSalt()
     user.password = User.encryptPassword(user.password(), user.salt())
@@ -93,21 +92,5 @@ User.beforeBulkCreate(users => {
   users.forEach(setSaltAndPassword)
 })
 
-User.beforeUpdate((a, b, c) =>
-  console.log('aauuuuuuuuu', a, 'bbbbbb', b, 'cccccc', c)
-)
-
-User.beforeBulkUpdate(a =>
-  console.log(
-    'buuuuuuuuuu',
-    a,
-    'pwdddd',
-    a.password,
-    'pwdfunccc',
-    a.password(),
-    'changeddd',
-    a.changed('password')
-  )
-)
-
-//c4d78082b08a7ed3c9ebdbfe886776a7ef98561492e37536b7ba0cf23df4b160
+//makes sure that after new password is entered, it gets hashed
+User.beforeUpdate(setSaltAndPassword)

@@ -6,6 +6,7 @@ import history from '../history'
  */
 const GET_USER = 'GET_USER'
 const REMOVE_USER = 'REMOVE_USER'
+const USER_FAILURE = 'USER_FAILURE'
 
 /**
  * INITIAL STATE
@@ -17,6 +18,7 @@ const defaultUser = {}
  */
 export const getUser = user => ({type: GET_USER, user})
 const removeUser = () => ({type: REMOVE_USER})
+const userFailure = error => ({type: USER_FAILURE, error})
 
 /**
  * THUNK CREATORS
@@ -38,15 +40,10 @@ export const auth = (email, password, method, isGuest) => async dispatch => {
     } else {
       res = await axios.post(`/auth/${method}`, {email, password})
     }
-  } catch (authError) {
-    return dispatch(getUser({error: authError}))
-  }
-
-  try {
     dispatch(getUser(res.data || defaultUser))
     history.push('/home')
-  } catch (dispatchOrHistoryErr) {
-    console.error(dispatchOrHistoryErr)
+  } catch (authError) {
+    dispatch(userFailure(authError.response.data))
   }
 }
 
@@ -54,7 +51,6 @@ export const sessionChecker = () => {
   return async dispatch => {
     try {
       const {data} = await axios.post('/auth/restore')
-      //console.log('TCL: session checker datadata', data)
       if (!data) {
         console.log('user not found/created')
       }
@@ -77,6 +73,17 @@ export const logout = () => async dispatch => {
   }
 }
 
+export const resetPassword = ({userId, currentPassword, newPassword}) => () => {
+  try {
+    return axios.put(`/api/users/reset-password/${userId}`, {
+      currentPassword,
+      newPassword
+    })
+  } catch (err) {
+    return Promise.reject()
+  }
+}
+
 /**
  * REDUCER
  */
@@ -86,6 +93,8 @@ export default function(state = defaultUser, action) {
       return action.user
     case REMOVE_USER:
       return defaultUser
+    case USER_FAILURE:
+      return {...state, error: action.error}
     default:
       return state
   }

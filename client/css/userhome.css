@@ -15,4 +15,42 @@
   background-color: #dc2242;
   color: #ffffff;
   border: none;
+  float: right;
+  text-align: right;
+  display: inline-block;
+}
+
+.form-row {
+  padding: 10px;
+}
+
+.form-input {
+  margin-left: 5px;
+}
+
+.form-container {
+  border: 1px solid #000000;
+}
+
+.activate-reset-button {
+  background-color: #dc2242;
+  color: #ffffff;
+  border: none;
+}
+
+.form-button {
+  text-align: right;
+}
+
+.email-div {
+  display: inline-block;
+}
+
+.button-div {
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.form-container {
+  padding: 15px;
 }

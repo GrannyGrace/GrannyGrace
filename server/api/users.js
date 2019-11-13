@@ -63,20 +63,21 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.put('/password/:id', (req, res) => {
+router.put('/reset-password/:id', (req, res) => {
   const {currentPassword, newPassword} = req.body
   User.findOne({where: {id: req.params.id}})
     .then(user => {
       if (user && user.correctPassword(currentPassword)) {
-        console.log('corrrect pwddd')
         User.update(
           {password: newPassword},
-          {where: {id: req.params.id}, returning: true}
+          {where: {id: req.params.id}, returning: true, individualHooks: true}
         )
           .then(updatedUser => res.send(updatedUser[1][0]))
-          .catch(err => res.status(500).send(err))
+          .catch(err => {
+            res.status(500).send(err)
+          })
       } else {
-        res.send({error: 'Invalid Password'})
+        res.status(500).send('Invalid Email/Password')
       }
     })
     .catch(err => res.status(500).send(err))
@@ -84,8 +85,12 @@ router.put('/password/:id', (req, res) => {
 
 router.put('/:id', (req, res) => {
   User.update(req.body, {where: {id: req.params.id}, returning: true})
-    .then(user => res.send(user[1][0]))
-    .catch(err => res.status(500).send(err))
+    .then(user => {
+      res.send(user[1][0])
+    })
+    .catch(err => {
+      res.status(500).send(err)
+    })
 })
 
 router.delete('/:id', (req, res) => {
@@ -108,3 +113,4 @@ router.delete('/:id', (req, res) => {
 //     next(err)
 //   }
 // })
+//02236845644ea9b0a2ac63a0029ecb2fc20327256786f68a4849d4f5942def50

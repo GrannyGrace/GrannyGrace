@@ -83,6 +83,7 @@ class AllProducts extends React.Component {
     this.props.products.forEach(p => {
       productCats = productCats.concat(p.category)
     })
+
     productCats = _.uniq(productCats).sort((a, b) => (a < b ? -1 : 1))
     return (
       <div className="container outer-products-container">
@@ -94,13 +95,13 @@ class AllProducts extends React.Component {
               </span>
               <div className="product-filters-inner-container">
                 <span className="category-title">Category</span>
-                {productCats.map((p, i) => (
+                {productCats.map((category, i) => (
                   <div
                     className="product-category"
-                    onClick={() => this.filterProducts(p)}
+                    onClick={() => this.filterProducts(category)}
                     key={i}
                   >
-                    {p}
+                    {category}
                   </div>
                 ))}
               </div>

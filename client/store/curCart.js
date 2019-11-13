@@ -9,7 +9,7 @@ export const setCart = cart => {
 }
 
 //thunks
-export const fetchUpdateCart = (productId = 0, qty = {qty: '1'}) => {
+export const fetchUpdateCart = (productId = 0, qty = 1) => {
   console.log(qty)
   return async dispatch => {
     try {

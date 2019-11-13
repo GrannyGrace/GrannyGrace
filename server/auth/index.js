@@ -10,22 +10,28 @@ router.post('/login', async (req, res, next) => {
       include: [{model: Review}, {model: Order}]
       // include: [Product]
     })
-    const [newCart] = await Cart.findOrCreate({
-      where: {sid: req.sessionID},
-      include: [Product]
-    })
-    const oldCart = await user.getCart()
-    await oldCart.addProducts(newCart.products)
+    if (user) {
+      const [newCart] = await Cart.findOrCreate({
+        where: {sid: req.sessionID},
+        include: [Product]
+      })
+      const oldCart = await user.getCart()
+      await oldCart.addProducts(newCart.products)
 
-    if (!user) {
-      console.log('No such user found:', req.body.email)
-      res.status(401).send('Wrong username and/or password')
-    } else if (!user.correctPassword(req.body.password)) {
-      console.log('Incorrect password for user:', req.body.email)
-      res.status(401).send('Wrong username and/or password')
+      if (!user) {
+        console.log('No such user found:', req.body.email)
+        res.status(401).send('Wrong username and/or password')
+      } else if (!user.correctPassword(req.body.password)) {
+        console.log('Incorrect password for user:', req.body.email)
+        res.status(401).send('Wrong username and/or password')
+      } else {
+        await user.update({sessionId: req.sessionID})
+        req.login(user, err => {
+          err ? next(err) : res.json(user)
+        })
+      }
     } else {
-      await user.update({sessionId: req.sessionID})
-      req.login(user, err => (err ? next(err) : res.json(user)))
+      res.status(401).send('Wrong username and/or password')
     }
   } catch (err) {
     next(err)
