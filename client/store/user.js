@@ -51,7 +51,6 @@ export const sessionChecker = () => {
   return async dispatch => {
     try {
       const {data} = await axios.post('/auth/restore')
-      //console.log('TCL: session checker datadata', data)
       if (!data) {
         console.log('user not found/created')
       }
@@ -73,9 +72,6 @@ export const logout = () => async dispatch => {
     console.error(err)
   }
 }
-
-//If no error, update the info in the database via the endpoint;
-//If there's an error, then we reject the password change;
 
 export const resetPassword = ({userId, currentPassword, newPassword}) => () => {
   try {

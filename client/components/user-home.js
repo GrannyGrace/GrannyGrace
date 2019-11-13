@@ -8,19 +8,12 @@ import '../css/userhome.css'
  * COMPONENT
  */
 
-//import useState from react
-//useState returns an array, so that's why we're assigning our variables / function within an array
-//hooks have variables as first argument, functions as the second variable
-
 export const UserHome = props => {
   const {email, id, error} = props.user
   const [currentPassword, setCurrentPassword] = useState('')
   const [newPassword, setNewPassword] = useState('')
   const [confirmNewPassword, setConfirmNewPassword] = useState('')
   const [showForm, setShowForm] = useState(false)
-
-  //if password reset is successful, assign new password
-  //if it fails alert error message
 
   const handleResetPassword = e => {
     e.preventDefault()

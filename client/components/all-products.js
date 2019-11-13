@@ -84,13 +84,6 @@ class AllProducts extends React.Component {
       productCats = productCats.concat(p.category)
     })
 
-    //inside the render, grab all products and loop through
-    //creates a productCats array with all categories
-    //use loDash uniq to filter out duplicates from array of strings
-    //use .sort to sort alphabetically, then loop through and for
-    //each element, call .filterProducts(), which checks the list of products, to see
-    //if there is a product that has this category that was just passed in
-
     productCats = _.uniq(productCats).sort((a, b) => (a < b ? -1 : 1))
     return (
       <div className="container outer-products-container">

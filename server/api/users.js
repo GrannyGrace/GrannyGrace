@@ -63,12 +63,6 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-//Need currentPassword and newPassword from req.body
-//Since this is a put request, if user is found and password is correct,
-//We update the user. Otherwise, we send back an error message
-//We pass in the correctPassword instance method from server/db/models/user.js
-//IndividualHooks: true is necessary so that the beforeBulkUpdate hook(inside model file) can get triggered
-
 router.put('/reset-password/:id', (req, res) => {
   const {currentPassword, newPassword} = req.body
   User.findOne({where: {id: req.params.id}})
