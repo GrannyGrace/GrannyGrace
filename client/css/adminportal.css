@@ -43,8 +43,8 @@
 .active-order-div {
   padding-left: 20px;
   border: 1px solid;
-  /* margin-top: 30px; */
-  /* width: 80%; */
+  width: 80%;
+  margin-bottom: 10px;
 }
 
 .textInCard {

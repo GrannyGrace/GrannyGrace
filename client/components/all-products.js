@@ -151,7 +151,10 @@ class AllProducts extends React.Component {
                     <div className="row col-sm-12">
                       {products.map(elem => {
                         return (
-                          <div key={elem.id} className="card col-sm-4">
+                          <div
+                            key={elem.id}
+                            className="card card-all-products col-sm-4"
+                          >
                             <Link key={elem.id} to={`/products/${elem.id}`}>
                               <img
                                 className="card-img-top"
