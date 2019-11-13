@@ -11,7 +11,7 @@ const OrderSummary = props => {
         props.fetchOrders()
       }
     },
-    [props.user.id]
+    [props.user]
   )
   const latest =
     props.match.params.ind === 'current'
@@ -20,7 +20,7 @@ const OrderSummary = props => {
 
   console.log('prop orders', latest)
   console.log('TCL: props.match.params.ind', props.orders.length - 1)
-  return latest && latest.lockedProducts ? (
+  return props.orders.length && latest ? (
     <div className="card">
       <h1>Order Summary</h1>
       <ul className="list-group list-group-flush">
@@ -39,8 +39,11 @@ const OrderSummary = props => {
                 <small className="card-text">
                   Quantity: {prod.CartProducts.quantity}
                 </small>
+                <br />
+                <small className="card-text">Unit Price: ${prod.price}</small>
+                <br />
                 <small className="card-text">
-                  Price: ${prod.price * prod.CartProducts.quantity}
+                  Total Price: ${prod.price * prod.CartProducts.quantity}
                 </small>
               </Link>
             </div>

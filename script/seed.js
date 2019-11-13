@@ -2,7 +2,14 @@
 'use strict'
 
 const db = require('../server/db')
-const {User, Order, Product, Review, Cart} = require('../server/db/models')
+const {
+  User,
+  Order,
+  Product,
+  Review,
+  Cart,
+  CartProduct
+} = require('../server/db/models')
 const faker = require('faker')
 const axios = require('axios')
 const fruitdb = require('../public/fruitdb.json')
@@ -10,14 +17,6 @@ const fruitdb = require('../public/fruitdb.json')
 async function seed() {
   await db.sync({force: true}) //forcefully drop existing tables(if any) and creates new ones. creates if they don't exist at all.
   console.log('db synced!')
-
-  const Amy = await User.create({
-    email: 'amy@email.com',
-    password: '123',
-    isAdmin: true
-  })
-  const cart = await Cart.create()
-  await Amy.setCart(cart)
 
   //SEED USERS - use faker to generate random users
   const users = []
@@ -65,20 +64,65 @@ async function seed() {
     allProducts.push(product)
     // }
   }
-
+  // const allCarts = []
+  // users.forEach(async (user, ind) => {
+  //   try {
+  //     const newCart = await Cart.findOne({
+  //       where: {
+  //         userId: user.id
+  //       }
+  //     })
+  //     await newCart.addProduct(allProducts[ind])
+  //     await CartProduct.update(
+  //       {quantity: 1},
+  //       {
+  //         where: {
+  //           productId: allProducts[ind].id,
+  //           cartId: newCart.id
+  //         }
+  //       }
+  //     )
+  //   } catch (error) {
+  //     throw error
+  //   }
+  // })
   //SEED ORDERS
-  const orders = []
-  let randomOrderStatus = ['pending', 'shipped', 'delivered', 'canceled']
-  for (let i = 0; i < 90; i++) {
-    let order = await Order.create({
-      status: randomOrderStatus[Math.floor(Math.random() * 4)],
-      price: Math.floor(Math.random() * 1000),
-      userId: Math.floor(Math.random() * 20 + 1),
-      lockedProducts: allProducts.slice(i, i + 7)
-    })
+  // const orders = []
+  // let randomOrderStatus = ['pending', 'shipped', 'delivered', 'canceled']
+  // for (let i = 0; i < 90; i++) {
+  //   let myCart = await Cart.findByPk(i + 1)
+  //   await myCart.addProduct(allProducts[i])
+  //   myCart = await Cart.findByPk(i + 1, {
+  //     include: [
+  //       {
+  //         model: Product,
+  //         include: [Cart]
+  //       }
+  //     ]
+  //   })
+  //   let order = await Order.create({
+  //     status: randomOrderStatus[Math.floor(Math.random() * 4)],
+  //     price: Math.floor(Math.random() * 1000),
+  //     userId: Math.floor(Math.random() * 5 + 1),
+  //     lockedProducts: myCart.products
+  //   })
 
-    orders.push(order)
-  }
+  //   orders.push(order)
+  // }
+  await users[4].update({
+    email: 'amy@email.com',
+    password: '123',
+    isAdmin: true
+  })
+
+  // orders.forEach((ord,ind)=>{
+  //    await ord.addProduct(allProducts[ind])
+  //    await CartProduct.findAll({where:{
+  //      productId:allProducts[ind].id,
+  //      cart
+  //    }})
+  // })
+
   // console.log('allProducts.slice(i, i + 7)', allProducts.slice(1, 2 + 7))
   //SEED CART
   // const cart = await Promise.all([
@@ -111,15 +155,9 @@ async function seed() {
   // await cart[0].addProducts(allProducts[23])
   // await cart[0].addProducts(allProducts[12])
 
-  await orders[0].addProducts(allProducts[32])
-  await orders[0].addProducts(allProducts[13])
-  await orders[0].addProducts(allProducts[1])
-  await orders[1].addProducts(allProducts[22])
-  await orders[1].addProducts(allProducts[2])
-
   console.log(`seeded ${users.length} users`)
   console.log(`seeded ${allProducts.length} products`)
-  console.log(`seeded ${orders.length} orders`)
+  //console.log(`seeded ${orders.length} orders`)
   console.log(`seeded ${allReviews.length} reviews`)
   console.log(`seeded successfully in ${Object.keys(db)}`)
 }
