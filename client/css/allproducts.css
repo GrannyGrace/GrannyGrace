@@ -14,7 +14,10 @@
 .card {
   display: inline-block;
   width: 100%;
-  height: 100%;
+}
+
+.card-all-products {
+  height: 540px;
 }
 
 .product-category {
