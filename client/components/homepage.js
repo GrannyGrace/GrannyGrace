@@ -132,34 +132,40 @@ class AllProducts extends React.Component {
                             return (
                               <div
                                 key={elem.id}
-                                className="card card-home col-sm-4"
+                                className="card card-all-products col-sm-4"
                               >
                                 <Link key={elem.id} to={`/products/${elem.id}`}>
                                   <img
                                     className="card-img-top"
                                     src={elem.imageUrl}
                                   />
-                                  <div className="card-body">
-                                    <h4
-                                      className="card-title"
-                                      style={{color: 'black'}}
-                                    >
-                                      {elem.name} for {elem.price}
-                                    </h4>
-                                    <p className="card-text">
-                                      {elem.decription} - {elem.category}
-                                    </p>
-                                  </div>
                                 </Link>
-                                <button
-                                  className="btn btn-primary"
-                                  type="button"
-                                  onClick={() => {
-                                    this.addToCart(elem.id)
-                                  }}
-                                >
-                                  Add To Cart
-                                </button>
+                                <div className="card-body">
+                                  <h4
+                                    className="card-title"
+                                    style={{color: 'black'}}
+                                  >
+                                    {elem.name}
+                                  </h4>
+                                  <p className="card-subtitle mb-2 text-muted">
+                                    $ {elem.price}
+                                  </p>
+
+                                  {this.props.user.isAdmin ? (
+                                    <p className="card-subtitle mb-2 text-muted">
+                                      Inventory: {elem.quantity}
+                                    </p>
+                                  ) : null}
+                                  <button
+                                    className="btn btn-primary"
+                                    type="button"
+                                    onClick={() => {
+                                      this.addToCart(elem.id)
+                                    }}
+                                  >
+                                    Add To Cart
+                                  </button>
+                                </div>
                               </div>
                             )
                           })}
