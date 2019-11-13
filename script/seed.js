@@ -19,6 +19,14 @@ async function seed() {
   console.log('db synced!')
 
   //SEED USERS - use faker to generate random users
+
+  const amy = await User.create({
+    email: 'amy@email.com',
+    password: '123',
+    isAdmin: true
+  })
+  const amyCart = await Cart.create()
+  await amy.setCart(amyCart)
   const users = []
   for (let i = 0; i < 100; i++) {
     let user = await User.create({
@@ -109,11 +117,6 @@ async function seed() {
 
   //   orders.push(order)
   // }
-  await users[4].update({
-    email: 'amy@email.com',
-    password: '123',
-    isAdmin: true
-  })
 
   // orders.forEach((ord,ind)=>{
   //    await ord.addProduct(allProducts[ind])

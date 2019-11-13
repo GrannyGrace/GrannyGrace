@@ -1,5 +1,4 @@
 const stripeLoader = require('stripe')
-const React = require('react')
 const nodemailer = require('nodemailer')
 const router = require('express').Router()
 module.exports = router
@@ -22,9 +21,7 @@ const checkFields = (req, res, next) => {
     next()
   }
 }
-// Token is created using Checkout or Elements!
-// Get the payment token ID submitted by the form:
-// Using Express
+
 const stripe = new stripeLoader(process.env.STRIPE)
 
 const chargeCreator = (tokenId, amount) => {
@@ -35,25 +32,14 @@ const chargeCreator = (tokenId, amount) => {
     description: 'Statement Description'
   })
 }
-//let testAccount
+
 let transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: 'GrannyGracesApples@gmail.com',
-    pass: 'UHR32iXSGYn6ma8'
+    pass: process.env.NMPSWD
   }
 })
-// const Comp = curCart => {
-//   return (
-//     <div>
-//       {curCart.map(prod => {
-//         <div key={prod.id}>
-//           <div>{prod.name}</div>
-//         </div>
-//       })}
-//     </div>
-//   )
-// }
 
 const mapper = (curCart, amount) => {
   let result = '<h1>Order Successful!</h1><h3>Order Summary</h3>'
@@ -70,25 +56,13 @@ const mapper = (curCart, amount) => {
   return result
 }
 const autoMail = async (email, curCart, amount) => {
-  // if (!testAccount) {
-  //   //testAccount = await nodemailer.createTestAccount()
-  //   transporter = nodemailer.createTransport({
-  //     host: 'smtp.ethereal.email',
-  //     port: 587,
-  //     secure: false,
-  //     auth: {
-  //       user: testAccount.user,
-  //       pass: testAccount.pass
-  //     }
-  //   })
-  // }
   const render = mapper(curCart, amount)
   let info = await transporter.sendMail({
     from: '<GranyGracesApples@gmail.com>',
-    to: `${email}, GrannyGracesApples@gmail.com`, // list of receivers
-    subject: 'Order Confirmation ✔', // Subject line
-    text: 'Order Successful', // plain text body
-    html: `${render}` // html body
+    to: `${email}, GrannyGracesApples@gmail.com`,
+    subject: 'Order Confirmation ✔',
+    text: 'Order Successful',
+    html: `${render}`
   })
   console.log('nodemailer info', info)
 }
