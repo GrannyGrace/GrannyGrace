@@ -9,12 +9,14 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faGripHorizontal, faList} from '@fortawesome/free-solid-svg-icons'
 import '../css/allproducts.css'
 import _ from 'lodash'
+// import gis from 'g-i-s'
 
 class AllProducts extends React.Component {
   constructor() {
     super()
     this.addToCart = this.addToCart.bind(this)
     this.handleSort = this.handleSort.bind(this)
+    this.fetchImg = this.fetchImg.bind(this)
   }
 
   state = {
@@ -75,6 +77,22 @@ class AllProducts extends React.Component {
       default:
     }
     this.setState({sortValue: newSortValue, products: newProducts})
+  }
+
+  fetchImg(productName) {
+    try {
+      const logResults = async (error, results) => {
+        if (error) {
+          console.log(error)
+        } else {
+          console.log('here is url', results[0].url)
+          return results[0].url
+        }
+      }
+      gis(productName, logResults)
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   render() {
@@ -156,6 +174,7 @@ class AllProducts extends React.Component {
                               <img
                                 className="card-img-top"
                                 src={elem.imageUrl}
+                                // src={this.fetchImg(elem.name)}
                               />
                             </Link>
                             <div className="card-body">
