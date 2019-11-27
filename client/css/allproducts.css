@@ -1,3 +1,7 @@
+.list-group-item {
+  height: 375px;
+}
+
 .product-filters-outer-container {
   z-index: 4;
   position: sticky;

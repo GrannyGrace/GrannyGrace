@@ -7,6 +7,10 @@
   /* border-bottom: 2px solid #d3d3d3; */
 }
 
+.list-group-item {
+  height: 375px;
+}
+
 .welcome {
   text-align: center;
   color: #dc2242;
