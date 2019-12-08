@@ -1,6 +1,6 @@
 # GrannyGrace
 
-Granny Grace is an E-commerce webite for apple products.
+Granny Grace is an E-commerce website for apple products.
 
 ## A customer can
 
