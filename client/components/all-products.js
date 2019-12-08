@@ -177,6 +177,7 @@ class AllProducts extends React.Component {
                               <img
                                 className="card-img-top"
                                 src={elem.imageUrl}
+                                style={{height: '300px'}}
                                 // src={this.fetchImg(elem.name)}
                               />
                             </Link>

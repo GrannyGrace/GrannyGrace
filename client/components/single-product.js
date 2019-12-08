@@ -35,6 +35,8 @@ const SingleProduct = props => {
 
   return (
     <Container>
+      {console.log('availability', product.availability)}
+      {console.log('quantity', product.quantity)}
       {product.availability && +product.quantity !== 0 ? (
         <div className="single-product-container">
           <h3>Product: {product.name}</h3>

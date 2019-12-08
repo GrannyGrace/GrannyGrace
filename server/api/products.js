@@ -2,7 +2,7 @@ const router = require('express').Router()
 const {Product, Review} = require('../db/models')
 const Sequelize = require('sequelize')
 const Op = Sequelize.Op
-const gis = require('g-i-s')
+// const gis = require('g-i-s')
 
 module.exports = router
 
@@ -12,20 +12,16 @@ router.get('/', async (req, res, next) => {
       order: [['id', 'ASC']]
     })
 
-    // Product.update(
-    //   {imageUrl: }
-    // )
-
-    const logResults = async (error, results) => {
-      if (error) {
-        console.log(error)
-      } else {
-        console.log('One url', results[0].url)
-        await product.update({imageUrl: results[0].url})
-        res.json(allProducts)
-      }
-    }
-    gis(product.name, logResults)
+    // const logResults = async (error, results) => {
+    //   if (error) {
+    //     console.log(error)
+    //   } else {
+    //     console.log('One url', results[0].url)
+    //     await product.update({imageUrl: results[0].url})
+    //     res.json(allProducts)
+    //   }
+    // }
+    // gis(product.name, logResults)
 
     res.json(allProducts)
   } catch (err) {
@@ -52,7 +48,7 @@ router.get('/:id', async (req, res, next) => {
         res.json(product)
       }
     }
-    gis(product.name, logResults)
+    // gis(product.name, logResults)
 
     // res.json(product)
   } catch (err) {
