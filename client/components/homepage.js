@@ -131,10 +131,15 @@ class AllProducts extends React.Component {
                           {products.slice(0, 9).map(elem => {
                             return (
                               <div key={elem.id} className="card col-sm-4">
-                                <Link key={elem.id} to={`/products/${elem.id}`}>
+                                <Link
+                                  key={elem.id}
+                                  to={`/products/${elem.id}`}
+                                  style={{maxHeight: '250px'}}
+                                >
                                   <img
                                     className="card-img-top"
                                     src={elem.imageUrl}
+                                    style={{height: '100%'}}
                                   />
                                   <div className="card-body">
                                     <h4
@@ -169,10 +174,15 @@ class AllProducts extends React.Component {
                                 key={elem.id}
                                 className="list-group-item card"
                               >
-                                <Link key={elem.id} to={`/products/${elem.id}`}>
+                                <Link
+                                  key={elem.id}
+                                  to={`/products/${elem.id}`}
+                                  style={{height: '300px'}}
+                                >
                                   <img
                                     className="card-img-top-list"
                                     src={elem.imageUrl}
+                                    style={{height: '100%'}}
                                   />
                                   <div className="card-body">
                                     <h4

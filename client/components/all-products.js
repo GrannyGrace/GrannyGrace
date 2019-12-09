@@ -155,7 +155,7 @@ class AllProducts extends React.Component {
                             <Link
                               key={elem.id}
                               to={`/products/${elem.id}`}
-                              style={{height: '300px'}}
+                              style={{maxHeight: '250px'}}
                             >
                               <img
                                 className="card-img-top"
@@ -201,7 +201,7 @@ class AllProducts extends React.Component {
                             <Link
                               key={elem.id}
                               to={`/products/${elem.id}`}
-                              style={{height: '300px'}}
+                              style={{maxHeight: '250px'}}
                             >
                               <img
                                 className="card-img-top-list"
