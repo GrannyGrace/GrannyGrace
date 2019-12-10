@@ -151,14 +151,19 @@ class AllProducts extends React.Component {
                     <div className="row col-sm-12">
                       {products.map(elem => {
                         return (
-                          <div
-                            key={elem.id}
-                            className="card card-all-products col-sm-4"
-                          >
-                            <Link key={elem.id} to={`/products/${elem.id}`}>
+
+                          <div key={elem.id} className="card col-sm-4">
+                            <Link
+                              key={elem.id}
+                              to={`/products/${elem.id}`}
+                              style={{maxHeight: '250px'}}
+                            >
+
+                         
                               <img
                                 className="card-img-top"
                                 src={elem.imageUrl}
+                                style={{height: '100%'}}
                               />
                             </Link>
                             <div className="card-body">
@@ -196,10 +201,15 @@ class AllProducts extends React.Component {
                       {products.map(elem => {
                         return (
                           <div key={elem.id} className="list-group-item card">
-                            <Link key={elem.id} to={`/products/${elem.id}`}>
+                            <Link
+                              key={elem.id}
+                              to={`/products/${elem.id}`}
+                              style={{maxHeight: '250px'}}
+                            >
                               <img
                                 className="card-img-top-list"
                                 src={elem.imageUrl}
+                                style={{height: '100%'}}
                               />
                               <div className="card-body">
                                 <h4

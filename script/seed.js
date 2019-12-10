@@ -13,6 +13,7 @@ const {
 const faker = require('faker')
 const axios = require('axios')
 const fruitdb = require('../public/fruitdb.json')
+const gis = require('g-i-s')
 
 async function seed() {
   await db.sync({force: true}) //forcefully drop existing tables(if any) and creates new ones. creates if they don't exist at all.
@@ -72,6 +73,28 @@ async function seed() {
     allProducts.push(product)
     // }
   }
+
+  allProducts.forEach(async element => {
+    const logResults = async (error, results) => {
+      if (error) {
+        console.log(error)
+      } else {
+        try {
+          if (results[0]) {
+            console.log('One url', results[0].url)
+            // const newUrl = results[0].url
+            await element.update({imageUrl: results[0].url})
+          } else {
+            console.log('not available')
+          }
+        } catch (err) {
+          console.log('BAD CATCH ERR', err)
+        }
+        // eslint-disable-next-line no-lonely-if
+      }
+    }
+    await gis(element.dataValues.name, logResults)
+  })
   // const allCarts = []
   // users.forEach(async (user, ind) => {
   //   try {
@@ -176,9 +199,14 @@ async function runSeed() {
     console.error(err)
     process.exitCode = 1
   } finally {
-    console.log('closing db connection')
-    await db.close()
-    console.log('db connection closed')
+    //set time out 30 second because g-i-s needs time to fetch all photos
+    //increase timer if photos dont get fetched before timer ends
+    console.log('closing db connection in 30 seconds')
+
+    setTimeout(function() {
+      db.close()
+      console.log('db connection closed')
+    }, 30000)
   }
 }
 
