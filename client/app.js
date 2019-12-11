@@ -29,7 +29,7 @@ const App = props => {
       <div className="container">
         <div className="row top-navbar-row">
           <div className="col-md-4 col-sm-12 col-xs-12 home-section">
-            <a href="http://localhost:8080">
+            <a href={`${window.location.hostname}`}>
               <img alt="apple-logo" className="apple-logo" src="/logo.png" />
               <h1 className="granny-grace-header">GRANNY GRACE</h1>
             </a>
