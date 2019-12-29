@@ -1,6 +1,6 @@
 # GrannyGrace
 
-Granny Grace is an E-commerce website for apple products.
+Granny Grace is an E-commerce website for apple products.  To visit our deployed site go to [granny-grace.herokuapp.com](http://granny-grace.herokuapp.com/)
 
 ## A customer can
 
