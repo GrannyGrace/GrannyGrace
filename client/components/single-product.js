@@ -38,8 +38,18 @@ const SingleProduct = props => {
       {product.availability && +product.quantity !== 0 ? (
         <div className="single-product-container">
           <h3>Product: {product.name}</h3>
-          <img className="product-image" src={product.imageUrl} alt="apple" />
-          <p style={{fontWeight: 'bold'}}>$ {product.price}</p>
+          <img
+            className="product-image"
+            src={product.imageUrl}
+            alt="apple"
+            style={{
+              height: '20%',
+              width: '20%',
+              border: 'solid black',
+              margin: '15px'
+            }}
+          />
+          <p style={{fontWeight: 'bold'}}>Price: $ {product.price}</p>
           <p style={{fontWeight: 'bold'}}>
             Category:
             {product.category[0]

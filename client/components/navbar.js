@@ -45,13 +45,13 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin, getProductsFromServer}) => (
             {/* The navbar will show these links before you log in */}
             <span className="bottom-navbar-items">
               <Link to="/">Home</Link>
+              <Link to="/products" onClick={getProductsFromServer}>
+                All Products
+              </Link>
               <Link to="/login">Login</Link>
               <hr className="display-at-mobile" />
               <Link to="/signup">Sign Up</Link>
               <hr className="display-at-mobile" />
-              <Link to="/products" onClick={getProductsFromServer}>
-                All Products
-              </Link>
               <hr className="display-at-mobile" />
             </span>
           </div>

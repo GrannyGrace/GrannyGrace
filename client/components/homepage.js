@@ -138,6 +138,7 @@ class AllProducts extends React.Component {
                                   <img
                                     className="card-img-top"
                                     src={elem.imageUrl}
+                                    style={{height: '100%'}}
                                   />
                                 </Link>
                                 <div className="card-body">
@@ -178,10 +179,15 @@ class AllProducts extends React.Component {
                                 key={elem.id}
                                 className="list-group-item card"
                               >
-                                <Link key={elem.id} to={`/products/${elem.id}`}>
+                                <Link
+                                  key={elem.id}
+                                  to={`/products/${elem.id}`}
+                                  style={{height: '300px'}}
+                                >
                                   <img
                                     className="card-img-top-list"
                                     src={elem.imageUrl}
+                                    style={{height: '100%'}}
                                   />
                                   <div className="card-body">
                                     <h4
