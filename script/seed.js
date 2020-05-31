@@ -28,16 +28,20 @@ async function seed() {
   })
   const amyCart = await Cart.create()
   await amy.setCart(amyCart)
-  const users = []
-  for (let i = 0; i < 100; i++) {
-    let user = await User.create({
-      email: faker.internet.email(),
-      password: faker.internet.password()
-    })
-    const newCart = await Cart.create()
-    await user.setCart(newCart)
-    users.push(user)
-  }
+
+  const users = await Promise.all(
+    Array(100)
+      .fill()
+      .map(async () => {
+        const user = await User.create({
+          email: faker.internet.email(),
+          password: faker.internet.password()
+        })
+        const newCart = await Cart.create()
+        await user.setCart(newCart)
+        return user
+      })
+  )
 
   //SEED PRODUCTS use faker to generate random products
   const HoneyCrisp = await Promise.all([
@@ -51,50 +55,55 @@ async function seed() {
     })
   ])
 
-  const allProducts = []
-  for (let i = 0; i < 100; i++) {
-    // let name = faker.commerce.productName()
-    // const existedProduct = await Product.findOne({where: {name: name}})
-    // const isExisted = existedProduct !== null
-    //since Faker reuse product name, this makes sure that we don't create multiple of the same products
-    // if (!isExisted) {
-    // let name = fruitdb.vegetables[i]
-    let product = await Product.create({
-      name:
-        fruitdb.vegetables[i][0].toUpperCase() +
-        fruitdb.vegetables[i].substr(1),
-      price: +faker.commerce.price(),
-      category: [
-        faker.commerce.productMaterial(),
-        faker.commerce.productMaterial()
-      ],
-      quantity: 12
-    })
-    allProducts.push(product)
-    // }
-  }
+  const allProducts = await Promise.all(
+    Array(100)
+      .fill()
+      .map((x, i) => {
+        // let name = faker.commerce.productName()
+        // const existedProduct = await Product.findOne({where: {name: name}})
+        // const isExisted = existedProduct !== null
+        //since Faker reuse product name, this makes sure that we don't create multiple of the same products
+        // if (!isExisted) {
+        // let name = fruitdb.vegetables[i]
+        return Product.create({
+          name:
+            fruitdb.vegetables[i][0].toUpperCase() +
+            fruitdb.vegetables[i].substr(1),
+          price: +faker.commerce.price(),
+          category: [
+            faker.commerce.productMaterial(),
+            faker.commerce.productMaterial()
+          ],
+          quantity: 12
+        })
+      })
+  )
 
-  allProducts.forEach(async element => {
-    const logResults = async (error, results) => {
-      if (error) {
-        console.log(error)
-      } else {
-        try {
-          if (results[0]) {
-            console.log('One url', results[0].url)
-            // const newUrl = results[0].url
-            await element.update({imageUrl: results[0].url})
+  await Promise.all(
+    allProducts.map(element => {
+      return new Promise((resolve, reject) => {
+        gis(element.dataValues.name, async (error, results) => {
+          if (error) {
+            console.log('errorrr in log rrr==>>>', error)
           } else {
-            console.log('not available')
+            try {
+              if (results[0]) {
+                console.log('One url', results[0].url)
+                // const newUrl = results[0].url
+                await element.update({imageUrl: results[0].url})
+              } else {
+                console.log('image not available')
+              }
+            } catch (err) {
+              console.log('BAD CATCH ERR', err)
+            }
+            // eslint-disable-next-line no-lonely-if
           }
-        } catch (err) {
-          console.log('BAD CATCH ERR', err)
-        }
-        // eslint-disable-next-line no-lonely-if
-      }
-    }
-    await gis(element.dataValues.name, logResults)
-  })
+          resolve()
+        })
+      })
+    })
+  )
   // const allCarts = []
   // users.forEach(async (user, ind) => {
   //   try {
@@ -160,26 +169,28 @@ async function seed() {
 
   //SEED REVIEWS
   // use faker to generate random reviews
-  const allReviews = []
-  for (let i = 0; i < 200; i++) {
-    let review = await Review.create({
-      title: faker.lorem.sentence(),
-      content: faker.lorem.sentences(),
-      stars: Math.floor(Math.random() * 6)
-    })
-    allReviews.push(review)
-  }
+  const allReviews = await Promise.all(
+    Array(100)
+      .fill()
+      .map(async () => {
+        return Review.create({
+          title: faker.lorem.sentence(),
+          content: faker.lorem.sentences(),
+          stars: Math.floor(Math.random() * 6)
+        })
+      })
+  )
 
   //SET ASSOCIATION
-  for (let i = 0; i < 100; i++) {
-    await users[i].addReviews(allReviews[i])
-    await allProducts[i].addReviews(allReviews[i])
-    await allProducts[i].addReviews(allReviews[i + 100])
-  }
-
-  // await cart[0].addProducts(allProducts[37])
-  // await cart[0].addProducts(allProducts[23])
-  // await cart[0].addProducts(allProducts[12])
+  await Promise.all(
+    Array(100)
+      .fill()
+      .map(async (x, i) => {
+        await users[i].addReviews(allReviews[i])
+        await allProducts[i].addReviews(allReviews[i])
+        await allProducts[i].addReviews(allReviews[i + 100])
+      })
+  )
 
   console.log(`seeded ${users.length} users`)
   console.log(`seeded ${allProducts.length} products`)
@@ -196,17 +207,17 @@ async function runSeed() {
   try {
     await seed()
   } catch (err) {
-    console.error(err)
+    console.error('yoooo==>>', err)
     process.exitCode = 1
   } finally {
     //set time out 30 second because g-i-s needs time to fetch all photos
     //increase timer if photos dont get fetched before timer ends
     console.log('closing db connection in 30 seconds')
 
-    setTimeout(function() {
+    /*setTimeout(function() {
       db.close()
       console.log('db connection closed')
-    }, 30000)
+    }, 30000)*/
   }
 }
 
