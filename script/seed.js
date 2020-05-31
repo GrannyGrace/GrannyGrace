@@ -207,17 +207,14 @@ async function runSeed() {
   try {
     await seed()
   } catch (err) {
-    console.error('error==>>', err)
+    console.error('yoooo==>>', err)
     process.exitCode = 1
   } finally {
     //set time out 30 second because g-i-s needs time to fetch all photos
     //increase timer if photos dont get fetched before timer ends
     console.log('closing db connection in 30 seconds')
 
-    setTimeout(function() {
-      db.close()
-      console.log('db connection closed')
-    }, 30000)
+    db.close()
   }
 }
 
