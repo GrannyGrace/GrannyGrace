@@ -6,24 +6,10 @@ const Order = db.define('order', {
   status: {
     type: Sequelize.STRING,
     validate: {
-      isIn: [['pending', 'shipped', 'delivered', 'canceled']]
-    },
-    defaultValue: 'pending'
-  },
-  price: {
-    type: Sequelize.INTEGER,
-    validate: {
-      min: 0
+      isIn: [['cart', 'pending', 'shipped', 'delivered', 'canceled']]
     }
   },
-  lockedProducts: {
-    type: Sequelize.ARRAY(Sequelize.JSONB)
-  },
-  sid: {
-    type: Sequelize.STRING,
-    unique: true
-  },
-  email: Sequelize.STRING
+  price: Sequelize.INTEGER
 })
 
 module.exports = Order

@@ -212,8 +212,7 @@ async function runSeed() {
   } finally {
     //set time out 30 second because g-i-s needs time to fetch all photos
     //increase timer if photos dont get fetched before timer ends
-    console.log('closing db connection in 30 seconds')
-
+    console.log('closing db connection')
     db.close()
   }
 }
