@@ -6,4 +6,6 @@ secrets.js
 npm-debug.log
 yarn-error.log
 .vscode
+hey.js
 
+.env

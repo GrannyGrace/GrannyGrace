@@ -1,3 +1,4 @@
+require('dotenv').config()
 const path = require('path')
 const express = require('express')
 const morgan = require('morgan')
@@ -97,12 +98,12 @@ const createApp = () => {
 */
 
   // error handling endware
-  app.use((err, req, res, next) => {
-    // console.error(err)
-    // console.error(err.stack)
-    console.error(err.message)
-    res.status(err.status || 500).send(err.message || 'Internal server error.')
-  })
+  // app.use((err, req, res, next) => {
+  //   // console.error(err)
+  //   // console.error(err.stack)
+  //   console.error(err.message)
+  //   // res.status(err.status || 500).send(err.message || 'Internal server error.')
+  // })
   // sends index.html
 
   app.get('*', (req, res) => {
@@ -124,10 +125,17 @@ const startListening = () => {
 const syncDb = () => db.sync()
 
 async function bootApp() {
-  await sessionStore.sync()
-  await syncDb()
-  await createApp()
-  await startListening()
+  try {
+    console.log('got here==>>1')
+    await sessionStore.sync()
+    await syncDb()
+    console.log('got here==>>2')
+    await createApp()
+    console.log('got here==>>3')
+    await startListening()
+  } catch (e) {
+    console.log('got errr==>>', e)
+  }
 }
 // This evaluates as true when this file is run directly from the command line,
 // i.e. when we say 'node server/index.js' (or 'nodemon server/index.js', or 'nodemon server', etc)
